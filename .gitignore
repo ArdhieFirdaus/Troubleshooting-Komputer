@@ -1,0 +1,82 @@
+# ================================
+# .gitignore untuk Sistem Pakar
+# ================================
+
+# Config files (sensitive data)
+Config/koneksi.php
+
+# Database backups
+*.sql.backup
+*.sql.bak
+Database/backup/
+
+# Logs
+*.log
+logs/
+error_log
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# Upload directories (if any)
+uploads/
+files/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Composer (if used in future)
+vendor/
+composer.lock
+
+# Node modules (if used in future)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build files
+dist/
+build/
+
+# PHP specific
+*.cache
+.phpunit.result.cache
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# System files
+*.DS_Store
+*.AppleDouble
+*.LSOverride
+Icon
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Security
+.htpasswd

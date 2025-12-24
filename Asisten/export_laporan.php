@@ -1,0 +1,230 @@
+<?php
+/**
+ * File: export_laporan.php
+ * Deskripsi: Export laporan diagnosa (HTML dengan fungsi print untuk PDF)
+ * Note: Untuk export PDF sesungguhnya, bisa gunakan library TCPDF/FPDF
+ */
+
+require_once '../Auth/cek_session.php';
+cek_role('asisten_lab');
+require_once '../Config/koneksi.php';
+
+$id_user = $_SESSION['id_user'];
+
+// Filter berdasarkan tanggal
+$filter_tanggal_mulai = isset($_GET['tanggal_mulai']) ? $_GET['tanggal_mulai'] : '';
+$filter_tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : '';
+
+// Build query
+$query = "SELECT * FROM diagnosa WHERE id_user = '$id_user'";
+
+if (!empty($filter_tanggal_mulai) && !empty($filter_tanggal_akhir)) {
+    $query .= " AND DATE(tanggal) BETWEEN '$filter_tanggal_mulai' AND '$filter_tanggal_akhir'";
+}
+
+$query .= " ORDER BY tanggal DESC";
+$result_diagnosa = mysqli_query($koneksi, $query);
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Laporan - Sistem Pakar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../Assets/css/style.css">
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            .card { border: 1px solid #000 !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <?php include 'sidebar_asisten.php'; ?>
+        
+        <div class="main-content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom no-print">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="sidebarToggle">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <span class="navbar-brand mb-0 h1 ms-3">Export Laporan</span>
+                    <div class="ms-auto">
+                        <span class="me-3">
+                            <i class="bi bi-person-circle"></i> <?php echo $_SESSION['nama_lengkap']; ?>
+                        </span>
+                        <a href="../Auth/logout.php" class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            
+            <div class="container-fluid p-4">
+                <h2 class="mb-4">
+                    <i class="bi bi-file-earmark-pdf"></i> 
+                    Export Laporan Diagnosa
+                </h2>
+                
+                <!-- Filter -->
+                <div class="card shadow mb-4 no-print">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-funnel"></i> Filter Laporan</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="GET" action="">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="tanggal_mulai" class="form-label">Tanggal Mulai</label>
+                                    <input type="date" class="form-control" id="tanggal_mulai" 
+                                           name="tanggal_mulai" value="<?php echo $filter_tanggal_mulai; ?>">
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="tanggal_akhir" class="form-label">Tanggal Akhir</label>
+                                    <input type="date" class="form-control" id="tanggal_akhir" 
+                                           name="tanggal_akhir" value="<?php echo $filter_tanggal_akhir; ?>">
+                                </div>
+                                
+                                <div class="col-md-4 mb-3 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="bi bi-search"></i> Filter
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <?php if(!empty($filter_tanggal_mulai)): ?>
+                            <a href="export_laporan.php" class="btn btn-secondary btn-sm">
+                                <i class="bi bi-x-circle"></i> Reset Filter
+                            </a>
+                            <?php endif; ?>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Tombol Export -->
+                <div class="mb-3 no-print">
+                    <button onclick="window.print()" class="btn btn-success btn-lg">
+                        <i class="bi bi-printer"></i> Cetak / Save as PDF
+                    </button>
+                    <button onclick="exportToCSV()" class="btn btn-info btn-lg">
+                        <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
+                    </button>
+                </div>
+                
+                <!-- Laporan -->
+                <div class="card shadow" id="laporanContent">
+                    <div class="card-header bg-dark text-white text-center">
+                        <h4 class="mb-0">LAPORAN DIAGNOSA TROUBLESHOOTING KOMPUTER</h4>
+                        <p class="mb-0">Pondok Pesantren Al-Gontory</p>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borderless mb-3">
+                            <tr>
+                                <td width="20%"><strong>Nama Asisten</strong></td>
+                                <td>: <?php echo $_SESSION['nama_lengkap']; ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Username</strong></td>
+                                <td>: <?php echo $_SESSION['username']; ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Periode</strong></td>
+                                <td>: 
+                                    <?php 
+                                    if(!empty($filter_tanggal_mulai) && !empty($filter_tanggal_akhir)) {
+                                        echo date('d/m/Y', strtotime($filter_tanggal_mulai)) . ' s/d ' . 
+                                             date('d/m/Y', strtotime($filter_tanggal_akhir));
+                                    } else {
+                                        echo "Semua Data";
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tanggal Cetak</strong></td>
+                                <td>: <?php echo date('d F Y, H:i'); ?> WIB</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Diagnosa</strong></td>
+                                <td>: <?php echo mysqli_num_rows($result_diagnosa); ?> diagnosa</td>
+                            </tr>
+                        </table>
+                        
+                        <hr>
+                        
+                        <h5 class="mb-3">Detail Diagnosa</h5>
+                        
+                        <?php if(mysqli_num_rows($result_diagnosa) > 0): ?>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th width="5%">No</th>
+                                        <th width="15%">Tanggal</th>
+                                        <th width="40%">Hasil Kerusakan</th>
+                                        <th width="40%">Gejala yang Dipilih</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                    $no = 1;
+                                    while($row = mysqli_fetch_assoc($result_diagnosa)): 
+                                        // Ambil gejala
+                                        $id_diagnosa = $row['id_diagnosa'];
+                                        $query_gejala = "SELECT g.kode_gejala, g.nama_gejala 
+                                                       FROM diagnosa_detail dd 
+                                                       INNER JOIN gejala g ON dd.id_gejala = g.id_gejala 
+                                                       WHERE dd.id_diagnosa = '$id_diagnosa'";
+                                        $result_gejala = mysqli_query($koneksi, $query_gejala);
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $no++; ?></td>
+                                        <td><?php echo date('d/m/Y H:i', strtotime($row['tanggal'])); ?></td>
+                                        <td><strong><?php echo $row['hasil_kerusakan']; ?></strong></td>
+                                        <td>
+                                            <ol style="margin: 0; padding-left: 20px; font-size: 12px;">
+                                                <?php while($g = mysqli_fetch_assoc($result_gejala)): ?>
+                                                <li><?php echo $g['kode_gejala'] . ' - ' . $g['nama_gejala']; ?></li>
+                                                <?php endwhile; ?>
+                                            </ol>
+                                        </td>
+                                    </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php else: ?>
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle"></i> 
+                            Tidak ada data diagnosa pada periode yang dipilih.
+                        </div>
+                        <?php endif; ?>
+                        
+                        <div class="mt-4 text-end">
+                            <p class="mb-0">
+                                <strong>Mengetahui,</strong><br><br><br><br>
+                                ______________________<br>
+                                Asisten Lab
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../Assets/js/script.js"></script>
+    <script>
+        // Fungsi export ke CSV (sederhana)
+        function exportToCSV() {
+            alert('Fitur export CSV akan membuka window baru untuk print. Anda bisa Save as PDF dari browser.');
+            window.print();
+        }
+    </script>
+</body>
+</html>
