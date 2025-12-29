@@ -131,8 +131,9 @@ if (isset($_GET['edit']) && !empty($_GET['edit'])) {
                                 
                                 <div class="col-md-9 mb-3">
                                     <label for="nama_gejala" class="form-label">Nama Gejala <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="nama_gejala" name="nama_gejala" 
-                                              rows="2" placeholder="Masukkan nama/deskripsi gejala" required><?php echo $edit_data ? $edit_data['nama_gejala'] : ''; ?></textarea>
+                                    <input type="text" class="form-control" id="nama_gejala" name="nama_gejala" 
+                                           value="<?php echo $edit_data ? $edit_data['nama_gejala'] : ''; ?>" 
+                                           placeholder="Masukkan nama/deskripsi gejala" required>
                                 </div>
                             </div>
                             
