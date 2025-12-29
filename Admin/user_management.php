@@ -235,31 +235,29 @@ if (!isset($selected_user_id) && isset($_GET['edit'])) {
                     </div>
                 </div>
                 
-                <!-- BAGIAN 2: FORM TAMBAH/EDIT USER -->
+                <!-- BAGIAN 2: FORM EDIT USER (Hanya muncul saat mode edit) -->
+                <?php if($edit_data): ?>
                 <div class="card shadow-sm mb-4 scroll-target" id="form-section">
-                    <div class="card-header <?php echo $edit_data ? 'bg-warning' : 'bg-primary'; ?> text-white">
+                    <div class="card-header bg-warning text-white">
                         <h5 class="mb-0">
-                            <i class="bi bi-<?php echo $edit_data ? 'pencil-square' : 'person-plus'; ?>"></i> 
-                            <?php echo $edit_data ? 'Edit User' : 'Tambah User Baru'; ?>
+                            <i class="bi bi-pencil-square"></i> Edit User
                         </h5>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="">
-                            <?php if($edit_data): ?>
-                                <input type="hidden" name="id_user" value="<?php echo $edit_data['id_user']; ?>">
-                            <?php endif; ?>
+                            <input type="hidden" name="id_user" value="<?php echo $edit_data['id_user']; ?>">
                             
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Username <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="username" 
-                                           value="<?php echo $edit_data ? $edit_data['username'] : ''; ?>" required>
+                                           value="<?php echo $edit_data['username']; ?>" required>
                                 </div>
                                 
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="nama_lengkap" 
-                                           value="<?php echo $edit_data ? $edit_data['nama_lengkap'] : ''; ?>" required>
+                                           value="<?php echo $edit_data['nama_lengkap']; ?>" required>
                                 </div>
                             </div>
                             
@@ -268,36 +266,35 @@ if (!isset($selected_user_id) && isset($_GET['edit'])) {
                                     <label class="form-label">Role <span class="text-danger">*</span></label>
                                     <select class="form-select" name="role" required>
                                         <option value="">-- Pilih Role --</option>
-                                        <option value="admin" <?php echo ($edit_data && $edit_data['role'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
-                                        <option value="asisten_lab" <?php echo ($edit_data && $edit_data['role'] == 'asisten_lab') ? 'selected' : ''; ?>>Asisten Lab</option>
+                                        <option value="admin" <?php echo ($edit_data['role'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
+                                        <option value="asisten_lab" <?php echo ($edit_data['role'] == 'asisten_lab') ? 'selected' : ''; ?>>Asisten Lab</option>
                                     </select>
                                 </div>
                                 
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">
-                                        Password <?php echo $edit_data ? '<small class="text-muted">(kosongkan jika tidak diubah)</small>' : '<span class="text-danger">*</span>'; ?>
+                                        Password <small class="text-muted">(kosongkan jika tidak diubah)</small>
                                     </label>
-                                    <input type="password" class="form-control" name="password" 
-                                           <?php echo !$edit_data ? 'required' : ''; ?>>
+                                    <input type="password" class="form-control" name="password">
                                     <small class="text-muted">Minimal 6 karakter</small>
                                 </div>
                             </div>
                             
                             <div class="d-flex gap-2">
-                                <button type="submit" class="btn btn-<?php echo $edit_data ? 'warning' : 'primary'; ?>">
-                                    <i class="bi bi-save"></i> <?php echo $edit_data ? 'Update User' : 'Simpan User'; ?>
+                                <button type="submit" class="btn btn-warning">
+                                    <i class="bi bi-save"></i> Update User
                                 </button>
-                                <?php if($edit_data): ?>
-                                    <a href="user_management.php" class="btn btn-secondary">
-                                        <i class="bi bi-x-circle"></i> Batal
-                                    </a>
-                                <?php endif; ?>
+                                <a href="user_management.php" class="btn btn-secondary">
+                                    <i class="bi bi-x-circle"></i> Batal
+                                </a>
                             </div>
                         </form>
                     </div>
                 </div>
                 
                 <!-- BAGIAN 3: FORM UBAH PASSWORD USER (Hanya muncul saat edit) -->
+                <?php endif; ?>
+                
                 <?php if($edit_data): ?>
                 <div class="card shadow-sm mb-4 scroll-target" id="password-section">
                     <div class="card-header bg-info text-white">
@@ -370,6 +367,56 @@ if (!isset($selected_user_id) && isset($_GET['edit'])) {
                     </div>
                 </div>
                 <?php endif; ?>
+                
+                <!-- BAGIAN 4: FORM TAMBAH USER BARU (Selalu tampil, posisi berubah saat mode edit) -->
+                <div class="card shadow-sm mb-4 <?php echo !$edit_data ? 'scroll-target' : ''; ?>" 
+                     id="<?php echo !$edit_data ? 'form-section' : 'form-tambah-section'; ?>">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-person-plus"></i> Tambah User Baru
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Username <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="username" required>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="nama_lengkap" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Role <span class="text-danger">*</span></label>
+                                    <select class="form-select" name="role" required>
+                                        <option value="">-- Pilih Role --</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="asisten_lab">Asisten Lab</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">
+                                        Password <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="password" class="form-control" name="password" required>
+                                    <small class="text-muted">Minimal 6 karakter</small>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-save"></i> Simpan User
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
