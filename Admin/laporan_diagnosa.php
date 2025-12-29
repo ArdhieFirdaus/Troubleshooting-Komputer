@@ -146,6 +146,7 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                                     <?php 
                                     if (mysqli_num_rows($result_diagnosa) > 0):
                                         $no = 1;
+                                        $all_diagnosa = []; // Simpan semua data untuk modal
                                         while($row = mysqli_fetch_assoc($result_diagnosa)): 
                                             // Ambil gejala yang dipilih
                                             $id_diagnosa = $row['id_diagnosa'];
@@ -154,54 +155,44 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                                                            INNER JOIN gejala g ON dd.id_gejala = g.id_gejala 
                                                            WHERE dd.id_diagnosa = '$id_diagnosa'";
                                             $result_gejala = mysqli_query($koneksi, $query_gejala);
-                                            $gejala_count = mysqli_num_rows($result_gejala);
+                                            
+                                            // Simpan gejala ke array
+                                            $gejala_array = [];
+                                            while($temp_gejala = mysqli_fetch_assoc($result_gejala)) {
+                                                $gejala_array[] = $temp_gejala;
+                                            }
+                                            $gejala_count = count($gejala_array);
+                                            
+                                            // Simpan ke array utama
+                                            $row['gejala_list'] = $gejala_array;
+                                            $all_diagnosa[] = $row;
                                     ?>
                                     <tr>
                                         <td><?php echo $no++; ?></td>
                                         <td><?php echo date('d/m/Y H:i', strtotime($row['tanggal'])); ?></td>
                                         <td>
-                                            <strong><?php echo $row['nama_lengkap']; ?></strong><br>
-                                            <small class="text-muted"><?php echo $row['username']; ?></small>
+                                            <strong><?php echo htmlspecialchars($row['nama_lengkap']); ?></strong><br>
+                                            <small class="text-muted"><?php echo htmlspecialchars($row['username']); ?></small>
                                         </td>
-                                        <td><?php echo $row['hasil_kerusakan']; ?></td>
+                                        <td>
+                                            <?php 
+                                            $hasil = htmlspecialchars($row['hasil_kerusakan']);
+                                            echo !empty($hasil) ? $hasil : '<em class="text-muted">Tidak ada hasil</em>'; 
+                                            ?>
+                                        </td>
                                         <td>
                                             <button type="button" class="btn btn-sm btn-outline-primary" 
                                                     data-bs-toggle="modal" 
                                                     data-bs-target="#modalGejala<?php echo $row['id_diagnosa']; ?>">
                                                 <i class="bi bi-eye"></i> Lihat <?php echo $gejala_count; ?> Gejala
                                             </button>
-                                            
-                                            <!-- Modal Detail Gejala -->
-                                            <div class="modal fade" id="modalGejala<?php echo $row['id_diagnosa']; ?>" tabindex="-1">
-                                                <div class="modal-dialog modal-lg">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header bg-primary text-white">
-                                                            <h5 class="modal-title">Detail Gejala</h5>
-                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <h6>Gejala yang dipilih:</h6>
-                                                            <ol>
-                                                                <?php 
-                                                                mysqli_data_seek($result_gejala, 0);
-                                                                while($g = mysqli_fetch_assoc($result_gejala)): 
-                                                                ?>
-                                                                <li>
-                                                                    <strong><?php echo $g['kode_gejala']; ?></strong> - 
-                                                                    <?php echo $g['nama_gejala']; ?>
-                                                                </li>
-                                                                <?php endwhile; ?>
-                                                            </ol>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </td>
                                         <td class="text-center">
-                                            <a href="detail_diagnosa.php?id=<?php echo $row['id_diagnosa']; ?>" 
-                                               class="btn btn-info btn-sm" target="_blank">
+                                            <button type="button" class="btn btn-info btn-sm" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#modalDetail<?php echo $row['id_diagnosa']; ?>">
                                                 <i class="bi bi-file-text"></i> Detail
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                     <?php 
@@ -219,6 +210,120 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                         </div>
                     </div>
                 </div>
+                
+                <!-- Modals - Letakkan di luar tabel -->
+                <?php if (!empty($all_diagnosa)): ?>
+                    <?php foreach($all_diagnosa as $diagnosa_item): ?>
+                        <!-- Modal Detail Gejala -->
+                        <div class="modal fade" id="modalGejala<?php echo $diagnosa_item['id_diagnosa']; ?>" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-primary text-white">
+                                        <h5 class="modal-title">
+                                            <i class="bi bi-clipboard-check"></i> Detail Gejala
+                                        </h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6 class="mb-3">Gejala yang dipilih:</h6>
+                                        <?php if (!empty($diagnosa_item['gejala_list'])): ?>
+                                            <ol>
+                                                <?php foreach($diagnosa_item['gejala_list'] as $g): ?>
+                                                <li class="mb-2">
+                                                    <strong><?php echo htmlspecialchars($g['kode_gejala']); ?></strong> - 
+                                                    <?php echo htmlspecialchars($g['nama_gejala']); ?>
+                                                </li>
+                                                <?php endforeach; ?>
+                                            </ol>
+                                        <?php else: ?>
+                                            <p class="text-muted">Tidak ada gejala yang tercatat.</p>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            <i class="bi bi-x-circle"></i> Tutup
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Modal Detail Diagnosa -->
+                        <div class="modal fade" id="modalDetail<?php echo $diagnosa_item['id_diagnosa']; ?>" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-primary text-white">
+                                        <h5 class="modal-title">
+                                            <i class="bi bi-file-medical"></i> Detail Diagnosa
+                                        </h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <table class="table table-borderless">
+                                                    <tr>
+                                                        <td width="30%"><strong>ID Diagnosa</strong></td>
+                                                        <td>: <?php echo htmlspecialchars($diagnosa_item['id_diagnosa']); ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Tanggal</strong></td>
+                                                        <td>: <?php echo date('d F Y, H:i', strtotime($diagnosa_item['tanggal'])); ?> WIB</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Asisten Lab</strong></td>
+                                                        <td>: <?php echo htmlspecialchars($diagnosa_item['nama_lengkap']); ?> (<?php echo htmlspecialchars($diagnosa_item['username']); ?>)</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        
+                                        <hr>
+                                        
+                                        <h6><i class="bi bi-clipboard-check"></i> Gejala yang Dipilih:</h6>
+                                        <?php if (!empty($diagnosa_item['gejala_list'])): ?>
+                                            <ol>
+                                                <?php foreach($diagnosa_item['gejala_list'] as $gd): ?>
+                                                <li>
+                                                    <strong><?php echo htmlspecialchars($gd['kode_gejala']); ?></strong> - 
+                                                    <?php echo htmlspecialchars($gd['nama_gejala']); ?>
+                                                </li>
+                                                <?php endforeach; ?>
+                                            </ol>
+                                        <?php else: ?>
+                                            <p class="text-muted">Tidak ada gejala yang tercatat.</p>
+                                        <?php endif; ?>
+                                        
+                                        
+                                        <hr>
+                                        
+                                        <h6><i class="bi bi-exclamation-triangle"></i> Hasil Diagnosa:</h6>
+                                        <div class="alert alert-info alert-permanent">
+                                            <h6>Kerusakan:</h6>
+                                            <p class="mb-0">
+                                                <strong>
+                                                    <?php 
+                                                    if (isset($diagnosa_item['hasil_kerusakan']) && !empty($diagnosa_item['hasil_kerusakan'])) {
+                                                        echo htmlspecialchars($diagnosa_item['hasil_kerusakan']);
+                                                    } else {
+                                                        echo "Data hasil kerusakan tidak tersedia";
+                                                    }
+                                                    ?>
+                                                </strong>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            <i class="bi bi-x-circle"></i> Tutup
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                
             </div>
         </div>
     </div>
