@@ -163,7 +163,7 @@ $not_found = isset($_GET['not_found']);
                         </h5>
                     </div>
                     <div class="card-body">
-                        <div class="alert alert-warning">
+                        <div class="alert alert-warning alert-permanent">
                             <h5><i class="bi bi-exclamation-triangle"></i> Kerusakan Tidak Teridentifikasi</h5>
                             <p class="mb-0">
                                 Maaf, sistem tidak dapat mengidentifikasi kerusakan berdasarkan kombinasi gejala yang Anda pilih. 
@@ -196,7 +196,7 @@ $not_found = isset($_GET['not_found']);
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <h6 class="text-muted mb-2">DIAGNOSA:</h6>
-                                <div class="alert alert-success mb-0">
+                                <div class="alert alert-success alert-permanent mb-0">
                                     <h4 class="mb-0">
                                         <i class="bi bi-exclamation-triangle-fill"></i> 
                                         <?php if(!empty($kode_kerusakan)) echo "[$kode_kerusakan] "; ?>

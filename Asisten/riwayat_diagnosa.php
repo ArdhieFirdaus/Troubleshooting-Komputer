@@ -23,6 +23,15 @@ $result_diagnosa = mysqli_query($koneksi, $query);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../Assets/css/style.css">
+    <style>
+        /* Fix z-index agar modal tidak tertutup backdrop */
+        .modal {
+            z-index: 1055 !important;
+        }
+        .modal-backdrop {
+            z-index: 1050 !important;
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper">
@@ -110,43 +119,13 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                                                     data-bs-target="#modalGejala<?php echo $row['id_diagnosa']; ?>">
                                                 <i class="bi bi-list-ul"></i> Gejala
                                             </button>
-                                            
-                                            <!-- Modal Gejala -->
-                                            <div class="modal fade" id="modalGejala<?php echo $row['id_diagnosa']; ?>" tabindex="-1">
-                                                <div class="modal-dialog modal-lg">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header bg-primary text-white">
-                                                            <h5 class="modal-title">
-                                                                Gejala - Diagnosa #<?php echo $row['id_diagnosa']; ?>
-                                                            </h5>
-                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <?php
-                                                            $query_gejala = "SELECT g.* FROM diagnosa_detail dd 
-                                                                           INNER JOIN gejala g ON dd.id_gejala = g.id_gejala 
-                                                                           WHERE dd.id_diagnosa = '$id_diagnosa'";
-                                                            $result_gejala = mysqli_query($koneksi, $query_gejala);
-                                                            ?>
-                                                            <h6>Gejala yang dipilih:</h6>
-                                                            <ol>
-                                                                <?php while($g = mysqli_fetch_assoc($result_gejala)): ?>
-                                                                <li>
-                                                                    <strong><?php echo $g['kode_gejala']; ?></strong> - 
-                                                                    <?php echo $g['nama_gejala']; ?>
-                                                                </li>
-                                                                <?php endwhile; ?>
-                                                            </ol>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </td>
                                     </tr>
                                     <?php endwhile; ?>
                                 </tbody>
                             </table>
                         </div>
+
                         <?php else: ?>
                         <div class="text-center text-muted py-5">
                             <i class="bi bi-inbox" style="font-size: 64px;"></i>
@@ -174,7 +153,87 @@ $result_diagnosa = mysqli_query($koneksi, $query);
         </div>
     </div>
 
+    <!-- Modal Gejala: diletakkan di luar .wrapper agar tidak terjebak stacking context dari transform CSS -->
+    <?php 
+    if(mysqli_num_rows($result_diagnosa) > 0):
+        mysqli_data_seek($result_diagnosa, 0);
+        while($row = mysqli_fetch_assoc($result_diagnosa)): 
+            $id_diagnosa = $row['id_diagnosa'];
+    ?>
+    <div class="modal fade" id="modalGejala<?php echo $id_diagnosa; ?>" tabindex="-1" aria-labelledby="modalLabel<?php echo $id_diagnosa; ?>" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalLabel<?php echo $id_diagnosa; ?>">
+                        <i class="bi bi-list-check"></i> Gejala - Diagnosa #<?php echo $id_diagnosa; ?>
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body">
+                    <?php
+                    $query_gejala = "SELECT g.* FROM diagnosa_detail dd 
+                                   INNER JOIN gejala g ON dd.id_gejala = g.id_gejala 
+                                   WHERE dd.id_diagnosa = '$id_diagnosa'";
+                    $result_gejala = mysqli_query($koneksi, $query_gejala);
+                    ?>
+                    <h6>Gejala yang dipilih:</h6>
+                    <ol>
+                        <?php while($g = mysqli_fetch_assoc($result_gejala)): ?>
+                        <li>
+                            <strong><?php echo $g['kode_gejala']; ?></strong> - 
+                            <?php echo $g['nama_gejala']; ?>
+                        </li>
+                        <?php endwhile; ?>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle"></i> Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php 
+        endwhile;
+    endif;
+    ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../Assets/js/script.js"></script>
+    <script>
+    // Pastikan modal bisa ditutup & bersihkan backdrop yang menumpuk
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.btn-close, .modal-footer .btn-secondary').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var openModal = document.querySelector('.modal.show');
+                if (openModal) {
+                    var instance = bootstrap.Modal.getInstance(openModal);
+                    if (instance) {
+                        instance.hide();
+                    }
+                }
+            });
+        });
+
+        // Bersihkan backdrop ganda jika ada
+        document.querySelectorAll('.modal').forEach(function(modal) {
+            modal.addEventListener('hidden.bs.modal', function() {
+                var backdrops = document.querySelectorAll('.modal-backdrop');
+                if (backdrops.length > 1) {
+                    for (var i = 1; i < backdrops.length; i++) {
+                        backdrops[i].remove();
+                    }
+                }
+                if (!document.querySelector('.modal.show')) {
+                    document.querySelectorAll('.modal-backdrop').forEach(function(b) { b.remove(); });
+                    document.body.classList.remove('modal-open');
+                    document.body.style.removeProperty('overflow');
+                    document.body.style.removeProperty('padding-right');
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>
