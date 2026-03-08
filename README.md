@@ -10,8 +10,28 @@
 
 - PHP 7.4+ (Prosedural, tanpa framework)
 - MySQL Database
-- HTML5, CSS3, JavaScript
+- HTML5, CSS3, JavaScript (ES6+)
 - Bootstrap 5 (CDN)
+- AJAX / Fetch API
+
+---
+
+## 🚀 What's New in v2.0
+
+### 💬 Chat Diagnosa AI (NEW!)
+
+Fitur revolusioner yang mengubah cara diagnosa dari checkbox menjadi **natural language chat interface**!
+
+**Highlights:**
+
+- 🤖 Chat dengan sistem seperti chatbot
+- 🔍 Auto-detect gejala dari input user
+- ⚡ Real-time diagnosis tanpa reload
+- 📱 Modern chat UI dengan typing indicator
+- 🎯 Quick action buttons untuk masalah umum
+
+**Baca dokumentasi:** [CHAT_DIAGNOSA_GUIDE.md](CHAT_DIAGNOSA_GUIDE.md)
+**Quick Start:** [CHAT_QUICK_START.md](CHAT_QUICK_START.md)
 
 ---
 
@@ -19,7 +39,7 @@
 
 ### Role: Admin (Ketua Lab)
 
-1. ✅ **Manajemen Gejala** - CRUD data gejala kerusakan
+1. ✅ **Manajemen Gejala** - CRUD data gejala kerusakan + kata kunci
 2. ✅ **Manajemen Kerusakan** - CRUD data kerusakan dan solusi
 3. ✅ **Manajemen Rule** - CRUD aturan forward chaining
 4. ✅ **Laporan Diagnosa** - Melihat rekap semua diagnosa
@@ -27,9 +47,10 @@
 ### Role: Asisten Lab
 
 1. ✅ **Diagnosa Kerusakan** - Input gejala dengan checklist
-2. ✅ **Hasil Diagnosa** - Melihat hasil dan solusi
-3. ✅ **Riwayat Diagnosa** - Melihat histori diagnosa sendiri
-4. ✅ **Export Laporan** - Export/cetak laporan PDF
+2. ✅ **💬 Chat Diagnosa AI (NEW!)** - Diagnosa via chat natural language
+3. ✅ **Hasil Diagnosa** - Melihat hasil dan solusi
+4. ✅ **Riwayat Diagnosa** - Melihat histori diagnosa sendiri
+5. ✅ **Export Laporan** - Export/cetak laporan PDF
 
 ---
 
@@ -42,7 +63,8 @@ Troubleshooting-Komputer/
 │   └── koneksi.php                 # Konfigurasi database
 │
 ├── Database/
-│   └── db_sistem_pakar_gontory.sql # File SQL database
+│   ├── db_sistem_pakar_gontory.sql # File SQL database
+│   └── update_kata_kunci.sql       # 🆕 Update tabel gejala (kata kunci)
 │
 ├── Auth/
 │   ├── login.php                   # Halaman login
@@ -57,24 +79,36 @@ Troubleshooting-Komputer/
 │   ├── kerusakan_management.php    # CRUD Kerusakan
 │   ├── rule_management.php         # CRUD Rule
 │   ├── laporan_diagnosa.php        # Laporan semua diagnosa
-│   └── detail_diagnosa.php         # Detail diagnosa
+│   ├── detail_diagnosa.php         # Detail diagnosa
+│   └── user_management.php         # CRUD Users
 │
 ├── Asisten/
 │   ├── dashboard_asisten.php       # Dashboard asisten
 │   ├── sidebar_asisten.php         # Sidebar menu asisten
 │   ├── diagnosa.php                # Input diagnosa (checklist)
+│   ├── diagnosa_chat.php           # 🆕 Chat diagnosa AI
 │   ├── proses_diagnosa.php         # Proses forward chaining
+│   ├── proses_chat.php             # 🆕 Backend chat (hardcoded)
+│   ├── proses_chat_v2.php          # 🆕 Backend chat (dynamic)
 │   ├── hasil_diagnosa.php          # Tampil hasil & solusi
 │   ├── riwayat_diagnosa.php        # Riwayat diagnosa
 │   └── export_laporan.php          # Export laporan
 │
 ├── Assets/
 │   ├── css/
-│   │   └── style.css               # Custom CSS
+│   │   └── style.css               # Custom CSS (+ chat styles)
 │   └── js/
 │       └── script.js               # Custom JavaScript
 │
-└── index.php                       # Landing page (redirect to login)
+├── index.php                       # Landing page (redirect to login)
+├── README.md                       # 📖 Documentation utama
+├── CHANGELOG.md                    # 📝 Version history
+├── INSTALL.md                      # 🛠️ Installation guide
+├── QUICK_REFERENCE.md              # ⚡ Quick reference
+├── CHAT_DIAGNOSA_GUIDE.md          # 🆕 Chat feature documentation
+├── CHAT_QUICK_START.md             # 🆕 Chat quick start guide
+├── TESTING_SCENARIOS.md            # 🆕 Testing & QA scenarios
+└── DEMO_SCRIPT.md                  # 🆕 Demo presentation script
 ```
 
 ---
@@ -95,6 +129,7 @@ Troubleshooting-Komputer/
 - `id_gejala` (INT, PK, AI)
 - `kode_gejala` (VARCHAR)
 - `nama_gejala` (TEXT)
+- `kata_kunci` (TEXT) 🆕 - Keyword untuk chat matching
 
 ### Tabel: kerusakan
 
