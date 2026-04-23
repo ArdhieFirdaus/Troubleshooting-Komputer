@@ -9,6 +9,8 @@ require_once '../Auth/cek_session.php';
 cek_role('asisten_lab');
 require_once '../Config/koneksi.php';
 
+date_default_timezone_set('Asia/Jakarta');
+
 $id_user = $_SESSION['id_user'];
 
 // Filter berdasarkan tanggal
@@ -107,7 +109,7 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                 
                 <!-- Tombol Export -->
                 <div class="mb-3 no-print">
-                    <button onclick="window.print()" class="btn btn-success btn-lg">
+                    <button onclick="prepareAndPrint()" class="btn btn-success btn-lg">
                         <i class="bi bi-printer"></i> Cetak / Save as PDF
                     </button>
                     <button onclick="exportToCSV()" class="btn btn-info btn-lg">
@@ -146,7 +148,7 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                             </tr>
                             <tr>
                                 <td><strong>Tanggal Cetak</strong></td>
-                                <td>: <?php echo date('d F Y, H:i'); ?> WIB</td>
+                                <td>: <span id="tanggalCetak"><?php echo date('d F Y, H:i:s'); ?> WIB</span></td>
                             </tr>
                             <tr>
                                 <td><strong>Total Diagnosa</strong></td>
@@ -220,10 +222,46 @@ $result_diagnosa = mysqli_query($koneksi, $query);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../Assets/js/script.js"></script>
     <script>
+        function getWibDateTimeText() {
+            const now = new Date();
+            const tanggal = now.toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+                timeZone: 'Asia/Jakarta'
+            });
+            const waktu = now.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false,
+                timeZone: 'Asia/Jakarta'
+            });
+
+            return `${tanggal}, ${waktu} WIB`;
+        }
+
+        function updateTanggalCetak() {
+            const tanggalCetak = document.getElementById('tanggalCetak');
+            if (tanggalCetak) {
+                tanggalCetak.textContent = getWibDateTimeText();
+            }
+        }
+
+        function prepareAndPrint() {
+            updateTanggalCetak();
+            window.print();
+        }
+
+        // Pastikan waktu cetak selalu update selama halaman terbuka.
+        updateTanggalCetak();
+        setInterval(updateTanggalCetak, 1000);
+        window.addEventListener('beforeprint', updateTanggalCetak);
+
         // Fungsi export ke CSV (sederhana)
         function exportToCSV() {
             alert('Fitur export CSV akan membuka window baru untuk print. Anda bisa Save as PDF dari browser.');
-            window.print();
+            prepareAndPrint();
         }
     </script>
 </body>
