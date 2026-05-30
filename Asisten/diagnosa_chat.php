@@ -316,7 +316,7 @@ cek_role('asisten_lab');
                     <button class="btn btn-primary" id="sidebarToggle">
                         <i class="bi bi-list"></i>
                     </button>
-                    <span class="navbar-brand mb-0 h1 ms-3">Chat Diagnosa AI</span>
+                    <span class="navbar-brand mb-0 h1 ms-3">Chat Bot Diagnosa</span>
                     <div class="ms-auto">
                         <span class="me-3">
                             <i class="bi bi-person-circle"></i> <?php echo $_SESSION['nama_lengkap']; ?>

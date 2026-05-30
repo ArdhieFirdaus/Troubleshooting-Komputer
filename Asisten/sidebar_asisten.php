@@ -22,7 +22,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         
         <a href="diagnosa_chat.php" class="sidebar-link <?php echo ($current_page == 'diagnosa_chat.php' || $current_page == 'proses_chat.php' || $current_page == 'proses_chat_v2.php') ? 'active' : ''; ?>">
             <i class="bi bi-chat-dots"></i>
-            <span>Chat Diagnosa AI</span>
+            <span>Chat Bot Diagnosa</span>
         </a>
         
         <a href="riwayat_diagnosa.php" class="sidebar-link <?php echo ($current_page == 'riwayat_diagnosa.php') ? 'active' : ''; ?>">
