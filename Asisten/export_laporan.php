@@ -40,7 +40,12 @@ $result_diagnosa = mysqli_query($koneksi, $query);
         @media print {
             .no-print { display: none !important; }
             .card { border: 1px solid #000 !important; }
+            /* remove outer card border/rounding for the main laporan content */
+            #laporanContent.card { border: none !important; box-shadow: none !important; border-radius: 0 !important; }
         }
+        /* remove outer card border/rounding on screen for laporanContent */
+        #laporanContent.card { border: none; box-shadow: none; border-radius: 0; }
+        .report-header { border-top: 2px solid #000; border-bottom: 2px solid #000; padding: 8px 0; margin-bottom: 12px; }
     </style>
 </head>
 <body>
@@ -66,10 +71,7 @@ $result_diagnosa = mysqli_query($koneksi, $query);
             </nav>
             
             <div class="container-fluid p-4">
-                <h2 class="mb-4">
-                    <i class="bi bi-file-earmark-pdf"></i> 
-                    Export Laporan Diagnosa
-                </h2>
+                <!-- Judul halaman dihilangkan sesuai permintaan -->
                 
                 <!-- Filter -->
                 <div class="card shadow mb-4 no-print">
@@ -117,65 +119,67 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                     </button>
                 </div>
                 
-                <!-- Laporan -->
+                <!-- Laporan (desain disesuaikan seperti Admin print) -->
                 <div class="card shadow" id="laporanContent">
-                    <div class="card-header bg-dark text-white text-center">
-                        <h4 class="mb-0">LAPORAN DIAGNOSA TROUBLESHOOTING KOMPUTER</h4>
-                        <p class="mb-0">Pondok Pesantren Al-Gontory</p>
-                    </div>
                     <div class="card-body">
-                        <table class="table table-borderless mb-3">
-                            <tr>
-                                <td width="20%"><strong>Nama Asisten</strong></td>
-                                <td>: <?php echo $_SESSION['nama_lengkap']; ?></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Username</strong></td>
-                                <td>: <?php echo $_SESSION['username']; ?></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Periode</strong></td>
-                                <td>: 
-                                    <?php 
-                                    if(!empty($filter_tanggal_mulai) && !empty($filter_tanggal_akhir)) {
-                                        echo date('d/m/Y', strtotime($filter_tanggal_mulai)) . ' s/d ' . 
-                                             date('d/m/Y', strtotime($filter_tanggal_akhir));
-                                    } else {
-                                        echo "Semua Data";
-                                    }
-                                    ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Tanggal Cetak</strong></td>
-                                <td>: <span id="tanggalCetak"><?php echo date('d F Y, H:i:s'); ?> WIB</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Total Diagnosa</strong></td>
-                                <td>: <?php echo mysqli_num_rows($result_diagnosa); ?> diagnosa</td>
-                            </tr>
-                        </table>
-                        
-                        <hr>
-                        
-                        <h5 class="mb-3">Detail Diagnosa</h5>
-                        
-                        <?php if(mysqli_num_rows($result_diagnosa) > 0): ?>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead class="table-dark">
+                        <div class="container">
+                            <div class="text-center mb-3 report-header">
+                                <h4 class="mb-0">LAPORAN DIAGNOSA TROUBLESHOOTING<br>KOMPUTER</h4>
+                                <p class="mb-0">Pondok Pesantren Al-Gontory</p>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <table class="table table-borderless table-sm">
+                                        <tr>
+                                            <td><strong>Nama Asisten</strong></td>
+                                            <td>: <?php echo $_SESSION['nama_lengkap']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Username</strong></td>
+                                            <td>: <?php echo $_SESSION['username']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Periode</strong></td>
+                                            <td>: 
+                                                <?php 
+                                                if(!empty($filter_tanggal_mulai) && !empty($filter_tanggal_akhir)) {
+                                                    echo date('d/m/Y', strtotime($filter_tanggal_mulai)) . ' s/d ' . 
+                                                         date('d/m/Y', strtotime($filter_tanggal_akhir));
+                                                } else {
+                                                    echo "Semua Data";
+                                                }
+                                                ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Tanggal Cetak</strong></td>
+                                            <td>: <span id="tanggalCetak"><?php echo date('d F Y, H:i:s'); ?> WIB</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total Diagnosa</strong></td>
+                                            <td>: <?php echo mysqli_num_rows($result_diagnosa); ?> diagnosa</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Ringkasan filter dihapus -->
+
+                            <?php if(mysqli_num_rows($result_diagnosa) > 0): ?>
+                            <table class="table table-bordered table-striped">
+                                <thead class="table-light">
                                     <tr>
-                                        <th width="5%">No</th>
-                                        <th width="15%">Tanggal</th>
-                                        <th width="40%">Hasil Kerusakan</th>
-                                        <th width="40%">Gejala yang Dipilih</th>
+                                        <th style="color:#000 !important">No</th>
+                                        <th style="color:#000 !important">Tanggal</th>
+                                        <th style="color:#000 !important">Hasil Kerusakan</th>
+                                        <th style="color:#000 !important">Gejala yang Dipilih</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php 
                                     $no = 1;
                                     while($row = mysqli_fetch_assoc($result_diagnosa)): 
-                                        // Ambil gejala
                                         $id_diagnosa = $row['id_diagnosa'];
                                         $query_gejala = "SELECT g.kode_gejala, g.nama_gejala 
                                                        FROM diagnosa_detail dd 
@@ -198,20 +202,20 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                                     <?php endwhile; ?>
                                 </tbody>
                             </table>
-                        </div>
-                        <?php else: ?>
-                        <div class="alert alert-warning">
-                            <i class="bi bi-exclamation-triangle"></i> 
-                            Tidak ada data diagnosa pada periode yang dipilih.
-                        </div>
-                        <?php endif; ?>
-                        
-                        <div class="mt-4 text-end">
-                            <p class="mb-0">
-                                <strong>Mengetahui,</strong><br><br><br><br>
-                                ______________________<br>
-                                Asisten Lab
-                            </p>
+                            <?php else: ?>
+                            <div class="alert alert-warning">
+                                <i class="bi bi-exclamation-triangle"></i> 
+                                Tidak ada data diagnosa pada periode yang dipilih.
+                            </div>
+                            <?php endif; ?>
+
+                            <div class="mt-4 text-end">
+                                <p class="mb-0">
+                                    <strong>Mengetahui,</strong><br><br><br><br>
+                                    ______________________<br>
+                                    Asisten Lab
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
