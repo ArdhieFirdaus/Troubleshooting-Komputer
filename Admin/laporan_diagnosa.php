@@ -118,7 +118,17 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                         </form>
                     </div>
                 </div>
-                
+
+                <!-- Tombol Cetak / Export (sama dengan Asisten) -->
+                <div class="mb-3 no-print">
+                    <button id="btnPrintAdmin" class="btn btn-success btn-lg">
+                        <i class="bi bi-printer"></i> Cetak / Save as PDF
+                    </button>
+                    <button id="btnExportCsvAdmin" class="btn btn-info btn-lg ms-2">
+                        <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
+                    </button>
+                </div>
+
                 <!-- Tabel Laporan -->
                 <div class="card shadow">
                     <div class="card-header bg-dark text-white">
@@ -330,5 +340,30 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../Assets/js/script.js"></script>
+    <script>
+        function buildPrintUrl() {
+            const tglMulai = document.getElementById('tanggal_mulai').value;
+            const tglAkhir = document.getElementById('tanggal_akhir').value;
+            const asisten = document.getElementById('asisten').value;
+            const params = new URLSearchParams();
+            if (tglMulai) params.append('tanggal_mulai', tglMulai);
+            if (tglAkhir) params.append('tanggal_akhir', tglAkhir);
+            if (asisten) params.append('asisten', asisten);
+            return 'print_laporan.php?' + params.toString();
+        }
+
+        function prepareAndPrintAdmin() {
+            const url = buildPrintUrl();
+            window.open(url, '_blank');
+        }
+
+        function exportToCSVAdmin() {
+            alert('Fitur export CSV akan membuka window baru untuk print. Anda bisa Save as PDF dari browser.');
+            prepareAndPrintAdmin();
+        }
+
+        document.getElementById('btnPrintAdmin').addEventListener('click', prepareAndPrintAdmin);
+        document.getElementById('btnExportCsvAdmin').addEventListener('click', exportToCSVAdmin);
+    </script>
 </body>
 </html>

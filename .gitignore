@@ -80,3 +80,6 @@ $RECYCLE.BIN/
 
 # Security
 .htpasswd
+
+# Docs
+docs
