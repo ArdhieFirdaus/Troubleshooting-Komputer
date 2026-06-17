@@ -44,10 +44,21 @@ if (!empty($filter_asisten)) {
             .no-print { display: none !important; }
         }
         body { padding: 20px; }
+        /* Garis pemisah pada header seperti export Asisten */
+        .report-header {
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
+            padding: 8px 0;
+            margin-bottom: 12px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="text-center mb-3 report-header">
+            <h4 class="mb-0">LAPORAN DIAGNOSA TROUBLESHOOTING<br>KOMPUTER</h4>
+            <p class="mb-0">Pondok Pesantren Al-Gontory</p>
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <table class="table table-borderless table-sm">
@@ -65,13 +76,6 @@ if (!empty($filter_asisten)) {
                         <td>: <span id="tanggalCetakAdmin"><?php echo date('d F Y, H:i:s'); ?> WIB</span></td>
                     </tr>
                 </table>
-            </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Laporan Diagnosa</h3>
-            <div class="no-print">
-                <button class="btn btn-primary" onclick="window.print()">Cetak</button>
-                <button class="btn btn-secondary" onclick="window.close()">Tutup</button>
             </div>
         </div>
 
@@ -143,19 +147,9 @@ if (!empty($filter_asisten)) {
         }
 
         window.onload = function() {
-            // lakukan update segera
+            // lakukan update segera dan jalankan jam realtime
             updateClock();
-
-            // pastikan update lagi sebelum mencetak, beri sedikit delay untuk render
-            setTimeout(function(){
-                updateClock();
-                window.print();
-            }, 800);
-
             setInterval(updateClock, 1000);
-            window.addEventListener('beforeprint', function(){
-                updateClock();
-            });
         };
     </script>
 </body>

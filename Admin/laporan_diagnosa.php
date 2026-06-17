@@ -129,6 +129,25 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                     </button>
                 </div>
 
+                <!-- Modal untuk preview cetak (tanpa membuka tab baru) -->
+                <div class="modal fade" id="printPreviewModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Preview Cetak Laporan</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="printModalBody">Memuat...</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                <button type="button" id="printFromModalBtn" class="btn btn-primary">Cetak</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Tabel Laporan -->
                 <div class="card shadow">
                     <div class="card-header bg-dark text-white">
@@ -352,18 +371,85 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
             return 'print_laporan.php?' + params.toString();
         }
 
-        function prepareAndPrintAdmin() {
+        async function prepareAndPrintAdmin() {
             const url = buildPrintUrl();
-            window.open(url, '_blank');
+            try {
+                const res = await fetch(url, { credentials: 'same-origin' });
+                const html = await res.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const content = doc.getElementById('laporanContent');
+                const modalBody = document.getElementById('printModalBody');
+                if (content) {
+                    modalBody.innerHTML = content.outerHTML;
+                } else {
+                    modalBody.innerHTML = html;
+                }
+
+                // hapus elemen label "Filter:" jika ada (tidak perlu ditampilkan di preview karena sudah ada info di atas)
+                const strongs = modalBody.querySelectorAll('strong');
+                strongs.forEach(function(s){
+                    if (s.textContent && s.textContent.trim().toLowerCase() === 'filter:') {
+                        const parent = s.closest('.mb-3') || s.parentElement;
+                        if (parent) parent.remove();
+                    }
+                });
+
+                // update timestamp inside modal to current WIB
+                const tanggalEl = modalBody.querySelector('#tanggalCetakAdmin');
+                if (tanggalEl) {
+                    const now = new Date();
+                    const tanggal = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
+                    const waktu = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' });
+                    tanggalEl.textContent = `${tanggal}, ${waktu} WIB`;
+                }
+
+                const modalEl = document.getElementById('printPreviewModal');
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+
+            } catch (err) {
+                alert('Gagal memuat preview cetak: ' + err.message);
+            }
         }
 
         function exportToCSVAdmin() {
-            alert('Fitur export CSV akan membuka window baru untuk print. Anda bisa Save as PDF dari browser.');
+            alert('Fitur export CSV belum tersedia. Preview cetak akan dibuka sebagai gantinya.');
             prepareAndPrintAdmin();
         }
 
         document.getElementById('btnPrintAdmin').addEventListener('click', prepareAndPrintAdmin);
         document.getElementById('btnExportCsvAdmin').addEventListener('click', exportToCSVAdmin);
+
+        // Cetak isi modal tanpa membuka tab baru menggunakan iframe tersembunyi
+        document.getElementById('printFromModalBtn').addEventListener('click', function() {
+            const modalBody = document.getElementById('printModalBody');
+            const printContent = modalBody.innerHTML;
+            const iframe = document.createElement('iframe');
+            iframe.style.position = 'fixed';
+            iframe.style.right = '0';
+            iframe.style.bottom = '0';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = '0';
+            iframe.id = 'printIframe';
+            document.body.appendChild(iframe);
+            const doc = iframe.contentWindow.document;
+            doc.open();
+            doc.write(`<!doctype html><html><head><meta charset="utf-8"><title>Print</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"></head><body>${printContent}</body></html>`);
+            doc.close();
+            // give browser time to render
+            setTimeout(function() {
+                iframe.contentWindow.focus();
+                try {
+                    iframe.contentWindow.print();
+                } catch (e) {
+                    alert('Gagal memulai print: ' + e.message);
+                }
+                // remove iframe after a short delay
+                setTimeout(function(){ document.body.removeChild(iframe); }, 1000);
+            }, 500);
+        });
     </script>
 </body>
 </html>
