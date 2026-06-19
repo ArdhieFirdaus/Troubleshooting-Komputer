@@ -37,9 +37,39 @@ $current_page = basename($_SERVER['PHP_SELF']);
         
         <hr class="sidebar-divider">
         
-        <a href="../Auth/logout.php" class="sidebar-link text-danger">
-            <i class="bi bi-box-arrow-right"></i>
-            <span>Logout</span>
-        </a>
+                <a href="#" class="sidebar-link text-danger" onclick="showLogoutConfirm('dashboard_asisten.php'); return false;">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
+                </a>
     </nav>
 </div>
+
+<!-- SweetAlert2 logout confirmation (Asisten) -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function showLogoutConfirm(dashboardUrl){
+        Swal.fire({
+            title: 'Konfirmasi',
+            html: 'Apakah Anda yakin ingin logout?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Logout',
+            cancelButtonText: 'Batal',
+            allowOutsideClick: false,
+            reverseButtons: true,
+            customClass: {
+                popup: 'swal2-popup',
+                title: 'swal2-title',
+                htmlContainer: 'swal2-html-container',
+                confirmButton: 'swal2-confirm swal2-styled',
+                cancelButton: 'swal2-cancel swal2-styled'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '../Auth/logout.php';
+            } else {
+                window.location.href = dashboardUrl;
+            }
+        });
+    }
+</script>

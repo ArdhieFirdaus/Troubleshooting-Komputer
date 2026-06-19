@@ -60,9 +60,7 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                         <span class="me-3">
                             <i class="bi bi-person-circle"></i> <?php echo $_SESSION['nama_lengkap']; ?>
                         </span>
-                        <a href="../Auth/logout.php" class="btn btn-outline-danger btn-sm">
-                            <i class="bi bi-box-arrow-right"></i> Logout
-                        </a>
+                        <!-- Logout moved to sidebar -->
                     </div>
                 </div>
             </nav>
