@@ -34,6 +34,7 @@ $result_diagnosa = mysqli_query($koneksi, $query);
 // Ambil daftar asisten untuk filter
 $query_asisten = "SELECT * FROM users WHERE role='asisten_lab' ORDER BY nama_lengkap ASC";
 $result_asisten = mysqli_query($koneksi, $query_asisten);
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -117,13 +118,9 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                     </div>
                 </div>
 
-                <!-- Tombol Cetak / Export (sama dengan Asisten) -->
                 <div class="mb-3 no-print">
                     <button id="btnPrintAdmin" class="btn btn-success btn-lg">
                         <i class="bi bi-printer"></i> Cetak / Save as PDF
-                    </button>
-                    <button id="btnExportCsvAdmin" class="btn btn-info btn-lg ms-2">
-                        <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
                     </button>
                 </div>
 
@@ -411,13 +408,7 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
             }
         }
 
-        function exportToCSVAdmin() {
-            alert('Fitur export CSV belum tersedia. Preview cetak akan dibuka sebagai gantinya.');
-            prepareAndPrintAdmin();
-        }
-
         document.getElementById('btnPrintAdmin').addEventListener('click', prepareAndPrintAdmin);
-        document.getElementById('btnExportCsvAdmin').addEventListener('click', exportToCSVAdmin);
 
         // Cetak isi modal tanpa membuka tab baru menggunakan iframe tersembunyi
         document.getElementById('printFromModalBtn').addEventListener('click', function() {

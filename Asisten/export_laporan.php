@@ -26,6 +26,7 @@ if (!empty($filter_tanggal_mulai) && !empty($filter_tanggal_akhir)) {
 
 $query .= " ORDER BY tanggal DESC";
 $result_diagnosa = mysqli_query($koneksi, $query);
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -107,13 +108,9 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                     </div>
                 </div>
                 
-                <!-- Tombol Export -->
                 <div class="mb-3 no-print">
                     <button onclick="prepareAndPrint()" class="btn btn-success btn-lg">
                         <i class="bi bi-printer"></i> Cetak / Save as PDF
-                    </button>
-                    <button onclick="exportToCSV()" class="btn btn-info btn-lg">
-                        <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
                     </button>
                 </div>
                 
@@ -260,11 +257,7 @@ $result_diagnosa = mysqli_query($koneksi, $query);
         setInterval(updateTanggalCetak, 1000);
         window.addEventListener('beforeprint', updateTanggalCetak);
 
-        // Fungsi export ke CSV (sederhana)
-        function exportToCSV() {
-            alert('Fitur export CSV akan membuka window baru untuk print. Anda bisa Save as PDF dari browser.');
-            prepareAndPrint();
-        }
+
     </script>
 </body>
 </html>

@@ -137,9 +137,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['role'])) {
                     
                     <div class="mt-4 text-center">
                         <small class="text-muted">
-                            <strong>Demo Account:</strong><br>
-                            Admin: admin / password<br>
-                            Asisten: asisten1 / password
+                    
                         </small>
                     </div>
                 </div>
