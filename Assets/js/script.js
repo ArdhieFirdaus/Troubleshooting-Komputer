@@ -31,8 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // Smooth transition when switching sidebar menus
   initSidebarMenuTransition();
 
+  // Smooth enter transition after sidebar navigation
+  initPageEnterTransition();
+
   // Sidebar toggle for mobile
   initSidebarToggle();
+  sessionStorage.setItem("sidebarTransition", "1");
 
   // Form validation
   initFormValidation();
@@ -56,6 +60,43 @@ function autoHideAlerts() {
       }, 500);
     }, 5000); // 5 seconds
   });
+}
+
+function initPageEnterTransition() {
+  const mainContent = document.querySelector(".main-content");
+
+  if (!mainContent || sessionStorage.getItem("sidebarTransition") !== "1") {
+    return;
+  }
+
+  sessionStorage.removeItem("sidebarTransition");
+
+  if (
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+    typeof mainContent.animate !== "function"
+  ) {
+    return;
+  }
+
+  mainContent.animate(
+    [
+      {
+        opacity: 0,
+        transform: "translateY(14px) scale(0.994)",
+        filter: "blur(1px)",
+      },
+      {
+        opacity: 1,
+        transform: "translateY(0) scale(1)",
+        filter: "blur(0)",
+      },
+    ],
+    {
+      duration: 420,
+      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+      fill: "both",
+    },
+  );
 }
 
 // ==================== FADE IN ANIMATION ====================
