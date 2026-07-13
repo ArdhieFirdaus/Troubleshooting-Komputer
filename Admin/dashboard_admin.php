@@ -39,7 +39,7 @@ $total_asisten = mysqli_fetch_assoc($query_asisten)['total'];
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../Assets/css/style.css">
+    <link rel="stylesheet" href="../Assets/css/style.css?v=20260713">
 </head>
 <body>
     <div class="wrapper">
@@ -193,6 +193,6 @@ $total_asisten = mysqli_fetch_assoc($query_asisten)['total'];
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../Assets/js/script.js"></script>
+    <script src="../Assets/js/script.js?v=20260713"></script>
 </body>
 </html>

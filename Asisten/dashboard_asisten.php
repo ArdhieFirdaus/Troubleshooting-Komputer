@@ -39,7 +39,7 @@ $result_recent = mysqli_query($koneksi, $query_recent);
     <title>Dashboard Asisten - Sistem Pakar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../Assets/css/style.css">
+    <link rel="stylesheet" href="../Assets/css/style.css?v=20260713">
 </head>
 <body>
     <div class="wrapper">
@@ -219,6 +219,6 @@ $result_recent = mysqli_query($koneksi, $query_recent);
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../Assets/js/script.js"></script>
+    <script src="../Assets/js/script.js?v=20260713"></script>
 </body>
 </html>

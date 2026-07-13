@@ -8,7 +8,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize tooltips (Bootstrap 5)
   var tooltipTriggerList = [].slice.call(
-    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    document.querySelectorAll('[data-bs-toggle="tooltip"]'),
   );
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize popovers (Bootstrap 5)
   var popoverTriggerList = [].slice.call(
-    document.querySelectorAll('[data-bs-toggle="popover"]')
+    document.querySelectorAll('[data-bs-toggle="popover"]'),
   );
   var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl);
@@ -27,6 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add fade-in animation to cards
   addFadeInAnimation();
+
+  // Smooth transition when switching sidebar menus
+  initSidebarMenuTransition();
 
   // Sidebar toggle for mobile
   initSidebarToggle();
@@ -72,19 +75,101 @@ function addFadeInAnimation() {
 }
 
 // ==================== SIDEBAR TOGGLE ====================
+function initSidebarMenuTransition() {
+  const sidebar = document.getElementById("sidebar");
+
+  if (!sidebar) {
+    return;
+  }
+
+  sidebar.addEventListener("click", function (event) {
+    const link = event.target.closest(".sidebar-link");
+
+    if (!link || !sidebar.contains(link)) {
+      return;
+    }
+
+    const href = link.getAttribute("href");
+
+    if (!href || href === "#" || link.hasAttribute("onclick")) {
+      return;
+    }
+
+    if (
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      event.button === 1 ||
+      link.target === "_blank"
+    ) {
+      return;
+    }
+
+    let targetUrl;
+
+    try {
+      targetUrl = new URL(href, window.location.href);
+    } catch (error) {
+      return;
+    }
+
+    if (targetUrl.origin !== window.location.origin) {
+      return;
+    }
+
+    event.preventDefault();
+    document.body.classList.add("sidebar-navigating");
+
+    window.setTimeout(function () {
+      window.location.href = targetUrl.href;
+    }, 180);
+  });
+}
+
 function initSidebarToggle() {
   const sidebarToggle = document.getElementById("sidebarToggle");
   const sidebar = document.getElementById("sidebar");
+  const mainContent = document.querySelector(".main-content");
 
   if (sidebarToggle && sidebar) {
     sidebarToggle.addEventListener("click", function () {
-      sidebar.classList.toggle("active");
-
-      // Add overlay for mobile
       if (window.innerWidth <= 768) {
+        sidebar.classList.toggle("active");
+
+        // Add overlay for mobile
         toggleOverlay();
+      } else {
+        const isCollapsed = document.body.classList.toggle("sidebar-collapsed");
+        applyDesktopSidebarState(isCollapsed, sidebar, mainContent);
       }
     });
+  }
+}
+
+function applyDesktopSidebarState(isCollapsed, sidebar, mainContent) {
+  if (!sidebar || !mainContent) {
+    return;
+  }
+
+  if (isCollapsed) {
+    sidebar.style.transform = "translateX(-100%)";
+    sidebar.style.pointerEvents = "none";
+    sidebar.style.opacity = "0";
+
+    mainContent.style.marginLeft = "0";
+    mainContent.style.width = "100%";
+    mainContent.style.maxWidth = "100%";
+    mainContent.style.flex = "1 1 100%";
+  } else {
+    sidebar.style.transform = "";
+    sidebar.style.pointerEvents = "";
+    sidebar.style.opacity = "";
+
+    mainContent.style.marginLeft = "260px";
+    mainContent.style.width = "";
+    mainContent.style.maxWidth = "";
+    mainContent.style.flex = "1";
   }
 }
 
@@ -142,7 +227,7 @@ function initFormValidation() {
 
         form.classList.add("was-validated");
       },
-      false
+      false,
     );
   });
 }
@@ -188,7 +273,7 @@ function clearFieldError(field) {
 // ==================== DELETE CONFIRMATION ====================
 function initDeleteConfirmation() {
   const deleteButtons = document.querySelectorAll(
-    '.btn-delete, [onclick*="confirm"]'
+    '.btn-delete, [onclick*="confirm"]',
   );
 
   deleteButtons.forEach(function (button) {
@@ -196,7 +281,7 @@ function initDeleteConfirmation() {
       button.addEventListener("click", function (event) {
         if (
           !confirm(
-            "Yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan!"
+            "Yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan!",
           )
         ) {
           event.preventDefault();
@@ -330,7 +415,7 @@ function copyToClipboard(text) {
     },
     function (err) {
       showErrorMessage("Gagal menyalin teks!");
-    }
+    },
   );
 }
 

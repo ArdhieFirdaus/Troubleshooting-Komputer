@@ -16,6 +16,14 @@ body {
   background-color: #f8f9fa;
 }
 
+body.sidebar-navigating {
+  overflow: hidden;
+}
+
+body.sidebar-collapsed {
+  overflow-x: hidden;
+}
+
 /* ==================== LAYOUT WRAPPER ==================== */
 .wrapper {
   display: flex;
@@ -33,7 +41,10 @@ body {
   left: 0;
   top: 0;
   overflow-y: auto;
-  transition: all 0.3s ease;
+  transition:
+    margin-left 0.3s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease;
   z-index: 1000;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -98,6 +109,17 @@ body {
 }
 
 /* Responsive Sidebar */
+@media (min-width: 769px) {
+  body.sidebar-collapsed .sidebar {
+    transform: translateX(-100%);
+  }
+
+  body.sidebar-collapsed .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .sidebar {
     margin-left: -260px;
@@ -116,8 +138,29 @@ body {
 .main-content {
   flex: 1;
   margin-left: 260px;
-  transition: all 0.3s ease;
+  transition:
+    margin-left 0.3s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease;
   background-color: #f8f9fa;
+}
+
+body.sidebar-navigating .main-content {
+  opacity: 0;
+  transform: translateX(12px);
+}
+
+body.sidebar-navigating .sidebar {
+  opacity: 0.96;
+}
+
+body.sidebar-collapsed .main-content {
+  margin-left: 0;
+  width: 100%;
+}
+
+body.sidebar-collapsed .wrapper {
+  width: 100%;
 }
 
 /* Navbar */
@@ -130,7 +173,9 @@ body {
 .card {
   border-radius: 10px;
   margin-bottom: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .card:hover {
@@ -284,6 +329,17 @@ body {
 
 .fade-in {
   animation: fadeIn 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ==================== RESPONSIVE DESIGN ==================== */
