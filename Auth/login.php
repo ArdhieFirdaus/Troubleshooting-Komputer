@@ -26,7 +26,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['role'])) {
     
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background:
+                linear-gradient(rgba(15, 23, 42, 0.32), rgba(15, 23, 42, 0.32)),
+                url('../Assets/img/bg-login.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -38,16 +44,20 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['role'])) {
         .card {
             border: none;
             border-radius: 15px;
+            background: rgba(15, 23, 42, 0.72);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
         .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
             color: white;
             border-radius: 15px 15px 0 0 !important;
             padding: 25px;
         }
+        .form-label {
+            color: #ffffff;
+        }
         .btn-login {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
             border: none;
             padding: 12px;
             font-weight: 600;
@@ -172,7 +182,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['role'])) {
                 e.preventDefault();
                 alert('Username minimal 3 karakter!');
                 return false;
-            }
+            }   
             
             if (password.length < 3) {
                 e.preventDefault();
