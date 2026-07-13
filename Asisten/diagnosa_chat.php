@@ -18,6 +18,11 @@ cek_role('asisten_lab');
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../Assets/css/style.css?v=20260713">
     <style>
+        :root {
+            --chat-primary: #0d6efd;
+            --chat-primary-dark: #0b5ed7;
+        }
+
         /* Chat Container Styles */
         .chat-main-container {
             max-width: 900px;
@@ -35,7 +40,7 @@ cek_role('asisten_lab');
         }
 
         .chat-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-primary-dark) 100%);
             color: white;
             padding: 20px;
             text-align: center;
@@ -96,7 +101,7 @@ cek_role('asisten_lab');
         }
 
         .chat-bubble.system {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-primary-dark) 100%);
             color: white;
             border-bottom-left-radius: 4px;
         }
@@ -120,7 +125,7 @@ cek_role('asisten_lab');
         }
 
         .chat-avatar.system {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-primary-dark) 100%);
             color: white;
         }
 
@@ -148,7 +153,7 @@ cek_role('asisten_lab');
         }
 
         .typing-indicator .chat-bubble {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-primary-dark) 100%);
             padding: 15px 20px;
         }
 
@@ -205,8 +210,8 @@ cek_role('asisten_lab');
 
         .chat-input-group input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--chat-primary);
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
         }
 
         .chat-input-group button {
@@ -214,7 +219,7 @@ cek_role('asisten_lab');
             width: 50px;
             height: 50px;
             border: none;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-primary-dark) 100%);
             color: white;
             font-size: 20px;
             cursor: pointer;
@@ -236,14 +241,14 @@ cek_role('asisten_lab');
         /* Diagnosa Result Card */
         .diagnosa-result {
             background: white;
-            border: 2px solid #667eea;
+            border: 2px solid var(--chat-primary);
             border-radius: 12px;
             padding: 15px;
             margin-top: 10px;
         }
 
         .diagnosa-result h6 {
-            color: #667eea;
+            color: var(--chat-primary);
             margin-bottom: 10px;
             font-weight: 600;
         }
@@ -272,12 +277,12 @@ cek_role('asisten_lab');
         }
 
         .chat-box::-webkit-scrollbar-thumb {
-            background: #667eea;
+            background: var(--chat-primary);
             border-radius: 10px;
         }
 
         .chat-box::-webkit-scrollbar-thumb:hover {
-            background: #764ba2;
+            background: var(--chat-primary-dark);
         }
 
         /* Quick Actions */
@@ -290,8 +295,8 @@ cek_role('asisten_lab');
 
         .quick-action-btn {
             background: white;
-            border: 1px solid #667eea;
-            color: #667eea;
+            border: 1px solid var(--chat-primary);
+            color: var(--chat-primary);
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 13px;
@@ -300,7 +305,7 @@ cek_role('asisten_lab');
         }
 
         .quick-action-btn:hover {
-            background: #667eea;
+            background: var(--chat-primary);
             color: white;
         }
     </style>
