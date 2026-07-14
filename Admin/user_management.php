@@ -63,27 +63,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['ubah_password_user'])
         $username = mysqli_real_escape_string($koneksi, trim($_POST['username']));
         $nama_lengkap = mysqli_real_escape_string($koneksi, trim($_POST['nama_lengkap']));
         $role = mysqli_real_escape_string($koneksi, $_POST['role']);
+        $is_duplicate_username = false;
         
         if (isset($_POST['id_user']) && !empty($_POST['id_user'])) {
             // Update User
             $id = mysqli_real_escape_string($koneksi, $_POST['id_user']);
-            
-            // Cek apakah password diubah
-            if (!empty($_POST['password'])) {
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $query = "UPDATE users SET username='$username', password='$password', role='$role', nama_lengkap='$nama_lengkap' WHERE id_user='$id'";
-            } else {
-                $query = "UPDATE users SET username='$username', role='$role', nama_lengkap='$nama_lengkap' WHERE id_user='$id'";
+            $query_check_username = "SELECT id_user FROM users WHERE username = '$username' AND id_user <> '$id' LIMIT 1";
+            $result_check_username = mysqli_query($koneksi, $query_check_username);
+            if ($result_check_username && mysqli_num_rows($result_check_username) > 0) {
+                $is_duplicate_username = true;
+                $error_message = "Username sudah digunakan. Silakan pilih username lain.";
             }
-            $success_msg = "User berhasil diupdate!";
+            
+            if (!$is_duplicate_username) {
+                // Cek apakah password diubah
+                if (!empty($_POST['password'])) {
+                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $query = "UPDATE users SET username='$username', password='$password', role='$role', nama_lengkap='$nama_lengkap' WHERE id_user='$id'";
+                } else {
+                    $query = "UPDATE users SET username='$username', role='$role', nama_lengkap='$nama_lengkap' WHERE id_user='$id'";
+                }
+                $success_msg = "User berhasil diupdate!";
+            }
         } else {
             // Insert User Baru
             if (empty($_POST['password'])) {
                 $error_message = "Password harus diisi untuk user baru!";
             } else {
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $query = "INSERT INTO users (username, password, role, nama_lengkap) VALUES ('$username', '$password', '$role', '$nama_lengkap')";
-                $success_msg = "User berhasil ditambahkan!";
+                $query_check_username = "SELECT id_user FROM users WHERE username = '$username' LIMIT 1";
+                $result_check_username = mysqli_query($koneksi, $query_check_username);
+
+                if ($result_check_username && mysqli_num_rows($result_check_username) > 0) {
+                    $error_message = "Username sudah digunakan. Silakan pilih username lain.";
+                } else {
+                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $query = "INSERT INTO users (username, password, role, nama_lengkap) VALUES ('$username', '$password', '$role', '$nama_lengkap')";
+                    $success_msg = "User berhasil ditambahkan!";
+                }
             }
         }
         
