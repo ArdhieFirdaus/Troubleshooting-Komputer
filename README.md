@@ -33,6 +33,57 @@ Fitur revolusioner yang mengubah cara diagnosa dari checkbox menjadi **natural l
 **Baca dokumentasi:** [CHAT_DIAGNOSA_GUIDE.md](CHAT_DIAGNOSA_GUIDE.md)
 **Quick Start:** [CHAT_QUICK_START.md](CHAT_QUICK_START.md)
 
+### 🔑 Contoh Kata Kunci Chat
+
+Gunakan kalimat natural seperti di bawah ini saat mencoba chat diagnosa. Sistem akan mencocokkan frasa yang mirip dengan gejala di database.
+
+| Gejala                                | Contoh Kalimat Input                                                                                    |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| G001 - Komputer tidak menyala         | `komputer saya tidak menyala`, `pc saya mati total`, `unit cpu tidak hidup`                             |
+| G002 - Lampu power mati               | `lampu power tidak menyala`, `lampu indikator mati total`, `indikator power tidak hidup`                |
+| G003 - Bunyi beep                     | `komputer bunyi beep terus`, `motherboard bunyi beep`, `bunyi beep saat dinyalakan`                     |
+| G004 - Layar hitam                    | `komputer menyala tapi monitor hitam`, `monitor tidak menampilkan gambar`, `pc hidup tapi layar kosong` |
+| G005 - Kipas berputar tapi tidak POST | `kipas muter tapi tidak masuk bios`, `komputer nyala tapi tidak booting`, `cpu hidup tapi layar hitam`  |
+| G006 - Restart sendiri                | `komputer restart sendiri`, `pc restart terus`, `hidup sebentar lalu mati lagi`                         |
+| G007 - Blue screen                    | `komputer blue screen`, `muncul layar biru`, `error bsod`                                               |
+| G008 - Komputer lemot                 | `komputer sangat lambat`, `pc terasa berat`, `komputer lemot sekali`                                    |
+| G009 - Aplikasi not responding        | `program tidak merespon`, `aplikasi sering macet`, `komputer sering freeze`                             |
+| G010 - Hardisk bunyi                  | `hardisk bunyi klik terus`, `hardisk seperti berdecit`, `bunyi klik tidak bisa booting`                 |
+| G011 - Tidak bisa booting             | `komputer gagal boot`, `windows tidak mau masuk`, `stuck di logo`                                       |
+| G012 - OS not found                   | `no bootable device`, `komputer no bootable device`, `tidak ada sistem operasi`                         |
+| G013 - Loading lama                   | `komputer lama sekali masuk windows`, `startup sangat lama`, `booting lambat sekali`                    |
+| G014 - Hang saat masuk Windows        | `windows hang saat startup`, `komputer macet di logo windows`, `freeze saat masuk windows`              |
+| G015 - Layar bergaris                 | `monitor muncul garis`, `gambar di layar pecah`, `layar berkedip terus`                                 |
+| G016 - Panas / overheat               | `komputer terasa sangat panas`, `kipas berbunyi keras karena panas`, `overheat shutdown`                |
+| G017 - Internet lambat                | `wifi lemot`, `sinyal internet lemah`, `komputer susah konek internet`                                  |
+| G018 - USB tidak terdeteksi           | `flashdisk tidak terbaca di pc`, `usb gagal dikenali`, `usb tidak kebaca`                               |
+| G019 - Keyboard / mouse error         | `keyboard tidak terdeteksi`, `mouse tidak terdeteksi`, `keyboard mouse mati`                            |
+| G020 - Audio mati                     | `komputer tidak ada suara`, `speaker tidak bunyi`, `audio tidak terdengar`                              |
+
+### 🔗 Contoh Kombinasi Sesuai Rule
+
+Kalimat berikut dibuat lebih natural agar terasa seperti percakapan user sungguhan, tetapi tetap memicu lebih dari satu gejala sekaligus sesuai kombinasi rule di knowledge base:
+
+| Kombinasi Gejala   | Contoh Kalimat Input                                                                    |
+| ------------------ | --------------------------------------------------------------------------------------- |
+| G001 + G002        | `komputer saya tidak menyala, lampu power juga tidak hidup sama sekali`                 |
+| G001 + G003        | `komputer saya tidak menyala lalu terdengar bunyi beep berulang saat dinyalakan`        |
+| G001 + G004        | `komputer saya tidak menyala dan monitor hanya menampilkan layar hitam`                 |
+| G003 + G004 + G005 | `komputer bunyi beep, layar hitam, sementara kipas masih berputar`                      |
+| G006 + G007        | `komputer saya sering restart sendiri lalu tiba-tiba muncul blue screen`                |
+| G006 + G016        | `komputer restart terus dan terasa panas sekali saat dipakai`                           |
+| G008 + G009        | `komputer terasa lemot dan beberapa aplikasi jadi not responding`                       |
+| G010 + G011 + G012 | `hardisk bunyi klik terus, komputer gagal boot, dan akhirnya muncul no bootable device` |
+| G011 + G013        | `komputer gagal boot karena proses loading windows terlalu lama`                        |
+| G013 + G014        | `windows loading lama lalu hang saat masuk ke desktop`                                  |
+| G015 + G016        | `layar bergaris dan komputer terasa panas setelah beberapa menit dipakai`               |
+| G017 + G018        | `internet lambat sementara usb juga tidak terdeteksi di komputer saya`                  |
+| G019 + G020        | `keyboard tidak terdeteksi dan speaker tidak bunyi sama sekali`                         |
+
+Contoh di atas sengaja memakai kata penghubung seperti `lalu`, `dan`, `sementara`, atau `setelah` supaya input terasa lebih natural, tetapi tetap mengandung frasa kunci yang dibaca sistem.
+
+> Catatan: halaman chat di [Asisten/diagnosa_chat.php](Asisten/diagnosa_chat.php) saat ini memanggil [Asisten/proses_chat.php](Asisten/proses_chat.php). Jika Anda ingin memakai keyword yang diambil dari database, arahkan fetch ke [Asisten/proses_chat_v2.php](Asisten/proses_chat_v2.php) dan jalankan [Database/update_kata_kunci.sql](Database/update_kata_kunci.sql).
+
 ---
 
 ## 🎯 Fitur Utama
