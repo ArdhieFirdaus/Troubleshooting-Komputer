@@ -37,6 +37,56 @@ if (!isset($_POST['message']) || empty(trim($_POST['message']))) {
 $input_user = trim($_POST['message']);
 $input_lower = strtolower($input_user); // Convert ke lowercase untuk pencarian
 
+// Kata kunci untuk kondisi user belum tahu kerusakannya atau belum bisa menjelaskan gejalanya
+$kata_kunci_kerusakan_tidak_teridentifikasi = [
+    'tidak tahu rusaknya apa',
+    'tidak tahu kerusakannya',
+    'belum tahu rusaknya apa',
+    'belum tahu kerusakannya',
+    'kerusakannya tidak diketahui',
+    'kerusakannya tidak teridentifikasi',
+    'saya tidak tahu masalahnya',
+    'saya belum tahu masalahnya',
+    'belum bisa memastikan kerusakan',
+    'belum bisa dipastikan',
+    'belum jelas kerusakannya',
+    'masih belum jelas',
+    'masih tidak diketahui',
+    'tidak jelas kerusakannya',
+    'mohon bantu identifikasi',
+    'tolong identifikasi kerusakannya'
+];
+
+// Kata kunci untuk kombinasi gejala yang tidak sesuai dengan rule yang tersedia
+$kata_kunci_kombinasi_gejala_tidak_sesuai_rule = [
+    'kombinasi gejalanya salah',
+    'kombinasi gejala tidak cocok',
+    'kombinasi gejala tidak sesuai rule',
+    'gejalanya campur',
+    'gejala tidak sinkron',
+    'campuran gejala tidak jelas',
+    'gabungan gejalanya tidak pas',
+    'gejalanya tidak sesuai rule',
+    'tidak ada rule yang cocok',
+    'kombinasi gejala ini tidak cocok'
+];
+
+$input_mengarah_ke_tidak_teridentifikasi = false;
+foreach ($kata_kunci_kerusakan_tidak_teridentifikasi as $keyword) {
+    if (stripos($input_lower, $keyword) !== false) {
+        $input_mengarah_ke_tidak_teridentifikasi = true;
+        break;
+    }
+}
+
+$input_mengarah_ke_kombinasi_tidak_sesuai_rule = false;
+foreach ($kata_kunci_kombinasi_gejala_tidak_sesuai_rule as $keyword) {
+    if (stripos($input_lower, $keyword) !== false) {
+        $input_mengarah_ke_kombinasi_tidak_sesuai_rule = true;
+        break;
+    }
+}
+
 // ==========================================
 // STEP 1: IDENTIFIKASI GEJALA DARI INPUT
 // ==========================================
@@ -99,6 +149,16 @@ foreach ($kata_kunci_gejala as $id_gejala => $keywords) {
 
 if (empty($gejala_teridentifikasi)) {
     // Tidak ada gejala yang teridentifikasi
+    if ($input_mengarah_ke_tidak_teridentifikasi) {
+        echo json_encode([
+            'success' => false,
+            'message' => '❓ Saya tangkap Anda belum mengetahui kerusakannya. Coba jelaskan gejala yang muncul, misalnya: tidak menyala, layar hitam, bunyi beep, restart sendiri, atau hardisk bunyi klik.',
+            'gejala_found' => false,
+            'diagnosis_status' => 'tidak_teridentifikasi'
+        ]);
+        exit();
+    }
+
     echo json_encode([
         'success' => false,
         'message' => '❓ Maaf, saya belum bisa memahami masalah yang Anda jelaskan. Coba gunakan kata kunci seperti: "tidak menyala", "layar hitam", "hardisk bunyi", "restart sendiri", dll.',
@@ -113,6 +173,7 @@ if (empty($gejala_teridentifikasi)) {
 // ==========================================
 
 $diagnosa_hasil = null;
+$jumlah_gejala_input = count($gejala_teridentifikasi);
 
 // Ambil semua rule dari database
 $query_rules = "SELECT r.*, k.kode_kerusakan, k.nama_kerusakan, k.solusi 
@@ -143,12 +204,14 @@ while ($rule = mysqli_fetch_assoc($result_rules)) {
     // Hitung persentase kecocokan
     $match_percentage = ($match_count / $total_rule_gejala) * 100;
     
-    // Ambil rule dengan kecocokan terbesar (minimal 40% gejala cocok)
-    // Atau jika hanya 1 gejala teridentifikasi, ambil rule yang paling cocok
-    $threshold = (count($gejala_teridentifikasi) == 1) ? 1 : 40;
-    $min_percentage = ($match_count >= 1 && count($gejala_teridentifikasi) == 1) ? 1 : 40;
-    
-    if ($match_percentage >= $min_percentage && $match_count > $max_match) {
+    $rule_match = false;
+    if ($jumlah_gejala_input == 1) {
+        $rule_match = ($match_count >= 1);
+    } else {
+        $rule_match = ($match_count === $jumlah_gejala_input && $match_count === $total_rule_gejala);
+    }
+
+    if ($rule_match && $match_count > $max_match) {
         $max_match = $match_count;
         $diagnosa_hasil = [
             'id_kerusakan' => $rule['id_kerusakan'],
@@ -221,6 +284,21 @@ if ($diagnosa_hasil) {
                                    VALUES ('$id_diagnosa', '$id_gejala')");
         }
     }
+
+    if ($input_mengarah_ke_kombinasi_tidak_sesuai_rule) {
+        echo json_encode([
+            'success' => true,
+            'message' => '🔎 Saya menemukan gejala, tetapi kombinasi gejala tersebut belum cocok dengan rule yang tersedia.',
+            'gejala_found' => true,
+            'diagnosis_status' => 'kombinasi_tidak_sesuai_rule',
+            'diagnosa' => [
+                'kode_kerusakan' => '-',
+                'nama_kerusakan' => 'Kerusakan Tidak Teridentifikasi',
+                'solusi' => 'Kombinasi gejala belum memiliki rule yang sesuai. Silakan jelaskan gejala yang paling dominan atau hubungi teknisi untuk pemeriksaan lebih lanjut.'
+            ]
+        ]);
+        exit();
+    }
     
     // Ambil nama gejala yang teridentifikasi
     $gejala_names = [];
@@ -236,8 +314,14 @@ if ($diagnosa_hasil) {
         'gejala_found' => true,
         'message' => "🔍 Saya menemukan gejala berikut:\n\n" . 
                     "• " . implode("\n• ", $gejala_names) . 
-                    "\n\n⚠️ Namun, kombinasi gejala ini belum ada di dalam sistem knowledge base kami. Silakan hubungi teknisi untuk pemeriksaan lebih lanjut atau coba jelaskan dengan lebih detail.",
-        'gejala_teridentifikasi' => $gejala_names
+                    "\n\n⚠️ Namun, kombinasi gejala ini belum ada di dalam sistem knowledge base kami.",
+        'gejala_teridentifikasi' => $gejala_names,
+        'diagnosis_status' => 'tidak_teridentifikasi',
+        'diagnosa' => [
+            'kode_kerusakan' => '-',
+            'nama_kerusakan' => 'Kerusakan Tidak Teridentifikasi',
+            'solusi' => 'Kombinasi gejala belum memiliki rule yang sesuai. Silakan jelaskan gejala yang paling dominan atau hubungi teknisi untuk pemeriksaan lebih lanjut.'
+        ]
     ]);
 }
 

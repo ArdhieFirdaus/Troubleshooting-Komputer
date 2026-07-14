@@ -398,6 +398,46 @@ Artinya: Jika user memilih kedua gejala tersebut, sistem akan mendiagnosa sebaga
 3. Klik "Cetak / Save as PDF"
 4. Gunakan fungsi print browser (Ctrl+P) → Save as PDF
 
+### 🔎 Kata Kunci Untuk Kerusakan Tidak Teridentifikasi
+
+Gunakan frasa ini jika Anda ingin sistem menangkap bahwa kerusakannya belum jelas atau belum bisa dipastikan:
+
+- `tidak tahu rusaknya apa`
+- `tidak tahu kerusakannya`
+- `belum tahu kerusakannya`
+- `kerusakannya tidak diketahui`
+- `kerusakannya tidak teridentifikasi`
+- `saya tidak tahu masalahnya`
+- `belum bisa memastikan kerusakan`
+- `belum bisa dipastikan`
+- `belum jelas kerusakannya`
+- `mohon bantu identifikasi`
+
+Contoh input natural:
+
+- `saya belum tahu kerusakannya, tapi komputer kadang mati sendiri`
+- `belum bisa dipastikan, mohon bantu identifikasi`
+- `kerusakannya tidak diketahui, hanya muncul layar hitam`
+
+### 🔗 Kata Kunci Untuk Kombinasi Gejala Tidak Sesuai Rule
+
+Gunakan frasa ini jika gejalanya ada, tetapi gabungannya belum cocok dengan rule yang tersedia:
+
+- `kombinasi gejalanya salah`
+- `kombinasi gejala tidak cocok`
+- `kombinasi gejala tidak sesuai rule`
+- `gejalanya campur`
+- `gejala tidak sinkron`
+- `campuran gejala tidak jelas`
+- `gabungan gejalanya tidak pas`
+- `tidak ada rule yang cocok`
+
+Contoh input natural:
+
+- `gejalanya campur, kombinasi gejala tidak cocok`
+- `gabungan gejalanya tidak pas, tolong identifikasi`
+- `tidak ada rule yang cocok untuk gejala yang saya alami`
+
 ---
 
 ## 🐛 Troubleshooting
