@@ -59,6 +59,12 @@ Dokumen ini dipakai untuk mengetes chatbot diagnosa berdasarkan kata kunci, baik
 - Input: `keyboard tidak terdeteksi`
 - Input: `flashdisk tidak terbaca`
 
+### Rule 9 - Kerusakan Jaringan
+
+- Input: `koneksi internet tidak stabil`
+- Input: `wifi error`
+- Input: `jaringan lambat`
+
 ## B. Test Kombinasi Gejala Sesuai Rule
 
 ### Kombinasi 1 - Power Supply
@@ -98,8 +104,13 @@ Dokumen ini dipakai untuk mengetes chatbot diagnosa berdasarkan kata kunci, baik
 
 ### Kombinasi 8 - USB
 
-- Input: `internet lambat sementara usb juga tidak terdeteksi di komputer saya`
+- Input: `flashdisk tidak terbaca dan keyboard tidak terdeteksi di komputer saya`
 - Hasil yang diharapkan: **Kerusakan Port USB**
+
+### Kombinasi 9 - Jaringan
+
+- Input: `koneksi internet tidak stabil dan wifi sering error`
+- Hasil yang diharapkan: **Kerusakan Jaringan**
 
 ## C. Test Gejala Di Luar Rule / Tidak Teridentifikasi
 
@@ -157,8 +168,9 @@ Dokumen ini dipakai untuk mengetes chatbot diagnosa berdasarkan kata kunci, baik
 1. Kirim `komputer tidak menyala` untuk rule power supply.
 2. Kirim `bunyi beep terus saat dinyalakan` untuk rule RAM.
 3. Kirim `komputer nyala tapi layar hitam` untuk rule VGA.
-4. Kirim `komputer tidak menyala dan port usb mati` untuk hasil **Kerusakan Tidak Teridentifikasi**.
-5. Kirim `komputer tidak menyala dan internet lambat` untuk hasil **Kerusakan Tidak Teridentifikasi**.
+4. Kirim `koneksi internet tidak stabil dan wifi error` untuk rule Jaringan.
+5. Kirim `komputer tidak menyala dan port usb mati` untuk hasil **Kerusakan Tidak Teridentifikasi**.
+6. Kirim `komputer tidak menyala dan internet lambat` untuk hasil **Kerusakan Tidak Teridentifikasi**.
 
 ## F. Catatan Penting
 
