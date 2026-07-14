@@ -124,24 +124,7 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                     </button>
                 </div>
 
-                <!-- Modal untuk preview cetak (tanpa membuka tab baru) -->
-                <div class="modal fade" id="printPreviewModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Preview Cetak Laporan</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="printModalBody">Memuat...</div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                <button type="button" id="printFromModalBtn" class="btn btn-primary">Cetak</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- Tabel Laporan -->
                 <div class="card shadow">
@@ -235,122 +218,143 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                     </div>
                 </div>
                 
-                <!-- Modals - Letakkan di luar tabel -->
-                <?php if (!empty($all_diagnosa)): ?>
-                    <?php foreach($all_diagnosa as $diagnosa_item): ?>
-                        <!-- Modal Detail Gejala -->
-                        <div class="modal fade" id="modalGejala<?php echo $diagnosa_item['id_diagnosa']; ?>" tabindex="-1">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-primary text-white">
-                                        <h5 class="modal-title">
-                                            <i class="bi bi-clipboard-check"></i> Detail Gejala
-                                        </h5>
-                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h6 class="mb-3">Gejala yang dipilih:</h6>
-                                        <?php if (!empty($diagnosa_item['gejala_list'])): ?>
-                                            <ol>
-                                                <?php foreach($diagnosa_item['gejala_list'] as $g): ?>
-                                                <li class="mb-2">
-                                                    <strong><?php echo htmlspecialchars($g['kode_gejala']); ?></strong> - 
-                                                    <?php echo htmlspecialchars($g['nama_gejala']); ?>
-                                                </li>
-                                                <?php endforeach; ?>
-                                            </ol>
-                                        <?php else: ?>
-                                            <p class="text-muted">Tidak ada gejala yang tercatat.</p>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                            <i class="bi bi-x-circle"></i> Tutup
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Modal Detail Diagnosa -->
-                        <div class="modal fade" id="modalDetail<?php echo $diagnosa_item['id_diagnosa']; ?>" tabindex="-1">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-primary text-white">
-                                        <h5 class="modal-title">
-                                            <i class="bi bi-file-medical"></i> Detail Diagnosa
-                                        </h5>
-                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row mb-3">
-                                            <div class="col-md-12">
-                                                <table class="table table-borderless">
-                                                    <tr>
-                                                        <td width="30%"><strong>ID Diagnosa</strong></td>
-                                                        <td>: <?php echo htmlspecialchars($diagnosa_item['id_diagnosa']); ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Tanggal</strong></td>
-                                                        <td>: <?php echo date('d F Y, H:i', strtotime($diagnosa_item['tanggal'])); ?> WIB</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Asisten Lab</strong></td>
-                                                        <td>: <?php echo htmlspecialchars($diagnosa_item['nama_lengkap']); ?> (<?php echo htmlspecialchars($diagnosa_item['username']); ?>)</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        
-                                        <hr>
-                                        
-                                        <h6><i class="bi bi-clipboard-check"></i> Gejala yang Dipilih:</h6>
-                                        <?php if (!empty($diagnosa_item['gejala_list'])): ?>
-                                            <ol>
-                                                <?php foreach($diagnosa_item['gejala_list'] as $gd): ?>
-                                                <li>
-                                                    <strong><?php echo htmlspecialchars($gd['kode_gejala']); ?></strong> - 
-                                                    <?php echo htmlspecialchars($gd['nama_gejala']); ?>
-                                                </li>
-                                                <?php endforeach; ?>
-                                            </ol>
-                                        <?php else: ?>
-                                            <p class="text-muted">Tidak ada gejala yang tercatat.</p>
-                                        <?php endif; ?>
-                                        
-                                        
-                                        <hr>
-                                        
-                                        <h6><i class="bi bi-exclamation-triangle"></i> Hasil Diagnosa:</h6>
-                                        <div class="alert alert-info alert-permanent">
-                                            <h6>Kerusakan:</h6>
-                                            <p class="mb-0">
-                                                <strong>
-                                                    <?php 
-                                                    if (isset($diagnosa_item['hasil_kerusakan']) && !empty($diagnosa_item['hasil_kerusakan'])) {
-                                                        echo htmlspecialchars($diagnosa_item['hasil_kerusakan']);
-                                                    } else {
-                                                        echo "Data hasil kerusakan tidak tersedia";
-                                                    }
-                                                    ?>
-                                                </strong>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                            <i class="bi bi-x-circle"></i> Tutup
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+
                 
             </div>
         </div>
     </div>
+
+    <!-- Modal untuk preview cetak (tanpa membuka tab baru) -->
+    <div class="modal fade" id="printPreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Preview Cetak Laporan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="printModalBody">Memuat...</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" id="printFromModalBtn" class="btn btn-primary">Cetak</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals - Letakkan di luar tabel -->
+    <?php if (!empty($all_diagnosa)): ?>
+        <?php foreach($all_diagnosa as $diagnosa_item): ?>
+            <!-- Modal Detail Gejala -->
+            <div class="modal fade" id="modalGejala<?php echo $diagnosa_item['id_diagnosa']; ?>" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title">
+                                <i class="bi bi-clipboard-check"></i> Detail Gejala
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6 class="mb-3">Gejala yang dipilih:</h6>
+                            <?php if (!empty($diagnosa_item['gejala_list'])): ?>
+                                <ol>
+                                    <?php foreach($diagnosa_item['gejala_list'] as $g): ?>
+                                    <li class="mb-2">
+                                        <strong><?php echo htmlspecialchars($g['kode_gejala']); ?></strong> - 
+                                        <?php echo htmlspecialchars($g['nama_gejala']); ?>
+                                    </li>
+                                    <?php endforeach; ?>
+                                </ol>
+                            <?php else: ?>
+                                <p class="text-muted">Tidak ada gejala yang tercatat.</p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle"></i> Tutup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal Detail Diagnosa -->
+            <div class="modal fade" id="modalDetail<?php echo $diagnosa_item['id_diagnosa']; ?>" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title">
+                                <i class="bi bi-file-medical"></i> Detail Diagnosa
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <td width="30%"><strong>ID Diagnosa</strong></td>
+                                            <td>: <?php echo htmlspecialchars($diagnosa_item['id_diagnosa']); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Tanggal</strong></td>
+                                            <td>: <?php echo date('d F Y, H:i', strtotime($diagnosa_item['tanggal'])); ?> WIB</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Asisten Lab</strong></td>
+                                            <td>: <?php echo htmlspecialchars($diagnosa_item['nama_lengkap']); ?> (<?php echo htmlspecialchars($diagnosa_item['username']); ?>)</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            
+                            <h6><i class="bi bi-clipboard-check"></i> Gejala yang Dipilih:</h6>
+                            <?php if (!empty($diagnosa_item['gejala_list'])): ?>
+                                <ol>
+                                    <?php foreach($diagnosa_item['gejala_list'] as $gd): ?>
+                                    <li>
+                                        <strong><?php echo htmlspecialchars($gd['kode_gejala']); ?></strong> - 
+                                        <?php echo htmlspecialchars($gd['nama_gejala']); ?>
+                                    </li>
+                                    <?php endforeach; ?>
+                                </ol>
+                            <?php else: ?>
+                                <p class="text-muted">Tidak ada gejala yang tercatat.</p>
+                            <?php endif; ?>
+                            
+                            
+                            <hr>
+                            
+                            <h6><i class="bi bi-exclamation-triangle"></i> Hasil Diagnosa:</h6>
+                            <div class="alert alert-info alert-permanent">
+                                <h6>Kerusakan:</h6>
+                                <p class="mb-0">
+                                    <strong>
+                                        <?php 
+                                        if (isset($diagnosa_item['hasil_kerusakan']) && !empty($diagnosa_item['hasil_kerusakan'])) {
+                                            echo htmlspecialchars($diagnosa_item['hasil_kerusakan']);
+                                        } else {
+                                            echo "Data hasil kerusakan tidak tersedia";
+                                        }
+                                        ?>
+                                    </strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle"></i> Tutup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../Assets/js/script.js?v=20260713"></script>
