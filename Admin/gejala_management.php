@@ -43,10 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Ambil semua data gejala
-$query_gejala = "SELECT * FROM gejala ORDER BY kode_gejala ASC";
-$result_gejala = mysqli_query($koneksi, $query_gejala);
-
 // Ambil data untuk edit jika ada
 $edit_data = null;
 if (isset($_GET['edit']) && !empty($_GET['edit'])) {
@@ -57,6 +53,10 @@ if (isset($_GET['edit']) && !empty($_GET['edit'])) {
         $edit_data = mysqli_fetch_assoc($result_edit);
     }
 }
+
+// Ambil semua data gejala
+$query_gejala = "SELECT * FROM gejala ORDER BY kode_gejala ASC";
+$result_gejala = mysqli_query($koneksi, $query_gejala);
 ?>
 <!DOCTYPE html>
 <html lang="id">

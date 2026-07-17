@@ -74,21 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Ambil semua data rule dengan join
-$query_rules = "SELECT r.*, k.kode_kerusakan, k.nama_kerusakan 
-                FROM rule r 
-                INNER JOIN kerusakan k ON r.id_kerusakan = k.id_kerusakan 
-                ORDER BY r.id_rule ASC";
-$result_rules = mysqli_query($koneksi, $query_rules);
-
-// Ambil semua kerusakan untuk dropdown
-$query_kerusakan_list = "SELECT * FROM kerusakan ORDER BY kode_kerusakan ASC";
-$result_kerusakan_list = mysqli_query($koneksi, $query_kerusakan_list);
-
-// Ambil semua gejala untuk checkbox
-$query_gejala_list = "SELECT * FROM gejala ORDER BY kode_gejala ASC";
-$result_gejala_list = mysqli_query($koneksi, $query_gejala_list);
-
 // Ambil data untuk edit jika ada
 $edit_data = null;
 $edit_gejala = array();
@@ -107,6 +92,21 @@ if (isset($_GET['edit']) && !empty($_GET['edit'])) {
         }
     }
 }
+
+// Ambil semua data rule dengan join
+$query_rules = "SELECT r.*, k.kode_kerusakan, k.nama_kerusakan 
+                FROM rule r 
+                INNER JOIN kerusakan k ON r.id_kerusakan = k.id_kerusakan 
+                ORDER BY r.id_rule ASC";
+$result_rules = mysqli_query($koneksi, $query_rules);
+
+// Ambil semua kerusakan untuk dropdown
+$query_kerusakan_list = "SELECT * FROM kerusakan ORDER BY kode_kerusakan ASC";
+$result_kerusakan_list = mysqli_query($koneksi, $query_kerusakan_list);
+
+// Ambil semua gejala untuk checkbox
+$query_gejala_list = "SELECT * FROM gejala ORDER BY kode_gejala ASC";
+$result_gejala_list = mysqli_query($koneksi, $query_gejala_list);
 ?>
 <!DOCTYPE html>
 <html lang="id">

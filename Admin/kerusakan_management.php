@@ -47,10 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Ambil semua data kerusakan
-$query_kerusakan = "SELECT * FROM kerusakan ORDER BY kode_kerusakan ASC";
-$result_kerusakan = mysqli_query($koneksi, $query_kerusakan);
-
 // Ambil data untuk edit jika ada
 $edit_data = null;
 if (isset($_GET['edit']) && !empty($_GET['edit'])) {
@@ -61,6 +57,10 @@ if (isset($_GET['edit']) && !empty($_GET['edit'])) {
         $edit_data = mysqli_fetch_assoc($result_edit);
     }
 }
+
+// Ambil semua data kerusakan
+$query_kerusakan = "SELECT * FROM kerusakan ORDER BY kode_kerusakan ASC";
+$result_kerusakan = mysqli_query($koneksi, $query_kerusakan);
 ?>
 <!DOCTYPE html>
 <html lang="id">
