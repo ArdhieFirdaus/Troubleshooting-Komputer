@@ -88,23 +88,45 @@ if (!$result_gejala) {
     exit();
 }
 
+$all_keywords = [];
+// Kumpulkan semua kata kunci
 while ($gejala = mysqli_fetch_assoc($result_gejala)) {
     $id_gejala = $gejala['id_gejala'];
-    $kata_kunci = $gejala['kata_kunci'];
+    $kata_kunci_db = $gejala['kata_kunci'];
 
-    if (empty($kata_kunci)) {
+    if (empty($kata_kunci_db)) {
         continue;
     }
 
-    $keywords = explode(',', $kata_kunci);
+    $keywords = explode(',', $kata_kunci_db);
     foreach ($keywords as $keyword) {
         $keyword = trim($keyword);
-        if (!empty($keyword) && stripos($input_lower, strtolower($keyword)) !== false) {
-            if (!in_array($id_gejala, $gejala_teridentifikasi)) {
-                $gejala_teridentifikasi[] = $id_gejala;
-            }
-            break;
+        if (!empty($keyword)) {
+            $all_keywords[] = [
+                'id_gejala' => $id_gejala,
+                'keyword' => strtolower($keyword),
+                'length' => strlen($keyword)
+            ];
         }
+    }
+}
+
+// Urutkan kata kunci dari yang paling panjang ke paling pendek
+usort($all_keywords, function($a, $b) {
+    return $b['length'] - $a['length'];
+});
+
+$input_temp = $input_lower;
+
+// Cari kata kunci yang cocok dengan input user
+foreach ($all_keywords as $item) {
+    if (stripos($input_temp, $item['keyword']) !== false) {
+        // Kata kunci ditemukan!
+        if (!in_array($item['id_gejala'], $gejala_teridentifikasi)) {
+            $gejala_teridentifikasi[] = $item['id_gejala'];
+        }
+        // Timpa kata yang sudah cocok dengan bintang agar tidak terdeteksi dua kali oleh kata kunci yang lebih pendek
+        $input_temp = str_ireplace($item['keyword'], '***', $input_temp);
     }
 }
 
@@ -169,21 +191,33 @@ while ($rule = mysqli_fetch_assoc($result_rules)) {
     if ($jumlah_gejala_input == 1) {
         $rule_match = ($match_count >= 1);
     } else {
-        $rule_match = ($match_count === $jumlah_gejala_input && $match_count === $total_rule_gejala);
+        // Asalkan semua gejala yang diinputkan ada di dalam rule ini
+        $rule_match = ($match_count === $jumlah_gejala_input);
     }
 
-    if ($rule_match && $match_count > $max_match) {
-        $max_match = $match_count;
-        $diagnosa_hasil = [
-            'id_kerusakan' => $rule['id_kerusakan'],
-            'kode_kerusakan' => $rule['kode_kerusakan'],
-            'nama_kerusakan' => $rule['nama_kerusakan'],
-            'solusi' => $rule['solusi'],
-            'match_percentage' => round($match_percentage, 2),
-            'matched_symptoms' => $match_count,
-            'total_symptoms' => $total_rule_gejala
-        ];
+    if ($rule_match) {
+        if ($match_count > $max_match) {
+            $max_match = $match_count;
+            $diagnosa_hasil = [
+                'id_kerusakan' => $rule['id_kerusakan'],
+                'kode_kerusakan' => $rule['kode_kerusakan'],
+                'nama_kerusakan' => $rule['nama_kerusakan'],
+                'solusi' => $rule['solusi'],
+                'match_percentage' => round($match_percentage, 2),
+                'matched_symptoms' => $match_count,
+                'total_symptoms' => $total_rule_gejala
+            ];
+            $tied_rules = 1;
+        } elseif ($match_count === $max_match) {
+            $tied_rules++;
+        }
     }
+}
+
+// Jika ada lebih dari satu rule yang memiliki jumlah kecocokan yang sama tingginya,
+// berarti gejala tersebut ambigu (lintas rule) dan tidak bisa diidentifikasi.
+if (isset($tied_rules) && $tied_rules > 1) {
+    $diagnosa_hasil = null;
 }
 
 $id_user = $_SESSION['id_user'];

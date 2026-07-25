@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jul 14, 2026 at 12:46 PM
+-- Host: 127.0.0.1
+-- Generation Time: Jul 25, 2026 at 04:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,24 +93,35 @@ INSERT INTO `diagnosa` (`id_diagnosa`, `id_user`, `tanggal`, `hasil_kerusakan`) 
 (52, 2, '2026-06-13 09:15:12', 'Kerusakan Jaringan'),
 (53, 2, '2026-06-22 08:22:42', 'Kerusakan Power Supply'),
 (54, 2, '2026-06-22 08:23:01', 'Kerusakan Tidak Teridentifikasi'),
-(55, 2, '2026-07-14 11:37:38', 'Kerusakan Tidak Teridentifikasi'),
-(56, 2, '2026-07-14 11:38:08', 'Kerusakan Power Supply'),
-(57, 2, '2026-07-14 11:39:52', 'Kerusakan Power Supply'),
-(58, 2, '2026-07-14 11:51:24', 'Kerusakan Power Supply'),
-(59, 2, '2026-07-14 11:51:52', 'Kerusakan RAM (Memory)'),
-(60, 2, '2026-07-14 11:52:46', 'Kerusakan Hardisk'),
-(61, 2, '2026-07-14 11:53:22', 'Overheating (Panas Berlebih)'),
-(62, 2, '2026-07-14 11:53:38', 'Overheating (Panas Berlebih)'),
-(63, 2, '2026-07-14 11:53:52', 'Overheating (Panas Berlebih)'),
-(64, 2, '2026-07-14 11:54:06', 'Overheating (Panas Berlebih)'),
-(65, 2, '2026-07-14 11:54:20', 'Overheating (Panas Berlebih)'),
-(66, 3, '2026-07-14 12:20:51', 'Kerusakan Power Supply'),
-(67, 3, '2026-07-14 12:21:05', 'Kerusakan Power Supply'),
-(68, 3, '2026-07-14 12:22:26', 'Kerusakan Power Supply'),
-(69, 3, '2026-07-14 12:22:44', 'Kerusakan Power Supply'),
-(70, 3, '2026-07-14 12:24:30', 'Kerusakan Tidak Teridentifikasi'),
-(71, 3, '2026-07-14 12:24:38', 'Kerusakan Power Supply'),
-(72, 3, '2026-07-14 12:28:02', 'Kerusakan Tidak Teridentifikasi');
+(55, 2, '2026-07-20 21:19:33', 'Kerusakan RAM (Memory)'),
+(56, 2, '2026-07-20 21:20:53', 'Kerusakan Tidak Teridentifikasi'),
+(57, 2, '2026-07-25 15:27:16', 'Overheating (Panas Berlebih)'),
+(58, 3, '2026-07-25 15:36:57', 'Overheating (Panas Berlebih)'),
+(59, 3, '2026-07-25 16:05:49', 'Kerusakan Power Supply'),
+(60, 3, '2026-07-25 16:05:53', 'Kerusakan RAM (Memory)'),
+(61, 3, '2026-07-25 16:05:55', 'Overheating (Panas Berlebih)'),
+(62, 3, '2026-07-25 16:06:01', 'Kerusakan Hardisk'),
+(63, 3, '2026-07-25 16:11:15', 'Kerusakan Tidak Teridentifikasi'),
+(64, 3, '2026-07-25 16:29:53', 'Kerusakan Power Supply'),
+(65, 3, '2026-07-25 16:30:01', 'Kerusakan RAM (Memory)'),
+(66, 3, '2026-07-25 16:30:08', 'Kerusakan VGA Card'),
+(67, 3, '2026-07-25 16:30:14', 'Kerusakan Hardisk'),
+(68, 3, '2026-07-25 16:30:37', 'Sistem Operasi Corrupt'),
+(69, 3, '2026-07-25 16:30:44', 'Overheating (Panas Berlebih)'),
+(70, 3, '2026-07-25 16:30:52', 'Driver atau Software Bermasalah'),
+(71, 3, '2026-07-25 16:31:01', 'Kerusakan Port USB'),
+(72, 3, '2026-07-25 16:31:07', 'Kerusakan Tidak Teridentifikasi'),
+(73, 3, '2026-07-25 16:31:40', 'Driver atau Software Bermasalah'),
+(74, 3, '2026-07-25 16:31:51', 'Kerusakan Tidak Teridentifikasi'),
+(75, 3, '2026-07-25 16:32:50', 'Kerusakan Tidak Teridentifikasi'),
+(76, 3, '2026-07-25 16:36:39', 'Kerusakan Power Supply'),
+(77, 3, '2026-07-25 16:36:48', 'Kerusakan VGA Card'),
+(78, 3, '2026-07-25 16:36:58', 'Kerusakan Tidak Teridentifikasi'),
+(79, 3, '2026-07-25 16:46:17', 'Kerusakan Power Supply'),
+(80, 3, '2026-07-25 16:46:26', 'Kerusakan RAM (Memory)'),
+(81, 3, '2026-07-25 16:48:09', 'Kerusakan Port USB'),
+(82, 3, '2026-07-25 16:48:18', 'Kerusakan Power Supply'),
+(83, 3, '2026-07-25 16:48:34', 'Sistem Operasi Corrupt');
 
 -- --------------------------------------------------------
 
@@ -218,36 +229,50 @@ INSERT INTO `diagnosa_detail` (`id`, `id_diagnosa`, `id_gejala`) VALUES
 (87, 53, 2),
 (88, 54, 1),
 (89, 54, 4),
-(90, 55, 18),
-(91, 55, 20),
-(92, 56, 1),
-(93, 56, 2),
-(94, 57, 1),
-(95, 58, 1),
-(96, 59, 3),
-(97, 59, 4),
-(98, 59, 5),
-(99, 60, 10),
-(100, 60, 11),
-(101, 60, 12),
-(102, 61, 16),
-(103, 62, 7),
-(104, 63, 7),
-(105, 64, 7),
-(106, 65, 7),
-(107, 66, 1),
-(108, 66, 18),
-(109, 67, 1),
-(110, 68, 1),
-(111, 69, 1),
-(112, 69, 18),
-(113, 70, 1),
-(114, 70, 18),
-(115, 71, 1),
-(116, 71, 2),
-(117, 72, 1),
-(118, 72, 8),
-(119, 72, 17);
+(90, 55, 3),
+(91, 55, 4),
+(92, 55, 5),
+(93, 56, 1),
+(94, 56, 18),
+(95, 57, 6),
+(96, 57, 7),
+(97, 57, 16),
+(98, 58, 6),
+(99, 58, 7),
+(100, 58, 16),
+(101, 59, 1),
+(102, 60, 4),
+(103, 61, 6),
+(104, 62, 10),
+(105, 63, 11),
+(106, 63, 13),
+(107, 64, 1),
+(108, 65, 3),
+(109, 66, 15),
+(110, 67, 10),
+(111, 68, 13),
+(112, 69, 6),
+(113, 70, 8),
+(114, 71, 18),
+(115, 72, 8),
+(116, 72, 17),
+(117, 73, 8),
+(118, 74, 8),
+(119, 74, 17),
+(120, 75, 8),
+(121, 75, 17),
+(122, 76, 1),
+(123, 76, 2),
+(124, 77, 4),
+(125, 77, 15),
+(126, 78, 13),
+(127, 78, 14),
+(128, 79, 1),
+(129, 80, 3),
+(130, 81, 18),
+(131, 82, 1),
+(132, 82, 2),
+(133, 83, 13);
 
 -- --------------------------------------------------------
 
@@ -267,28 +292,28 @@ CREATE TABLE `gejala` (
 --
 
 INSERT INTO `gejala` (`id_gejala`, `kode_gejala`, `nama_gejala`, `kata_kunci`) VALUES
-(1, 'G001', 'Komputer tidak bisa menyala sama sekali', 'tidak menyala, mati total, tidak bisa nyala, mati sama sekali, tidak hidup, komputer mati, pc mati, komputer saya tidak menyala, pc saya tidak menyala, unit cpu tidak menyala, tidak ada tanda kehidupan, mati dan tidak ada lampu, mati total lampu mati, komputer saya tidak menyala, lampu power juga tidak hidup sama sekali'),
-(2, 'G002', 'Lampu indikator power tidak menyala', 'lampu power, lampu indikator, led mati, indikator tidak menyala, lampu mati semua, indikator power mati, lampu power tidak menyala, lampu indikator power mati, indikator power tidak hidup, led indikator mati total, lampu depan mati, komputer saya tidak menyala, lampu power juga tidak hidup sama sekali'),
-(3, 'G003', 'Terdengar bunyi beep berulang saat dinyalakan', 'bunyi beep, beep berulang, bunyi tut, beep berbunyi, beep dan layar hitam, beep tidak ada tampilan, beep kipas nyala, beep nyala tapi gelap, komputer bunyi beep, komputer beep terus, bunyi beep saat dinyalakan, beep berkali-kali, motherboard bunyi beep, komputer saya tidak menyala lalu terdengar bunyi beep berulang saat dinyalakan'),
-(4, 'G004', 'Komputer menyala tapi tidak ada tampilan di layar', 'tidak ada tampilan, layar hitam, no display, layar mati, monitor hitam, tidak tampil, nyala tapi gelap, hidup layar hitam, bunyi beep layar hitam, kipas nyala layar hitam, nyala tapi tidak ada gambar, monitor tidak menampilkan gambar, pc hidup tapi layar kosong, monitor gelap, tidak muncul gambar, komputer menyala tapi monitor hitam, layar tidak ada gambar, komputer saya tidak menyala dan monitor hanya menampilkan layar hitam, komputer bunyi beep, layar hitam, sementara kipas masih berputar'),
-(5, 'G005', 'Kipas berputar tapi tidak ada POST', 'kipas berputar, fan nyala, tidak post, no post, nyala tapi tidak booting, hidup tapi tidak masuk bios, kipas jalan layar hitam, fan muter tapi gelap, kipas muter, kipas hidup tapi tidak booting, komputer nyala tapi tidak masuk bios, cpu hidup tapi layar hitam, komputer bunyi beep, layar hitam, sementara kipas masih berputar'),
-(6, 'G006', 'Komputer sering restart sendiri', 'restart sendiri, restart otomatis, nyala mati sendiri, restart terus, restart berulang, nyala sebentar mati lagi, restart dan panas, restart blue screen, mati hidup mati hidup, restart terus menerus, komputer restart sendiri, pc restart terus, komputer menyala lalu restart, hidup sebentar lalu mati lagi, komputer saya sering restart sendiri lalu tiba-tiba muncul blue screen, komputer restart terus dan terasa panas sekali saat dipakai'),
-(7, 'G007', 'Muncul Blue Screen of Death (BSOD)', 'blue screen, bsod, layar biru, blue screen restart, bsod terus menerus, error biru, layar biru restart, bsod dan restart, komputer blue screen, muncul layar biru, error bsod, komputer saya sering restart sendiri lalu tiba-tiba muncul blue screen'),
-(8, 'G008', 'Komputer sangat lambat saat digunakan', 'lambat, lemot, lelet, hang, sering hang, lambat dan freeze, lemot aplikasi macet, kinerja menurun, performa lemot, komputer lemot, komputer sangat lambat, pc terasa berat, komputer terasa lemot dan beberapa aplikasi jadi not responding'),
-(9, 'G009', 'Aplikasi sering not responding', 'not responding, aplikasi freeze, program macet, aplikasi tidak merespon, sering freeze, lambat dan freeze, aplikasi sering macet, aplikasi tidak bisa dibuka, program tidak merespon, komputer sering freeze, komputer terasa lemot dan beberapa aplikasi jadi not responding'),
-(10, 'G010', 'Hardisk berbunyi aneh (klik-klik)', 'hardisk bunyi, hdd bunyi, bunyi klik, klik klik, hardisk klik, bunyi aneh dan tidak boot, bunyi klik tidak bisa booting, hardisk berbunyi tidak boot, klik klik os not found, hardisk bunyi klik terus, hardisk seperti berdecit, hardisk bunyi klik terus, komputer gagal boot, dan akhirnya muncul no bootable device'),
-(11, 'G011', 'Komputer tidak dapat booting ke Windows', 'tidak bisa booting, gagal boot, tidak masuk windows, booting error, hardisk bunyi tidak boot, loading lama tidak masuk, stuck di logo, tidak bisa masuk windows, booting gagal terus, komputer gagal boot, windows tidak mau masuk, komputer gagal boot karena proses loading windows terlalu lama, hardisk bunyi klik terus, komputer gagal boot, dan akhirnya muncul no bootable device'),
-(12, 'G012', 'Muncul pesan \"Operating System Not Found\"', 'operating system not found, os not found, sistem operasi tidak ditemukan, hardisk tidak terdeteksi, boot device not found, no bootable device, os hilang, komputer no bootable device, tidak ada sistem operasi, hardisk bunyi klik terus, komputer gagal boot, dan akhirnya muncul no bootable device'),
-(13, 'G013', 'Windows loading sangat lama', 'loading lama, windows lama, booting lama, loading lama dan hang, startup lambat sekali, lama masuk windows, lama banget loadingnya, booting lambat sekali, komputer lama sekali masuk windows, startup sangat lama, komputer gagal boot karena proses loading windows terlalu lama, windows loading lama lalu hang saat masuk ke desktop'),
-(14, 'G014', 'Komputer hang saat masuk Windows', 'hang masuk windows, freeze windows, macet windows, loading lama hang, stuck starting windows, macet waktu login, freeze saat masuk windows, windows hang saat startup, komputer macet di logo windows, windows loading lama lalu hang saat masuk ke desktop'),
-(15, 'G015', 'Layar bergaris atau berkedip', 'layar bergaris, garis di layar, monitor bergaris, layar berkedip, artifact di layar, tampilan rusak, glitch layar, garis garis di monitor, monitor muncul garis, gambar di layar pecah, layar bergaris dan komputer terasa panas setelah beberapa menit dipakai'),
-(16, 'G016', 'Suhu komputer sangat panas', 'panas, overheat, suhu tinggi, kepanasan, panas dan restart, overheat shutdown, panas blue screen, terlalu panas, kepanasan dan mati, panas restart sendiri, komputer terasa sangat panas, kipas berbunyi keras karena panas, komputer restart terus dan terasa panas sekali saat dipakai, layar bergaris dan komputer terasa panas setelah beberapa menit dipakai'),
-(17, 'G017', 'Koneksi internet tidak stabil', 'internet lambat, koneksi putus, wifi error, jaringan lambat, putus nyambung, wifi disconnect, internet sering putus, wifi lemot, sinyal internet lemah, komputer susah konek internet, internet lambat sementara usb juga tidak terdeteksi di komputer saya'),
-(18, 'G018', 'USB device tidak terdeteksi', 'usb tidak terdeteksi, usb tidak kebaca, flashdisk tidak terbaca, port usb mati, usb device not recognized, usb tidak terdeteksi sama sekali, flashdisk tidak terbaca di pc, usb gagal dikenali, internet lambat sementara usb juga tidak terdeteksi di komputer saya'),
-(19, 'G019', 'Keyboard atau mouse tidak berfungsi', 'keyboard error, mouse error, keyboard tidak fungsi, mouse mati, keyboard tidak merespon, mouse tidak gerak, keyboard mouse mati, keyboard tidak terdeteksi, mouse tidak terdeteksi, keyboard tidak terdeteksi dan speaker tidak bunyi sama sekali'),
-(20, 'G020', 'Audio tidak keluar suara', 'tidak ada suara, audio mati, speaker mati, suara hilang, no sound, suara tidak keluar, speaker tidak bunyi, komputer tidak ada suara, audio tidak terdengar, keyboard tidak terdeteksi dan speaker tidak bunyi sama sekali'),
-(21, 'G021', 'Tidak dapat terhubung ke jaringan WiFi', NULL),
-(22, 'G022', 'Koneksi internet sering terputus', NULL);
+(1, 'G001', 'Komputer tidak bisa menyala sama sekali', 'tidak menyala, mati total, tidak bisa nyala, mati sama sekali, tidak hidup, komputer mati, pc mati, tidak ada tanda kehidupan, mati dan tidak ada lampu, mati total lampu mati, ga bisa nyala, komputer saya mati, pc saya mati total, laptop mati total, mati mendadak dan ga mau nyala, nggak bisa dihidupkan, tombol power ditekan ga nyala'),
+(2, 'G002', 'Lampu indikator power tidak menyala', 'lampu power, lampu indikator, led mati, indikator tidak menyala, lampu mati semua, indikator power mati, lampu di pc mati, led power ga nyala, lampu powernya mati, lampu indikatornya nggak nyala'),
+(3, 'G003', 'Terdengar bunyi beep berulang saat dinyalakan', 'bunyi beep, beep berulang, bunyi tut, beep berbunyi, beep dan layar hitam, beep tidak ada tampilan, beep kipas nyala, beep nyala tapi gelap, bunyi tit tit, pas dinyalain bunyi beep, bunyi beep terus terusan, komputer bunyi aneh pas nyala, ada suara beep panjang'),
+(4, 'G004', 'Komputer menyala tapi tidak ada tampilan di layar', 'tidak ada tampilan, layar hitam, no display, layar mati, monitor hitam, tidak tampil, nyala tapi gelap, hidup layar hitam, bunyi beep layar hitam, kipas nyala layar hitam, nyala tapi tidak ada gambar, monitor ga nyala, layar gelap gulita, blank screen, layar ngga muncul apa apa, ga ada gambar di monitor'),
+(5, 'G005', 'Kipas berputar tapi tidak ada POST', 'kipas berputar, fan nyala, tidak post, no post, nyala tapi tidak booting, hidup tapi tidak masuk bios, kipas jalan layar hitam, fan muter tapi gelap, kipas nyala kenceng, kipasnya muter tapi layarnya mati, fan vga muter doang, kipas hidup layar mati'),
+(6, 'G006', 'Komputer sering restart sendiri', 'restart sendiri, restart otomatis, nyala mati sendiri, restart terus, restart berulang, nyala sebentar mati lagi, restart dan panas, restart blue screen, mati hidup mati hidup, restart terus menerus, komputer suka restart, tiba tiba restart, pc ngerestart sendiri, sering mati sendiri lalu nyala lagi, komputer restart mendadak'),
+(7, 'G007', 'Muncul Blue Screen of Death (BSOD)', 'blue screen, bsod, layar biru, blue screen restart, bsod terus menerus, error biru, layar biru restart, bsod dan restart, tiba tiba layar biru, muncul tulisan di layar biru, bluescreen of death, komputer kena bsod'),
+(8, 'G008', 'Komputer sangat lambat saat digunakan', 'lambat, lemot, lelet, hang, sering hang, lambat dan freeze, lemot aplikasi macet, kinerja menurun, performa lemot, komputer jadi super lemot, buka aplikasi lama banget, windowsnya lelet, lemot parah, sangat lambat saat dipakai, lag banget'),
+(9, 'G009', 'Aplikasi sering not responding', 'not responding, aplikasi freeze, program macet, aplikasi tidak merespon, sering freeze, lambat dan freeze, aplikasi sering macet, programnya not responding, layar macet, tiba tiba ngefreeze, aplikasi ditutup paksa, force close, game tiba tiba macet'),
+(10, 'G010', 'Hardisk berbunyi aneh (klik-klik)', 'hardisk bunyi, hdd bunyi, bunyi klik, klik klik, hardisk klik, bunyi aneh dan tidak boot, bunyi klik tidak bisa booting, hardisk berbunyi tidak boot, klik klik os not found, ada suara kasar dari dalam pc, hddnya bunyi krek krek, suara cetek cetek, bunyi asing dari hardisk'),
+(11, 'G011', 'Komputer tidak dapat booting ke Windows', 'tidak bisa booting, gagal boot, tidak masuk windows, booting error, hardisk bunyi tidak boot, loading lama tidak masuk, stuck di logo, tidak bisa masuk windows, booting gagal terus, gagal loading windows, macet saat booting, berhenti di logo windows, mentok di logo, ga bisa masuk menu utama, gagal masuk os'),
+(12, 'G012', 'Muncul pesan \"Operating System Not Found\"', 'operating system not found, os not found, sistem operasi tidak ditemukan, hardisk tidak terdeteksi, boot device not found, no bootable device, os hilang, tulisan no bootable device, muncul pesan os not found, tidak ada sistem operasi, hdd ga kebaca di bios'),
+(13, 'G013', 'Windows loading sangat lama', 'loading lama, windows lama, booting lama, loading lama dan hang, startup lambat sekali, lama masuk windows, lama banget loadingnya, booting lambat sekali, windows loading lama, proses masuk windows lama, pas dinyalain lama banget, loadingnya muter muter terus, nunggu lama buat masuk desktop'),
+(14, 'G014', 'Komputer hang saat masuk Windows', 'hang masuk windows, freeze windows, macet windows, loading lama hang, stuck starting windows, macet waktu login, freeze saat masuk windows, windows loading lama dan freeze saat masuk windows, macet di tampilan awal windows, hang di logo windows, baru masuk windows langsung macet, pas login langsung freeze'),
+(15, 'G015', 'Layar bergaris atau berkedip', 'layar bergaris, garis di layar, monitor bergaris, layar berkedip, artifact di layar, tampilan rusak, glitch layar, garis garis di monitor, layar kedap kedip, muncul garis hijau, layarnya patah patah, gambarnya berbayang, monitor pecah gambarnya, vga artifact'),
+(16, 'G016', 'Suhu komputer sangat panas', 'panas, overheat, suhu tinggi, kepanasan, panas dan restart, overheat shutdown, panas blue screen, terlalu panas, kepanasan dan mati, panas restart sendiri, casingnya panas banget, suhunya tinggi sekali, komputer cepet panas, processornya overheat, hawanya panas'),
+(17, 'G017', 'Koneksi internet tidak stabil', 'internet lambat, koneksi putus, wifi error, jaringan lambat, putus nyambung, wifi disconnect, internet sering putus, internetnya lemot banget, browsing lambat sekali, koneksi lelet parah, lemot buat buka web, jaringan internet ga stabil'),
+(18, 'G018', 'USB device tidak terdeteksi', 'usb tidak terdeteksi, usb tidak kebaca, flashdisk tidak terbaca, port usb mati, usb device not recognized, usb tidak terdeteksi sama sekali, colokan usb ga fungsi, pasang flashdisk ga muncul, port usb rusak, usb ga ngerespon'),
+(19, 'G019', 'Keyboard atau mouse tidak berfungsi', 'keyboard error, mouse error, keyboard tidak fungsi, mouse mati, keyboard tidak merespon, mouse tidak gerak, keyboard mouse mati, ga bisa ngetik, kursor ga jalan, mouse ga bisa digerakin, tombol keyboard rusak, peripheral mati'),
+(20, 'G020', 'Audio tidak keluar suara', 'tidak ada suara, audio mati, speaker mati, suara hilang, no sound, suara tidak keluar, speaker tidak bunyi, ga ada suaranya, audionya ga fungsi, speaker eksternal mati, bunyi ga keluar, suara di komputer bisu'),
+(21, 'G021', 'Tidak dapat terhubung ke jaringan WiFi', 'tidak bisa konek wifi, wifi tidak nyambung, gagal terhubung wifi, wifi silang, jaringan wifi bermasalah, tidak bisa terhubung ke wifi, wifi no internet, gabisa connect wifi, icon wifi tanda seru, wifi menolak koneksi'),
+(22, 'G022', 'Koneksi internet sering terputus', 'internet putus nyambung, koneksi sering putus, wifi sering disconnect, jaringan sering rto, internet mati nyala, koneksi tidak stabil, internet sering terputus, ping besar dan putus, wifi drop terus, jaringan sering ilang');
 
 -- --------------------------------------------------------
 
@@ -408,7 +433,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id_user`, `username`, `password`, `role`, `nama_lengkap`, `created_at`) VALUES
 (1, 'admin', '$2y$10$Fn7a6kAfLye3N67eK1PIzONpyB/XykAZRl98VUd9bT9bPlvhJuqKi', 'admin', 'Ketua Lab Komputer', '2025-12-20 08:29:33'),
 (2, 'asisten1', '$2y$10$Byb14JfLf.8QSlfH5NKYBe.Osb7qEEC5n1CipsV0UcPnm1nAeUgGa', 'asisten_lab', 'Ahmad Fauzi', '2025-12-20 08:29:33'),
-(3, 'asisten2', '$2y$10$6O4dJmlzHZ4A4bWOtyV6K.Y7sFaJfSkKZLBxWS7xRCqd0ZRlvhSoG', 'asisten_lab', 'Ardhie Firdaus', '2026-04-20 05:37:29');
+(3, 'asisten2', '$2y$10$6O4dJmlzHZ4A4bWOtyV6K.Y7sFaJfSkKZLBxWS7xRCqd0ZRlvhSoG', 'asisten_lab', 'Ardhie Firdaus', '2026-04-20 05:37:29'),
+(4, 'asisten3', '$2y$10$jfIq2hF/Xaf8ainMQ7ebOuVKf8uOnVpSNqUmGCwPYqBT8PZ0nCKq6', 'asisten_lab', 'Yono Yatno', '2026-07-25 13:21:15');
 
 --
 -- Indexes for dumped tables
@@ -471,37 +497,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `diagnosa`
 --
 ALTER TABLE `diagnosa`
-  MODIFY `id_diagnosa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id_diagnosa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `diagnosa_detail`
 --
 ALTER TABLE `diagnosa_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `gejala`
 --
 ALTER TABLE `gejala`
-  MODIFY `id_gejala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_gejala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `kerusakan`
 --
 ALTER TABLE `kerusakan`
-  MODIFY `id_kerusakan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_kerusakan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `rule`
 --
 ALTER TABLE `rule`
-  MODIFY `id_rule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_rule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `rule_detail`
 --
 ALTER TABLE `rule_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `users`

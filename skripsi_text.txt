@@ -1,0 +1,3223 @@
+IMPLEMENTASI SISTEM PAKAR UNTUK DIAGNOSA TROUBLESHOOTING KOMPUTER DAN SOFTWARE MENGGUNAKAN METODE FORWARD CHAINING BERBASIS WEB (STUDI KASUS: PONDOK PESANTREN AL-GONTORY)
+
+SKRIPSI
+
+
+
+
+
+
+
+
+
+Oleh :
+ARDHIE FIRDAUS
+221011400647
+
+
+PROGRAM STUDI TEKNIK INFORMATIKA
+FAKULTAS ILMU KOMPUTER
+UNIVERSITAS PAMULANG
+2026
+LEMBAR PERNYATAAN
+Yang bertanda tangan dibawah ini:
+NIM: 221011400647
+Nama: ARDHIE FIRDAUS
+Program Studi: TEKNIK INFORMATIKA
+Fakultas: ILMU KOMPUTER
+Jenjang Pendidikan: STRATA 1
+Menyatakan bahwa skripsi yang saya buat dengan judul:
+IMPLEMENTASI SISTEM PAKAR UNTUK DIAGNOSA TROUBLESHOOTING KOMPUTER DAN SOFTWARE MENGGUNAKAN METODE FORWARD CHAINING BERBASIS WEB (STUDI KASUS: PONDOK PESANTREN AL-GONTORY)
+Merupakan karya ilmiah sendiri, bukan merupakan karya yang pernah diajukan untuk memperoleh gelar akademik oleh pihak lain, dan bukan hasil dari plagiat.
+Saya izinkan untuk dikelola oleh Universitas Pamulang sesuai dengan norma hukum dan etika yang berlaku.
+Pernyataan ini saya buat penuh dengan tanggung jawab dan saya bersedia menerima konsekuensi apapun sesuai aturan yang berlaku apabila di kemudian hari pertanyaan ini tidak benar.
+
+Tangerang Selatan, 20 Juli 2026
+Penulis
+ARDHIE FIRDAUS
+
+LEMBAR PERSETUJUAN
+Yang bertanda tangan dibawah ini:
+NIM: 221011400647
+Nama: ARDHIE FIRDAUS
+Program Studi: TEKNIK INFORMATIKA
+Fakultas: ILMU KOMPUTER
+Jenjang Pendidikan: STRATA 1
+Judul Skripsi: IMPLEMENTASI SISTEM PAKAR UNTUK DIAGNOSA TROUBLESHOOTING KOMPUTER DAN SOFTWARE MENGGUNAKAN METODE FORWARD CHAINING BERBASIS WEB (STUDI KASUS: PONDOK PESANTREN AL-GONTORY)
+
+Skripsi ini telah diperiksa dan disetujui oleh pembimbing untuk persyaratan sidang skripsi.
+
+Tanggerang Selatan,20 Juli 2026
+
+Pembimbing
+Nilovar Asyiah, S.Kom., M.Kom.
+NIDN: 0422059701
+Mengetahui,
+Kepala Program Studi Teknik Informatika
+Dr. Eng. Ahmad Musyafa, S.Kom., M.Kom.
+NIDN: 0425018609
+
+LEMBAR PENGESAHAN
+NIM: 221011400647
+Nama: ARDHIE FIRDAUS
+Program Studi: TEKNIK INFORMATIKA
+Fakultas: ILMU KOMPUTER
+Jenjang Pendidikan: STRATA 1
+Judul Skripsi: IMPLEMENTASI SISTEM PAKAR UNTUK DIAGNOSA TROUBLESHOOTING KOMPUTER DAN SOFTWARE MENGGUNAKAN METODE FORWARD CHAINING BERBASIS WEB (STUDI KASUS: PONDOK PESANTREN AL-GONTORY)
+
+Skripsi ini sudah dipertahankan dihadapan dewan penguji ujian skripsi fakultas ilmu komputer, program studi teknik informatika dan dinyatakan LULUS.
+Tangerang Selatan, 20 Juli 2026
+
+Penguji 1
+Penguji 2
+
+
+
+Pembimbing
+Nilovar Asyiah, S.Kom., M.Kom.
+NIDN: 0422059701
+Mengetahui,
+Ketua Program Studi
+Dr. Eng. Ahmad Musyafa, S.Kom., M.Kom.
+NIDN: 0425018609
+
+ABSTRACT
+The computer laboratory at Pondok Pesantren Al-Gontory still performs computer hardware and software troubleshooting manually, resulting in longer diagnostic times and a high dependence on technical experts. This study aims to develop a web-based expert system to assist in diagnosing computer hardware and software failures using the Forward Chaining method. The research methodology includes observation, interviews, literature review, requirements analysis, system design using Unified Modeling Language (UML), implementation using PHP, MySQL, HTML, CSS, and JavaScript, and system testing through Black Box Testing and White Box Testing. The Forward Chaining method is applied as the inference engine to match user-selected symptoms with the knowledge base and rule base, producing diagnostic results along with appropriate troubleshooting solutions. The developed system provides features for managing symptoms, failures, rules, troubleshooting diagnosis, diagnostic chatbot, diagnostic history, and report export. The testing results indicate that all system functions operate according to the specified functional requirements and that the program logic executes correctly. Based on the implementation and testing results, the developed expert system is capable of accelerating the troubleshooting process while reducing dependence on technical experts in diagnosing computer hardware and software failures at the Computer Laboratory of Pondok Pesantren Al-Gontory.
+Keywords: Expert System, Forward Chaining, Computer Troubleshooting, Fault Diagnosis, Web-Based System.
+
+
+
+
+
+ABSTRAK
+Laboratorium Komputer Pondok Pesantren Al-Gontory masih melakukan proses diagnosa kerusakan komputer dan software secara manual sehingga memerlukan waktu yang relatif lama dan bergantung pada tenaga ahli. Penelitian ini bertujuan mengembangkan sistem pakar berbasis web yang mampu membantu proses diagnosa kerusakan komputer dan software menggunakan metode Forward Chaining. Metode penelitian yang digunakan meliputi observasi, wawancara, studi pustaka, analisis kebutuhan, perancangan sistem menggunakan Unified Modeling Language (UML), implementasi dengan PHP, MySQL, HTML, CSS, dan JavaScript, serta pengujian menggunakan metode Black Box Testing dan White Box Testing. Metode Forward Chaining diterapkan sebagai mesin inferensi untuk mencocokkan gejala yang dipilih pengguna dengan basis aturan sehingga menghasilkan diagnosa kerusakan beserta solusi penanganannya. Sistem yang dibangun menyediakan fitur manajemen data gejala, kerusakan, rule, diagnosa kerusakan, chatbot diagnosa, riwayat diagnosa, dan ekspor laporan. Hasil pengujian menunjukkan bahwa seluruh fungsi sistem berjalan sesuai dengan kebutuhan fungsional dan alur logika program dapat dieksekusi dengan baik. Berdasarkan hasil implementasi dan pengujian, sistem pakar yang dikembangkan mampu membantu mempercepat proses diagnosa serta mengurangi ketergantungan terhadap tenaga ahli dalam menangani kerusakan komputer dan software di Laboratorium Komputer Pondok Pesantren Al-Gontory.
+Kata Kunci: Sistem Pakar, Forward Chaining, Troubleshooting Komputer, Diagnosa Kerusakan, Sistem Berbasis Web.
+
+
+
+
+
+
+KATA PENGANTAR
+Puji dan syukur penulis panjatkan ke hadirat Allah SWT atas segala rahmat, karunia, dan hidayah-Nya sehingga penulis dapat menyelesaikan skripsi yang berjudul "IMPLEMENTASI SISTEM PAKAR UNTUK DIAGNOSA TROUBLESHOOTING KOMPUTER DAN SOFTWARE MENGGUNAKAN METODE FORWARD CHAINING BERBASIS WEB (STUDI KASUS: PONDOK PESANTREN AL-GONTORY)".
+Penyusunan skripsi ini dimaksudkan untuk memenuhi salah satu syarat memperoleh gelar Sarjana Komputer pada Program Studi Teknik Informatika, Fakultas Teknik, Universitas Pamulang.
+Dalam penyusunan skripsi ini penulis memperoleh banyak bantuan, bimbingan, dan dukungan dari berbagai pihak. Oleh karena itu, pada kesempatan ini penulis mengucapkan terima kasih kepada:
+Bapak Dr. E. Nurzaman, A.M., M.M., M.Si., selaku Rektor Universitas Pamulang.
+Bapak Yan Mifta Djaksana, S.Kom., M.Kom., selaku Dekan Fakultas Teknik Universitas Pamulang.
+Bapak Dr. Eng. Ahmad Musyafa, S.Kom., M.Kom., selaku Ketua Program Studi Teknik Informatika Universitas Pamulang.
+Ibu Nilovar Asyiah, S.Kom., M.Kom., selaku dosen pembimbing skripsi pada Program Teknik Informatika Universitas Pamaulang.
+Pimpinan dan seluruh pihak Pondok Pesantren Al-Gontory yang telah membantu selama proses penelitian.
+Seluruh dosen Program Studi Teknik Informatika Universitas Pamulang yang telah memberikan ilmu pengetahuan, pengalaman, dan wawasan selama masa perkuliahan.
+Kedua orang tua dan seluruh keluarga tercinta yang senantiasa memberikan doa, kasih sayang, dukungan moral maupun material, serta semangat kepada penulis selama menempuh pendidikan hingga penyusunan skripsi ini selesai.
+Sahabat, teman-teman Program Studi Teknik Informatika Universitas Pamulang, serta semua pihak yang tidak dapat disebutkan satu per satu yang telah memberikan bantuan, semangat, dan dukungan kepada penulis.
+
+DAFTAR ISI
+
+LEMBAR PERNYATAANii
+LEMBAR PERSETUJUANiii
+LEMBAR PENGESAHANiv
+ABSTRACTv
+ABSTRAKvi
+KATA PENGANTARvii
+DAFTAR ISIviii
+DAFTAR GAMBARxi
+DAFTAR TABELxiv
+BAB I PENDAHULUAN1
+1.1 Latar Belakang1
+1.2 Identifikasi Masalah3
+1.3 Rumusan Masalah3
+1.4 Batasan Masalah4
+1.5 Tujuan Penelitian4
+1.6 Manfaat Penelitian5
+1.7 Metodelogi Penelitian5
+1.7.1 Metode Pengumpulan Data6
+1.7.2 Metode Forward Chaining6
+1.8 Sistematika Penulisan7
+BAB II LANDASAN TEORI8
+2.1 Tinjauan Pustaka8
+2.2 Teori Umum12
+2.2.1 Definisi Implementasi12
+2.2.2 Sistem Pakar12
+2.2.3 Manfaat Sistem Pakar13
+2.2.4 Diagnosa dan Troubleshooting13
+2.2.5 Hardware Komputer14
+2.2.6 Software Komputer15
+2.2.7 Cara Kerja Forward Chaining15
+2.3 Teori Perancangan Basis Data16
+2.3.1 MySQL16
+2.3.2 Entity Relationship Diagram (ERD)17
+2.3.3 Transformasi ERD ke LRS18
+2.3.4 Logical Record Structure (LRS)18
+2.3.5 Analisa Perangkat Lunak19
+2.4 Definisi Unified Modelling Language (UML)20
+2.4.1 Use Case Diagram20
+2.4.2 Activity Diagram22
+2.4.3 Sequence Diagram23
+2.4.4 Class Diagram24
+2.5 Aplikasi Pendukung25
+2.5.1 XAMPP25
+2.5.2 Hyper Text Markup Language (HTML)25
+2.5.3 Hypertext Preprocessor (PHP)26
+2.5.4 Cascading Style Sheets  (CSS)26
+2.6 Pengujian Sistem27
+2.6.1 Black Box Testing27
+2.6.2 White Box Testing27
+BAB III ANALISA DAN PERANCANGAN28
+3.1 Analisa Sistem28
+3.1.1 Analisa Sistem Saat Ini28
+3.1.2 Analisa Sistem Usulan29
+3.2 Analisa Data30
+3.2.1 Analisa Gejala Dan Kerusakan30
+3.2.2 Analisa Metode Pelacakan35
+3.2.3 Analisa Rule Keputusan (Basis Aturan)36
+3.2.4 Analisa Pohon Keputusan40
+3.3 Perancangan Basis Data41
+3.3.1 Entity Relationship Diagram (ERD)42
+3.3.2 Transformasi ERD ke Logical Record Structure (LRS)42
+3.3.3 Logical Record Structure (LRS)43
+3.3.4 Spesifikasi Basis Data44
+3.4 Perancangan Unified Modelling Language (UML)48
+3.4.1 Use Case Diagram48
+3.4.2 Activity Diagram49
+3.4.3 Sequence Diagram65
+3.4.4 Class Diagram82
+3.5 Perancangan Antarmuka (User Interface)83
+BAB IV IMPLEMENTASI DAN PENGUJIAN96
+4.1 Implementasi96
+4.2 Spesifikasi Sistem96
+4.2.1 Spesifikasi Perangkat Keras (Hardware)96
+4.2.2 Spesifikasi Perangkat Lunak (Software)97
+4.3 Implementasi Antarmuka97
+4.4 Pengujian Sistem105
+4.4.1 Pengujian Black Box105
+4.4.2 Pengujian White Box114
+BAB V PENUTUP139
+5.1 Kesimpulan139
+5.2 Saran139
+DAFTAR PUSTAKA141
+LAMPIRAN145
+
+
+
+
+
+
+
+
+
+DAFTAR GAMBAR
+Gambar 3.1 Sistem Berjalan28
+Gambar 3.2 Sistem Usulan29
+Gambar 3.3 Proses Pelacakan Forward Chaining35
+Gambar 3.4 Pohon Keputusan41
+Gambar 3.5 Entity Relationship Diagram (ERD)42
+Gambar 3.6 Transformasi ERD ke LRS43
+Gambar 3.7 Logical Record Structure (LRS)44
+Gambar 3.8 Use Case Diagram49
+Gambar 3.9 Activity Diagram Login Admin50
+Gambar 3.10 Activity Diagram Mengelola User51
+Gambar 3.11 Activity Diagram Mengelola Data Gejala52
+Gambar 3.12 Activity Diagram Mengelola Kerusakan dan Solusi54
+Gambar 3.13 Activity Diagram Mengelola Rule Forward Chaining55
+Gambar 3.14 Activity Diagram Mengelola Laporan Diagnosa57
+Gambar 3.15 Activity Diagram Logout Admin58
+Gambar 3.16 Activity Diagram Login Asisten59
+Gambar 3.17 Activity Diagram Diagnosa Kerusakan60
+Gambar 3.18 Activity Diagram Chat Bot Diagnosa61
+Gambar 3.19 Activity Diagram Riwayat Diagnosa62
+Gambar 3.20 Activity Diagram Export Laporan63
+Gambar 3.21 Activity Diagram Logout Asisten64
+Gambar 3.22 Sequence Diagram Login Admin65
+Gambar 3.23 Sequence Diagram Mengelola User66
+Gambar 3.24 Sequence Diagram Mengelola Data Gejala68
+Gambar 3.25 Sequence Diagram Mengelola Data Kerusakan dan Solusi70
+Gambar 3.26 Sequence Diagram Mengelola Rule Forward Chaining72
+Gambar 3.27 Sequence Diagram Mengelola Laporan Diagnosa74
+Gambar 3.28 Sequence Diagram Logout Admin75
+Gambar 3.29 Sequence Diagram Login Asisten76
+Gambar 3.30 Sequence Diagram Diagnosa Kerusakan77
+Gambar 3.31 Sequence Diagram Chat Bot Diagnosa78
+Gambar 3.32 Sequence Diagram Riwayat Diagnosa79
+Gambar 3.33 Sequence Diagram Export Laporan80
+Gambar 3.34 Sequence Diagram Logout Asisten81
+Gambar 3.35 Class Diagram82
+Gambar 3.36 Rancangan Halaman Login83
+Gambar 3.37 Rancangan Halaman Dashboard Admin84
+Gambar 3.38 Rancangan Halaman Admin Manajemen Gejala85
+Gambar 3.39 Rancangan Halaman Admin Manajemen Kerusakan86
+Gambar 3.40 Rancangan Halaman Admin Manajemen Rule87
+Gambar 3.41 Rancangan Halaman Admin Laporan Diagnosa88
+Gambar 3.42 Rancangan Halaman Admin Manajemen User89
+Gambar 3.43 Rancangan Halaman Dashboard Asisten90
+Gambar 3.44 Rancangan Halaman Asisten Diagnosa Kerusakan91
+Gambar 3.45 Rancangan Halaman Asisten Chat Bot Diagnosa92
+Gambar 3.46 Rancangan Halaman Asisten Riwayat Diagnosa93
+Gambar 3.47 Rancangan Halaman Asisten Export Laporan94
+Gambar 3.48 Rancangan Halaman Logout95
+Gambar 4.1 Halaman Login98
+Gambar 4.2 Halaman Dashboard Admin98
+Gambar 4.3 Halaman Admin Manajemen Gejala99
+Gambar 4.4 Halaman Admin Manajemen Kerusakan100
+Gambar 4.5 Halaman Admin Manajemen Rule100
+Gambar 4.6 Halaman Admin Laporan Diagnosa101
+Gambar 4.7 Halaman Admin Manajemen User101
+Gambar 4.8 Halaman Dashboard Asisten102
+Gambar 4.9 Halaman Asisten Diagnosa Kerusakan102
+Gambar 4.10 Halaman Asisten Chat Bot Diagnosa103
+Gambar 4.11 Halaman Asisten Riwayat Diagnosa103
+Gambar 4.12 Halaman Asisten Export Laporan104
+Gambar 4.13 Halaman Logout104
+Gambar 4.14 Diagram Alir Pengujian Login dengan Flowgraph115
+Gambar 4.15 Diagram Alir Pengujian Login dengan Matrix Graph116
+Gambar 4.16 Diagram Alir Pengujian Manajemen Gejala dengan Flowgraph120
+Gambar 4.17 Diagram Alir Pengujian Manajemen Gejala dengan Matrix Graph121
+Gambar 4.18 Diagram Alir Pengujian Manajemen Kerusakan dan Solusi dengan Flowgraph124
+Gambar 4.19 Diagram Alir Pengujian Manajemen Kerusakan dan Solusi dengan Matrix Graph125
+Gambar 4.20 Diagram Alir Pengujian Manajemen Rule dengan Flowgraph128
+Gambar 4.21 Diagram Alir Pengujian Manajemen Rule dengan Matrix Graph129
+Gambar 4.22 Diagram Alir Pengujian Diagnosa Kerusakan dengan Flowgraph132
+Gambar 4.23 Diagram Alir Pengujian Diagnosa Kerusakan dengan Matrix Graph133
+Gambar 4.24 Diagram Alir Pengujian Chat Bot Diagnosa dengan Flowgraph136
+Gambar 4.25 Diagram Alir Pengujian Chat Bot Diagnosa dengan Matrix Graph137
+
+
+DAFTAR TABEL
+Tabel 2.1 Simbol Komponen Utama ERD25
+Tabel 2.2 Simbol Use Case Diagram29
+Tabel 2.3 Simbol Activity Diagram30
+Tabel 2.4 Simbol Squence Diagram31
+Tabel 2.5 Simbol Class Diagram32
+Tabel 3.1 Gejala Dan Kerusakan Komputer39
+Tabel 3.2 Solusi Yang Disarankan40
+Tabel 3.3 Gejala45
+Tabel 3.4 Kerusakan46
+Tabel 3.5 Keputusan (Basis Aturan)47
+Tabel 3.6 Keterangan Kode Kerusakan48
+Tabel 3.7 Rule (Basis Aturan) Forward Chaining48
+Tabel 3.8 Data Pengguna Sistem53
+Tabel 3.9 Data Gejala Kerusakan Komputer dan Software54
+Tabel 3.10 Data Kerusakan dan Solusi Penanganan55
+Tabel 3.11 Data Aturan Forward Chaining55
+Tabel 3.12 Data Detail Gejala Pada Setiap Rule56
+Tabel 3.13 Data Hasil Diagnosa Pengguna56
+Tabel 3.14 Data Gejala Proses Diagnosa57
+Tabel 4.1 Spesifikasi Perangkat Keras105
+Tabel 4.2 Spesifikasi Perangkat Lunak106
+Tabel 4.3 Tabel Pengujian114
+Tabel 4.4 Pengujian Login114
+Tabel 4.5 Pengujian Manajemen Gejala115
+Tabel 4.6 Pengujian Manajemen Kerusakan116
+Tabel 4.7 Pengujian Manajemen Rule118
+Tabel 4.8 Pengujian Diagnosa Kerusakan119
+Tabel 4.9 Pengujian Chat Bot Diagnosa120
+Tabel 4.10 Login User122
+Tabel 4.11 Matrix Graph Pengujian Login125
+Tabel 4.12 Manajemen Gejala125
+Tabel 4.13 Matrix Graph Pengujian Manajemen Gejala129
+Tabel 4.14 Manajemen Kerusakan dan Solusi130
+Tabel 4.15 Matrix Graph Pengujian Manajemen Kerusakan dan Solusi133
+Tabel 4.16 Manajemen Rule134
+Tabel 4.17 Matrix Graph Pengujian Manajemen Rule137
+Tabel 4.22 Diagnosa Kerusakan138
+Tabel 4.23 Matrix Graph Pengujian Diagnosa Kerusakan141
+Tabel 4.24 Chat Bot Diagnosa142
+Tabel 4.25 Matrix Graph Pengujian Chat Bot Diagnosa145
+
+
+BAB IPENDAHULUAN
+Latar Belakang
+Teknologi komputer dan software telah berkembang dengan sangat cepat dan telah menjadi bagian penting dari banyak hal, mulai dari pendidikan, pemerintahan, bisnis, layanan public, hingga penelitian ilmiah. Komputer tidak hanya dapat digunakan untuk mengolah data, tetapi juga dapat digunakan untuk berbagai tujuan, seperti hiburan, berkomunikasi, dan memecahkan masalah matematis (Septian Isna & Ardiansyah, 2024). Komputer telah mengubah cara kita berinteraksi, belajar, dan bekerja, menjadikannya penting dalam era digital yang terus berkembang. Komputer membantu meningkatkan efisiensi, produktivitas, dan kemampuan manusia untuk memahami dunia secara lebih mendalam melalui kemampuan mereka untuk terhubung ke jaringan internet, yang memungkinkan akses cepat ke informasi di seluruh dunia. 
+
+Pondok Pesantren Al-Gontory adalah lembaga pendidikan Islam yang mengadakan kegiatan pendidikan. Lembaga ini mulai memanfaatkan komputer dan software untuk mendukung proses pendidikan dan pengelolaan pesantren. Beberapa contoh penggunaan komputer di pesantren termasuk pemrosesan data santri, pembuatan jadwal pelajaran, pengelolaan keuangan, dan penyediaan media pembelajaran digital. Karena peningkatan penggunaan teknologi informasi ini, diperlukan sistem yang lebih terorganisir untuk mengelola dan memelihara perangkat komputer agar kegiatan pendidikan dan administrasi dapat berjalan dengan baik.
+
+Terdapat berbagai masalah di lab komputer yang berkaitan dengan kerusakan dan gangguan pada komputer dan software masih sering terjadi. Masalah seperti komputer tidak dapat menyala, sistem operasi tidak dapat booting, kesalahan aplikasi yang sering terjadi, atau masalah pada koneksi jaringan yang menghambat akses data. Selama ini, diagnosa kerusakan di Lab Pondok Pesantren Al-Gontory dilakukan secara manual dan bergantung pada teknisi atau pihak yang tidak memiliki kemampuan teknis. Akibatnya, penanganan masalah sering terlambat dan tidak konsisten. Kondisi ini menyebabkan ketergantungan yang besar pada tenaga ahli luar, yang tidak selalu tersedia. Akibatnya, aktivitas pendidikan dan administrasi dapat terganggu.
+
+Perlunya aplikasi yang dapat membantu memecahkan permasalahan kerusakan komputer. Aplikasi ini menggunakan teknologi sistem pakar yang berfungsi sebagai pengganti seseorang yang ahli dalam bidang tersebut. Tujuan penelitian ini adalah untuk merancang dan membuat aplikasi yang membantu pengguna komputer mengatasi masalah atau kerusakan pada hardware dan software komputer, sehingga menghemat waktu dan biaya perbaikan (Taufiq & Sandi, 2021). Forward Chaining adalah Salah satu metode penelusuran dalam sistem pakar berbasis aturan (rule-based system), yang menggunakan pendekatan yang didorong oleh data. Artinya, proses penalaran dimulai dengan data atau fakta yang sudah diketahui, kemudian digabungkan dengan aturan untuk mencapai Kesimpulan (Alfareza et al., 2023).
+
+Troubleshooting adalah proses identifikasi, analisis, dan penanganan masalah komputer dan software berdasarkan gejala yang muncul. Tujuan dari troubleshooting adalah untuk menemukan penyebab utama kerusakan dan menemukan solusi yang tepat agar sistem dapat kembali berfungsi secara normal. Sistem pakar di buat untuk membantu proses troubleshooting komputer dan software dengan cara menggabungkan pengetahuan seorang pakar ke dalam sistem berbasis aturan rule-based system yang menggunakan metode Forward Chaining berbasis WEB, pilihan platform berbasis web dianggap tepat karena sistem dapat diakses melalui browser tanpa perlu menginstal program khusus di setiap komputer. Keunggulan sistem pakar berbasis web memudahkan aksesibilitas karena memungkinkan pemeliharaan database secara terpusat dan memungkinkan penggunaan kapan saja dan di mana saja selama terhubung ke jaringan. Antarmuka web yang interaktif akan memudahkan pengguna non-teknis untuk melakukan konsultasi dan diagnosa kerusakan hardware dan software komputer secara mandiri.
+
+Berdasarkan uraian tersebut penulis memilih judul “Implementasi Sistem Pakar Untuk Diagnosa Troubleshooting Komputer Dan Software Menggunakan Metode Forward Chaining Berbasis Web (Studi Kasus: Pondok Pesantren Al-gontory)” dengan harapan bahwa sistem yang dibangun akan membantu proses diagnosa kerusakan komputer dan software di lab komputer Pondok Pesantren Al-Gontory secara cepat, tepat, dan efisien.
+Identifikasi Masalah
+Berdasarkan latar belakang yang telah di jelaskan, maka dapat diidentifikasi beberapa permasalahan sebagai berikut:
+Diagnosa kerusakan komputer dan software masih dilakukan secara manual, yang membutuhkan waktu yang relatif lama dan dapat menghasilkan hasil yang berbeda antara individu.
+Ketika komputer rusak, sangat sulit untuk mendapatkan tenaga ahli atau teknisi di luar pesantren untuk menyelesaikannya.
+Pondok Pesantren Al-Gontory belum memiliki sistem terkomputerisasi yang dapat membantu proses diagnosa troubleshooting komputer dan software secara sistematis dan terdokumentasi.
+Rumusan Masalah
+Rumusan masalah dalam penelitian ini adalah sebagai berikut:
+Bagaimana metode Forward Chaining dapat digunakan untuk merancang dan menerapkan sistem pakar berbasis web untuk mendiagnosa masalah komputer dan software di Pondok Pesantren Al-Gontory?
+Bagaimana cara memasukkan pengetahuan pakar tentang jenis kerusakan komputer dan software, serta gejala dan solusinya, ke dalam basis pengetahuan sistem pakar?
+Sejauh mana proses diagnosa masalah komputer dan software di Pondok Pesantren Al-Gontory dapat dipercepat dan dipermudah dengan penggunaan sistem pakar berbasis web yang menggunakan metode Forward Chaining?
+Batasan Masalah
+Agar penelitian lebih terarah, maka batasan masalah dalam penelitian ini adalah:
+Fokus dari kerusakan komputer dan software umum yang terjadi di Lab Komputer Pondok Pesantren Al-Gontory adalah masalah hardware dasar, sistem operasi, software dasar, dan konektivitas dasar.
+Untuk proses diagnosa, dari gejala menuju kesimpulan, sistem pakar ini menggunakan metode Forward Chaining sebagai teknik penelusuran utama.
+Studi kasus ini terbatas pada lingkungan Lab Komputer Pondok Pesantren Al-Gontory, sehingga pengetahuan dan peraturan yang digunakan disesuaikan dengan situasi dan kebutuhan di lab computer pesantren tersebut.
+Sistem pakar yang dibangun adalah platform sistem berbasis web yang dapat diakses melalui browser pada jaringan lokal atau internet sesuai dengan infrastruktur Pondok Pesantren Al-Gontory.
+Tujuan Penelitian
+Tujuan dari penelitian ini adalah:
+Untuk menemukan dan mencatat pengetahuan pakar tentang jenis kerusakan komputer dan software yang paling sering terjadi di lab komputer Pondok Pesantren Al-Gontory, serta gejala dan cara menangani kerusakan tersebut.
+Untuk merancang basis pengetahuan dan aturan (rule base) sistem pakar menggunakan metode Forward Chaining yang mendukung proses diagnosa kerusakan komputer dan software.
+Untuk menilai sejauh mana sistem pakar berbasis web dapat mempercepat proses diagnosa dan mengurangi ketergantungan terhadap tenaga ahli dalam menangani masalah komputer dan software di lab komputer Pondok Pesantren Al-Gontory.
+Manfaat Penelitian
+Manfaat penelitian ini diharapkan sebagai berikut:
+Manfaat bagi Pondok Pesantren Al-Gontory
+Memberikan alat bantu untuk mendiagnosa kerusakan software juga hardware komputer secara lebih cepat dan mandiri tanpa ketergantungan pada teknisi eksternal.
+Manfaat bagi Universitas Pamulang
+Menjadi referensi akademik dalam pengembangan sistem pakar berbasis web menggunakan metode Forward Chaining dalam bidang troubleshooting komputer dan software, serta dapat dijadikan bahan penelitian lanjutan.
+Manfaat bagi Penulis
+Meningkatkan pengetahuan dan pengalaman praktis dalam menerapkan konsep sistem pakar dan metode Forward Chaining pada kasus nyata. Selain itu, untuk memenuhi salah satu syarat kelulusan pada program studi yang ditempuh.
+Metodelogi Penelitian
+Metodologi penelitian yang digunakan dalam penyusunan skripsi ini meliputi tahapan:
+Studi literatur terkait sistem pakar, metode Forward Chaining, troubleshooting komputer dan software, serta teknologi web yang digunakan.
+Pengumpulan data di Pondok Pesantren Al-Gontory melalui observasi dan wawancara dengan pihak terkait untuk mengidentifikasi jenis kerusakan, gejala, dan solusi yang biasa dilakukan.
+Analisis kebutuhan sistem, perancangan basis pengetahuan, perancangan proses inferensi, serta perancangan antarmuka sistem pakar berbasis web.
+Implementasi sistem pakar menggunakan bahasa pemrograman dan basis data yang sesuai, dilanjutkan dengan pengujian fungsionalitas sistem dan evaluasi hasil diagnosa.
+Metode Pengumpulan Data
+Metode pengumpulan data yang digunakan antara lain:
+Observasi
+Dilakukan dengan mengamati langsung penggunaan komputer dan software serta permasalahan yang sering terjadi di lab komputer Pondok Pesantren Al-Gontory.
+Wawancara
+Dilakukan dengan pengelola laboratorium komputer untuk menggali informasi terkait kerusakan yang sering terjadi baik yang bisa di tangani maupun tidak.
+Metode Forward Chaining
+Metode forward chaining digunakan oleh sistem pakar untuk memulai proses pengumpulan fakta atau gejala yang diketahui menuju suatu kesimpulan. Dalam pendekatan ini, sistem akan mencocokkan fakta pengguna dengan premis-premis dalam rule, kemudian secara bertahap menurunkan fakta baru hingga diperoleh diagnosa kerusakan dan solusi yang tepat.
+Forward Chaining diterapkan pada sistem pakar untuk troubleshooting komputer dan software dalam penelitian ini. Pengguna menjawab pertanyaan tentang gejala yang muncul, dan sistem memproses jawaban tersebut untuk menentukan jenis kerusakan dan memberi saran untuk perbaikannya. Metode ini dipilih karena sesuai dengan pola diagnosa praktis di lapangan, yang dimulai dengan mengamati gejala untuk menemukan sumber masalah.
+
+
+Sistematika Penulisan
+BAB I : PENDAHULUAN
+Pada bab ini berisi latar belakang, identifikasi masalah, rumusan masalah, batasan masalah, tujuan penelitian, manfaat penelitian, metodologi penelitian, dan sistematika penulisan.
+BAB II : LANDASAN TEORI
+Pada bab ini berisi teori-teori pendukung yang meliputi konsep sistem pakar, metode Forward Chaining, dasar-dasar troubleshooting komputer dan software, teknologi web, serta penelitian-penelitian terdahulu yang relevan.
+BAB III : ANALISIS DAN PERANCANGAN
+Pada bab ini berisi gambaran umum Pondok Pesantren Al-Gontory, analisis kebutuhan sistem, model proses, perancangan basis pengetahuan, perancangan rule, dan perancangan antarmuka sistem pakar berbasis web.
+BAB IV : IMPLEMENTASI DAN PENGUJIAN
+Pada bab ini Berisi implementasi sistem pakar, lingkungan pengembangan, tampilan antarmuka, hasil pengujian fungsionalitas, serta analisis hasil pengujian sistem.
+BAB V : PENUTUP
+Pada bab ini berisi kesimpulan dari hasil penelitian dan saran untuk pengembangan lebih lanjut sistem pakar diagnosa troubleshooting komputer dan software di masa mendatang.
+
+
+BAB IILANDASAN TEORI
+
+Tinjauan Pustaka
+Penelitian sebelumnya yang berkaitan dengan topik ini memberikan penulis landasan konseptual dan referensi untuk menyusun karya ilmiah. Berikut ini adalah beberapa temuan penelitian sebelumnya yang berkaitan dengan topik tersebut:
+Penelitian yang dilakukan oleh (Darmawan & Darni, 2025) dengan judul “Sistem Pakar Diagnosa Kerusakan Komputer Menggunakan Metode Forward Chaining di Laboratorium Multimedia Universitas Negeri Padang”. Penelitian tersebut membahas tentang solusi efektif bagi pengguna komputer yang kurang memiliki pengetahuan teknis dalam mendeteksi gejala kerusakan secara akurat dan efisien. Metode yang digunakan adalah sistem pakar dengan pendekatan Forward Chaining yang memproses data gejala melalui web server untuk menghasilkan diagnosis. Hasil penelitian menunjukkan bahwa aplikasi ini berhasil mempermudah teknisi dan pengguna dalam mengidentifikasi penyebab kerusakan hardware melalui basis pengetahuan yang komprehensif, dengan hasil pengujian performa mendapatkan skor sebesar 97%.
+Penelitian yang dilakukan oleh (Riston Burju Jordan Simatupang & Nur Nawaningtyas Pusparini, 2025) dengan judul “Sistem Pakar Diagnosa Kerusakan Notebook Berbasis Web Menggunakan Metode Certainty Factor dengan Pengujian Blackbox”. Penelitian tersebut membahas tentang upaya meminimalisir kesalahan komunikasi (miss communication) antara staf mekanik dan pengguna dalam mencatat keluhan kerusakan perangkat portabel. Meskipun berfokus pada metode Certainty Factor, penelitian ini memiliki relevansi kuat dalam pengembangan sistem berbasis website yang mendukung proses diagnosis kompleks. Hasil penelitian menunjukkan bahwa sistem yang dibangun mampu memberikan hasil perhitungan tingkat keyakinan yang akurat dalam menangani permasalahan notebook bagi pengguna umum.
+Penelitian yang dilakukan oleh (Pamekas & Muhammad, 2024) dengan judul “Perancangan Sistem Pakar Untuk Mendeteksi Gejala Kerusakan Pada Komputer Menggunakan Metode Forward Chaining”. Penelitian tersebut membahas tentang pemanfaatan kecerdasan buatan untuk membantu masyarakat modern melakukan perbaikan komputer secara mandiri dan berkelanjutan tanpa harus selalu bergantung pada teknisi. Metode yang digunakan adalah Forward Chaining atau pencarian yang dimotori data (data-driven) dengan menerapkan kumpulan aturan kondisi-aksi (rule IF-THEN). Hasil penelitian menunjukkan bahwa metode ini mampu mengidentifikasi penyebab kerusakan hardware seperti RAM dan Processor secara valid dan terarah, sehingga memberikan hasil yang lebih akurat dibandingkan metode konvensional.
+Penelitian yang dilakukan oleh (Riven Refany & Annurrullah Fajrin, 2024) dengan judul “Sistem Pakar Mendiagnosis Kerusakan Pada Komputer Dengan Menggunakan Metode Forward Chaining Berbasis Web”. Penelitian tersebut membahas tentang penanganan keterlambatan servis komputer akibat gejala yang sering tidak dipahami oleh pengguna, seperti sistem operasi yang lambat atau aplikasi yang sering keluar sendiri (crash). Metode yang digunakan adalah Forward Chaining yang mengadopsi pengetahuan seorang pakar ke dalam sistem berbasis website dengan bahasa pemrograman PHP. Hasil penelitian menunjukkan bahwa aplikasi ini berhasil membantu pengguna menghemat waktu dan biaya perbaikan melalui diagnosis awal yang tepat pada komponen power supply dan perangkat lainnya.
+Penelitian yang dilakukan oleh (Fikri Marsandi et al., 2024) dengan judul “Sistem Pakar Deteksi Kerusakan Laptop Menggunakan Algoritma Forward Chaining Dan Backward Chaining”. Penelitian tersebut membahas tentang kompleksitas diagnosis yang disebabkan oleh ambiguitas gejala kerusakan dan variasi tingkat pengetahuan teknisi. Metode yang digunakan adalah perbandingan dua algoritma inferensi, yaitu Forward Chaining dan Backward Chaining, yang diimplementasikan menggunakan database MySQL. Hasil penelitian menunjukkan bahwa algoritma Forward Chaining memiliki tingkat kepercayaan lebih tinggi yakni sebesar 87% dibandingkan Backward Chaining yang hanya 81%, membuktikan efektivitas penalaran maju dalam mendeteksi gejala kerusakan laptop.
+Penelitian yang dilakukan oleh (Andy Jhonatan Marpaung & Koko Handoko, 2023) dengan judul “Sistem Pakar untuk Diagnosa Kerusakan Komputer Menggunakan Metode Forward Chaining dan Certainty Factor Berbasis Web”. Penelitian tersebut membahas tentang kecenderungan pengguna yang sering menganggap kerusakan kecil pada komponen seperti RAM atau VGA sebagai kerusakan fatal karena kurangnya edukasi teknis. Metode yang digunakan adalah penggabungan Forward Chaining untuk pelacakan aturan dan Certainty Factor untuk mengukur tingkat keyakinan terhadap data yang tersedia. Hasil penelitian menunjukkan bahwa sistem berbasis web ini efektif membantu pengguna awam dalam melakukan diagnosis mandiri dan memahami kegagalan fungsi komputer dengan hasil yang akurat sesuai penilaian ahli.
+Penelitian yang dilakukan oleh (Johari & Kandau, 2022) dengan judul “Sistem Pakar dengan Pendekatan Metode Forward Chaining Untuk Mendiagnosa Troubleshooting/Kerusakan Pada Komputer CV Neutron Komputer”. Penelitian tersebut membahas tentang keterbatasan ketersediaan pakar yang tidak bisa melayani selama 24 jam serta sulitnya menjangkau semua daerah untuk penanganan servis hardware. Metode yang digunakan adalah model SDLC Waterfall dengan penerapan teknik penalaran Forward Chaining berbasis aturan IF-THEN yang fleksibel diakses melalui berbagai perangkat. Hasil penelitian menunjukkan bahwa sistem pakar ini layak diimplementasikan untuk memberikan solusi perbaikan dini bagi instansi dalam menekan biaya operasional jasa tenaga ahli.
+Penelitian yang dilakukan oleh (Kartika Delimayanti et al., 2022) dengan judul “Sistem Pakar Diagnosa Kerusakan Hardware Laptop dengan Metode Forward Chaining Berbasis Web”. Penelitian tersebut membahas tentang tingginya tingkat mobilitas pengguna laptop namun tidak diimbangi dengan ketersediaan informasi kerusakan yang lengkap pada buku manual. Metode yang digunakan adalah pengembangan sistem berbasis web yang responsif menggunakan script PHP dan DBMS MySQL, di mana pengetahuan pakar disimpan dalam struktur basis pengetahuan yang sistematis. Hasil penelitian menunjukkan bahwa aplikasi ini terbukti layak digunakan secara luas melalui pengujian User Acceptance Test (UAT) dan sangat membantu pengguna dalam melakukan langkah awal perbaikan hardware.
+Penelitian yang dilakukan oleh (Saputra et al., 2022) dengan judul “Sistem Pakar Diagnosa Kerusakan Hardware Komputer Menggunakan Metode Forward Chaining dan Certainty Factor Berbasis Website”. Penelitian tersebut membahas tentang identifikasi dini kerusakan pada komponen utama komputer seperti motherboard, hard disk, dan vga guna mencegah kerusakan yang lebih parah. Metode yang digunakan adalah gabungan Forward Chaining sebagai mesin inferensi dan Certainty Factor untuk menangani ketidakpastian jawaban pengguna. Hasil penelitian menunjukkan bahwa sistem ini mampu menghasilkan informasi diagnosis awal yang akurat yang dapat diakses dari berbagai platform, memudahkan masyarakat umum dalam mendeteksi gejala kerusakan hardware.
+Penelitian yang dilakukan oleh (Solecha et al., 2021) dengan judul “Sistem Pakar Untuk Mendeteksi Kerusakan Komputer Dengan Metode Forward Chaining”. Penelitian tersebut membahas tentang perilaku teknisi yang sering menunda pekerjaan karena lamanya proses identifikasi masalah secara manual yang memakan waktu 15 hingga 20 menit per unit. Metode yang digunakan adalah Forward Chaining dengan perancangan database yang disusun dalam tabel aturan yang menghubungkan gejala dengan solusi perbaikan. Hasil penelitian menunjukkan bahwa sistem ini berhasil meminimalisir ketergantungan pengguna terhadap pakar untuk penanganan masalah dasar serta menyediakan media konsultasi yang cepat, tepat, dan efisien melalui platform web.
+Teori Umum
+Definisi Implementasi 
+Implementasi merupakan tahapan krusial dalam siklus pengembangan sistem yang merujuk pada proses realisasi rancangan perangkat lunak ke dalam lingkungan operasional yang sebenarnya. Dalam model Software Development Life Cycle (SDLC), implementasi adalah tahapan setelah perencanaan, analisis, dan desain selesai dilakukan, di mana baris kode program mulai disusun dan diuji untuk memastikan fungsionalitas sistem berjalan sesuai spesifikasi (Johari & Kandau, 2022). Implementasi sistem bertujuan untuk mentransformasikan model konseptual dan diagram teknis menjadi sebuah aplikasi yang siap digunakan oleh pengguna akhir untuk membantu penyelesaian masalah spesifik dalam kehidupan sehari-hari.
+Tujuan utama dari implementasi sistem informasi adalah untuk meningkatkan efisiensi kerja, mengurangi potensi kesalahan manusia, serta menyediakan akses informasi yang lebih cepat dan akurat. Dalam konteks penelitian ini, implementasi sistem pakar berbasis web di Pondok Pesantren Al-Gontory dilakukan untuk menyediakan media konsultasi teknis yang dapat diakses secara fleksibel melalui berbagai perangkat seperti komputer, laptop, maupun smartphone.
+Sistem Pakar
+Sistem Pakar Sistem pakar merupakan salah satu cabang dari kecerdasan buatan (Artificial Intelligence) yang paling dahulu dimanfaatkan secara luas untuk mengadopsi pengetahuan manusia ke dalam komputer agar sistem tersebut dapat menyelesaikan masalah seperti yang biasa dilakukan oleh para ahli di bidangnya (Pria Sukamto et al., 2023). Sistem pakar didefinisikan sebagai perangkat lunak komputer yang memiliki basis pengetahuan untuk domain tertentu dan menggunakan penalaran inferensi yang mirip dengan cara seorang pakar berpikir dalam membuat keputusan dan mengambil kesimpulan dari sejumlah fakta.
+Sejalan dengan hal tersebut, (Darmawan & Darni, 2025) menjelaskan bahwa komponen utama sistem pakar meliputi basis pengetahuan (knowledge base) yang berisi fakta dan aturan, mesin inferensi (inference engine) sebagai bagian yang memproses logika, serta antarmuka pengguna (user interface) sebagai jembatan interaksi. Dalam konteks penelitian di Pondok Pesantren Al-Gontory ini, sistem pakar dirancang untuk mentransfer keahlian teknisi komputer ke dalam aplikasi berbasis web, sehingga pengguna yang bukan pakar dapat melakukan diagnosa mandiri terhadap kendala teknis yang dihadapi.
+Manfaat Sistem Pakar
+Penerapan sistem pakar memberikan berbagai manfaat signifikan, terutama dalam meningkatkan efisiensi dan efektivitas proses penyelesaian masalah yang bersifat spesifik. Pengembangan sistem ini berfungsi sebagai sarana bantu untuk memberikan solusi cepat tanpa harus bertemu langsung dengan seorang pakar, yang seringkali memiliki keterbatasan waktu dan jangkauan (Johari & Kandau, 2022). Sistem pakar mampu mempercepat proses diagnosa kerusakan karena sistem dapat bekerja secara konsisten tanpa terpengaruh oleh faktor kelelahan, serta menyediakan solusi yang akurat berdasarkan basis pengetahuan yang komprehensif.
+Diagnosa dan Troubleshooting
+Diagnosa merupakan sebuah proses sistematis untuk mengidentifikasi sifat dan penyebab dari suatu gangguan atau kerusakan dengan cara meneliti gejala-gejala yang muncul, diagnosa mencakup upaya pemeriksaan mendalam untuk menentukan jenis masalah serta memberikan saran atau solusi penanganan yang relevan (Kalyzta & Syafrullah, 2023) Dalam operasional komputer, diagnosa awal yang tepat sangat krusial agar tindakan perbaikan yang diambil efektif dan tidak memperparah kondisi perangkat.
+Troubleshooting didefinisikan sebagai alur pencarian akar permasalahan secara terstruktur guna mendapatkan solusi penyelesaian dari kendala yang terjadi (Hendra Pratama et al., 2023). Proses identifikasi masalah komputer melalui troubleshooting melibatkan langkah-langkah penghilangan penyebab potensial secara bertahap berdasarkan indikasi yang terlihat, baik pada sisi hardware maupun software. Tahapan troubleshooting umumnya dimulai dari pengumpulan fakta atau keluhan pengguna, pengecekan fisik, pengujian komponen satu per satu, hingga pengambilan kesimpulan mengenai penyebab malfungsi tersebut, Tujuan akhir dari troubleshooting adalah untuk mengembalikan fungsi perangkat ke kondisi optimal dengan waktu pengerjaan yang efisien.
+Hardware Komputer
+Perangkat keras atau hardware komputer merupakan seluruh bagian fisik komputer yang dapat disentuh dan berfungsi sebagai piranti utama dalam pengoperasian sistem komputerisasi (Saputra et al., 2022) Secara fungsional, hardware bekerja di bawah kendali program untuk menerima input, mengolah data, dan menghasilkan output informasi. Dalam penggunaan sehari-hari, komponen hardware sering mengalami penurunan performa atau kerusakan fisik akibat faktor usia pemakaian maupun kesalahan pengguna (human error), seperti mematikan komputer secara paksa (Alfareza et al., 2024) Beberapa contoh perangkat keras yang sering mengalami kerusakan dan membutuhkan diagnosa sistem pakar meliputi motherboard (masalah kapasitor atau port), monitor (layar redup atau bergaris), keyboard (tombol tidak responsif), harddisk (bad sector atau bunyi aneh), serta Power Supply Unit (tegangan tidak stabil atau mati total).
+Software Komputer
+Perangkat lunak atau software adalah sekumpulan program dan data yang disimpan secara digital untuk menjalankan perintah tertentu pada hardware komputer. Software mencakup sistem operasi, seperti Windows, serta berbagai aplikasi yang mendukung pekerjaan manusia (Surya Pratama et al., 2022) Meskipun tidak berbentuk fisik, software seringkali mengalami gangguan yang menghambat produktivitas, seperti sistem operasi yang menjadi lambat dalam membaca data, kemunculan pesan error yang tidak dipahami pengguna, hingga kegagalan aplikasi untuk berjalan secara normal (crash). Masalah perangkat lunak lainnya yang sering ditemukan dalam troubleshooting meliputi serangan virus, kegagalan pembaruan sistem (update), serta kerusakan file sistem yang menyebabkan komputer sering melakukan restart otomatis atau mengalami fenomena blue screen. Sistem pakar yang dikembangkan ini akan membantu membedakan apakah gangguan yang terjadi disebabkan oleh kerusakan komponen fisik atau murni kendala pada perangkat lunak melalui analisis gejala digital yang muncul.
+Cara Kerja Forward Chaining
+Metode Forward Chaining atau dikenal juga sebagai penalaran maju merupakan teknik pelacakan yang dimulai dari sekumpulan fakta yang ada menuju ke arah Kesimpulan. Konsep utama metode ini adalah pencarian yang dimotori oleh data (data-driven), di mana proses dimulai dengan memasukkan premis atau informasi masukan (IF) untuk kemudian menghasilkan konklusi atau informasi baru (THEN) (Pamekas & Muhammad, 2024).Kelebihan utama metode ini adalah kemampuannya dalam menyediakan banyak informasi dari sejumlah kecil data awal dan sangat efektif digunakan untuk tugas-tugas diagnosa yang bersifat interpretasi. Namun, metode ini memiliki kekurangan dalam memproses data yang sangat dinamis dengan variabel yang terlalu banyak, sehingga membutuhkan basis pengetahuan yang terstruktur dengan baik agar dapat memberikan rekomendasi solusi yang akurat dan efisien.
+Teori Perancangan Basis Data
+Perancangan basis data merupakan tahapan krusial dalam pembangunan sistem informasi yang bertujuan untuk mengorganisasikan data guna memudahkan penyimpanan dan pengaksesan Kembali (Solecha et al., 2021).  basis data didefinisikan sebagai kumpulan data yang saling berhubungan, disimpan secara bersama-sama tanpa adanya pengulangan atau redundansi yang tidak perlu untuk memenuhi berbagai kebutuhan pengguna. Dalam pengembangan sistem pakar, basis data mencakup seluruh fakta yang dibutuhkan untuk melengkapi syarat dari aturan-aturan (rules) di dalam sistem. Database ini tidak hanya menyimpan data awal saat sistem mulai bekerja, tetapi juga menampung data yang ditemukan selama proses pengambilan kesimpulan berlangsung.
+Fungsi basis data dalam sistem pakar diagnosa troubleshooting komputer sangat vital karena bertindak sebagai penyimpan basis pengetahuan (knowledge base). Database digunakan untuk mengelola data gejala, kode kerusakan, aturan inferensi, hingga solusi penanganan secara terstruktur. Tanpa pengelolaan database yang baik, mesin inferensi tidak akan dapat mencocokkan fakta gejala yang diinput pengguna dengan aturan IF-THEN yang tersedia untuk menghasilkan diagnosa yang akurat. Oleh karena itu, perancangan basis data dalam penelitian di Pondok Pesantren Al-Gontory ini diarahkan untuk menjamin integritas data sehingga proses diagnosa kerusakan hardware maupun software dapat berjalan cepat, tepat, dan efisien.
+MySQL
+MySQL merupakan sebuah perangkat lunak pengatur basis data yang sangat populer dan secara luas dikelompokkan ke dalam Database Management System (DBMS). Secara fungsional, MySQL berperan penting dalam mengamankan, melakukan pencadangan (backup), serta memulihkan (restore) data, sehingga integritas data dalam sebuah sistem dapat terjaga dengan baik. Penggunaan basis data seperti MySQL dianggap sangat krusial dalam pengembangan sistem informasi karena mampu membantu pengguna dalam memperoleh rincian informasi yang akurat serta mendukung proses pengambilan keputusan agar menjadi lebih efektif (Fadzar et al., 2024).
+Entity Relationship Diagram (ERD)
+Entity Relationship Diagram (ERD) merupakan metode pemodelan data yang digunakan untuk merepresentasikan struktur basis data secara konseptual. Melalui ERD, komponen utama seperti entitas, atribut, dan hubungan antar entitas dapat divisualisasikan secara sistematis, sehingga mempermudah proses perancangan basis data sebelum diimplementasikan ke dalam bentuk fisik. Setiap entitas dalam ERD memiliki atribut yang merepresentasikan karakteristik data, sedangkan hubungan (relationship) menggambarkan keterkaitan antar entitas dalam suatu sistem. Penerapan ERD memiliki peranan yang signifikan dalam pengembangan basis data, karena mampu meminimalkan terjadinya redundansi data serta meningkatkan integritas data (Mafirah et al., 2026). 
+Menurut (Kusuma et al., 2024), dalam Buku Ajar Analisis Desain Sistem Informasi, simbol komponen utama dalam ERD adalah sebagai berikut:
+Tabel 2.1 Simbol Komponen Utama ERD
+No
+Simbol
+Nama
+Keterangan
+1
+
+Entitas (entity)
+Objek atau konsep didunia nyata yang ingin menyimpan data
+2
+
+Atribut
+Karakteristik atau properti yang menjelaskan sebuah entitas
+3
+
+Relasi (relationship)
+Menunjukan adanya hubungan antar dua entitas atau lebih 
+4
+
+Garis Penghubung
+Menghubungkan antar komponen 
+
+Transformasi ERD ke LRS
+Transformasi ERD ke Logical Record Structure (LRS) merupakan proses pengubahan model data konseptual yang digambarkan dalam ERD menjadi struktur record yang lebih logis dan siap diimplementasikan. Proses ini dilakukan dengan memperhatikan derajat kardinalitas atau hubungan antar entitas, seperti satu-ke-satu (one-to-one), satu-ke-banyak (one-to-many), atau banyak-ke-banyak (many-to-many) (Solecha et al., 2021). Melalui proses kardinalitas ini, entitas dan relasi dalam ERD dipetakan ke dalam bentuk tabel-tabel relasional yang menunjukkan bagaimana data akan disimpan secara fisik di dalam database.
+Tujuan utama dari transformasi ini adalah untuk meminimalisir redundansi data dan memastikan bahwa struktur database memiliki integritas yang baik sebelum tabel benar-benar dibentuk menggunakan DBMS seperti MySQL. Dalam sistem pakar diagnosa ini, transformasi ERD ke LRS memastikan bahwa hubungan antara tabel gejala, tabel kerusakan, dan tabel aturan terpetakan secara sistematis melalui penggunaan kunci-kunci (keys) yang valid. Struktur tabel yang dihasilkan akan memudahkan sistem dalam melakukan kueri basis data secara efisien, sehingga mempercepat performa aplikasi saat melakukan proses inferensi forward chaining.
+Logical Record Structure (LRS)
+Logical Record Structure (LRS) adalah representasi dari struktur record pada tabel-tabel basis data yang dibentuk dari hasil relasi antar entitas. Menurut Friyadie, LRS merupakan bentuk relational model yang dibuat secara logis pada level eksternal sebelum tabel dibentuk secara fisik pada level internal (Solecha et al., 2021). Fungsi utama LRS dalam perancangan database adalah untuk memvisualisasikan hubungan antar tabel secara mendetail, termasuk tipe data dan lebar field yang digunakan pada setiap kolom.
+Hubungan antara LRS dan ERD sangat erat, di mana LRS bertindak sebagai jembatan yang menerjemahkan diagram hubungan entitas yang bersifat konseptual menjadi struktur data yang siap diprogram. Struktur record dalam sistem pakar ini mencakup field-field kunci seperti kode gejala dan kode kerusakan yang saling berelasi untuk membentuk basis aturan. Dengan adanya LRS, pengembang dapat melihat gambaran utuh bagaimana data mengalir di dalam database, mulai dari input gejala oleh pengguna santri hingga sistem menampilkan informasi kerusakan beserta solusi dan langkah menangani kerusakan.
+Analisa Perangkat Lunak
+Analisa perangkat lunak merupakan tahapan awal dalam siklus pengembangan sistem (Software Development Life Cycle atau SDLC) yang bertujuan untuk mengidentifikasi kebutuhan sistem secara menyeluruh agar solusi yang dihasilkan tepat sasaran (Johari & Kandau, 2022). Analisis ini melibatkan pengumpulan kebutuhan fungsional dan non-fungsional, di mana kebutuhan fungsional mendefinisikan proses-proses apa saja yang harus disediakan oleh sistem pakar. Dalam konteks sistem berbasis web, analisa ini mencakup penentuan spesifikasi perangkat lunak pendukung seperti sistem operasi Windows, bahasa pemrograman PHP, dan database management system MySQL.
+Analisis kebutuhan pengguna (user) dan admin menjadi bagian penting dalam perancangan sistem ini. Admin memiliki fungsionalitas untuk mengelola basis pengetahuan, yang meliputi proses menambah, mengubah, dan menghapus data gejala, jenis kerusakan, serta aturan (rules) inferensi (Pria Sukamto et al., 2023). Sementara itu, pengguna umum atau santri di Pondok Pesantren Al-Gontory dapat menggunakan fitur konsultasi untuk menginput gejala yang dialami perangkat mereka guna mendapatkan hasil diagnosa otomatis dan solusi perbaikan. Fitur-fitur utama sistem pakar berbasis web ini dirancang agar responsif dan mudah diakses melalui berbagai perangkat, sehingga memudahkan identifikasi dini terhadap kegagalan fungsi komputer tanpa harus selalu bergantung pada teknisi luar.
+Definisi Unified Modelling Language (UML)
+Unified Modelling Language (UML) merupakan suatu bahasa pemodelan yang telah distandarisasi dan digunakan dalam bidang rekayasa perangkat lunak untuk merepresentasikan, merancang, serta mendokumentasikan sistem berbasis objek. UML menyediakan beragam jenis diagram yang berfungsi sebagai alat bantu visual dalam menggambarkan struktur dan dinamika sistem, di antaranya use case diagram, class diagram, activity diagram, dan sequence diagram. Melalui penggunaan diagram-diagram tersebut, pengembang dapat memperoleh pemahaman yang lebih komprehensif terhadap alur kerja dan hubungan antar komponen dalam sistem (Purwawijaya, 2024). 
+Use Case Diagram
+Use case diagram merupakan salah satu elemen dalam Unified Modeling Language (UML) yang digunakan untuk merepresentasikan kebutuhan fungsional sistem berdasarkan perspektif pengguna atau aktor. Konsep ini berperan dalam menggambarkan pola interaksi antara pengguna dan sistem melalui skenario tertentu yang menjelaskan respons sistem terhadap setiap tindakan yang dilakukan. Dengan demikian, use case memberikan pemahaman mengenai bagaimana sistem beroperasi dalam memenuhi kebutuhan pengguna (Ramdany et al., 2024).
+Menurut (Utami & Amikom, n.d.) dalam buku Teori, Analisa dan Implementasi Jaringan, berikut adalah simbol yang digunakan pada Use case diagram:
+Tabel 2.2 Simbol Use Case Diagram
+No
+Simbol
+Nama
+Keterangan
+1
+
+Actor
+
+Entitas yang berinteraksi dengengan sistem
+2
+
+Usecase
+Aktivitas yang dapat dilakukan aktor dengan sistem
+3
+
+Association
+Hubungan antara aktor dengan usecase
+4
+
+System
+Sistem yang sedang dikembangkan 
+5
+
+Include
+Suatu usecase termasuk bagian dari usecase lain
+6
+
+Extend
+Satu usecase dapat diperluas dengan usecase yang lain
+7
+
+Dependency
+Ketergantungan antara elemen-elemen diagram
+8
+
+Generalization
+Satu actor atau usecase merupakan generalisasi dari yang lain
+9
+
+Realization
+Implementasi dari satu usecase dengan yang lain
+10
+
+Colaboration
+Dua atau lebih aktor dan use case yang terhubung
+11
+
+Note
+Penjelasan tambahan terkait elemen diagram
+12
+
+Anchor
+Hubungan teks note dengan elemen-elemen diagram lain
+
+
+Activity Diagram
+Activity Diagram merupakan salah satu bentuk diagram dalam Unified Modeling Language (UML) yang dimanfaatkan untuk merepresentasikan alur kerja (workflow) maupun proses bisnis dalam suatu sistem. Diagram ini menyajikan rangkaian aktivitas secara terstruktur serta memperlihatkan aliran kendali (control flow) yang menggambarkan hubungan antar aktivitas, dimulai dari kondisi awal hingga mencapai kondisi akhir dari suatu proses (Waliyah et al., 2025).
+Menurut (Waliyah et al., 2025) “dalam Buku Ajar Analisa perancangan sistem Informasi” simbol-simbol activity diagram sebagai berikut: 
+Tabel 2.3 Simbol Activity Diagram
+No
+Simbol
+Nama
+Keterangan
+1
+
+Start
+Status awal aktivitas pada sebuah diagram aktivitas memiliki sebuah status awal
+2
+
+Activity
+Aktivitas yang dilakukan oleh sistem. Biasanya diawali dengan kata kerja.
+3
+
+Decision
+Asosiasi percabangan dimana jika ada pilihan aktivitas lebih dari satu.
+4
+
+Join
+Asosiasi penggabungan dimana lebih dari satu aktivitas digabungkan menjadi satu.
+5
+
+End
+Status akhir yang dilakukan sistem, sebuah diagram aktivitas memiliki sebuah status akhir.
+6
+
+Swimlane
+Organisasi yang bertanggung jawab terhadap aktivitas yang terjadi
+
+Sequence Diagram
+Sequence diagram merupakan salah satu representasi dalam Unified Modeling Language (UML) yang berfungsi untuk memodelkan interaksi antar objek di dalam sistem dengan menekankan urutan kejadian berdasarkan dimensi waktu. Diagram ini menggambarkan pertukaran pesan (message) yang terjadi antar objek, sehingga mampu memperlihatkan secara rinci tahapan proses yang berlangsung sejak awal hingga akhir. Dalam konteks perancangan sistem, sequence diagram memiliki peranan yang signifikan karena dapat merepresentasikan perilaku dinamis sistem sekaligus menunjukkan keterkaitan antar komponen dalam suatu skenario tertentu (Maina et al., 2023).
+Menurut (Renny Puspita Sari et al., 2025) simbol-simbol dari squence diagram sebagai berikut:
+Tabel 2.4 Simbol Squence Diagram
+No
+Simbol
+Nama
+Keterangan
+1
+
+Entity Class
+Gambaran sistem sebagai landasan dalam menyusun basis data
+2
+
+Boundary Class
+Menangani komunikasi antar lingkungan pada sistem
+3
+
+Control Class
+Bertanggung jawab terhadap kelas-kelas terhadap objek yang isinya logika
+4
+
+
+Recursive
+Pesan untuk dirinya
+5
+
+
+Activation
+Mewakili proses durasi aktivasi sebuah operasi
+6
+
+Life Line
+Komponen yang digambarkan garis putus terhubung dengan objek
+
+Class Diagram
+Class diagram merupakan komponen fundamental dalam Unified Modeling Language (UML) yang dimanfaatkan untuk merepresentasikan struktur statis pada sistem berorientasi objek. Diagram ini menyajikan berbagai kelas yang terdapat dalam sistem secara terperinci, meliputi atribut, operasi (metode), serta relasi antar kelas seperti asosiasi, agregasi, dan pewarisan. Keberadaan class diagram memiliki peranan krusial dalam tahap perancangan sistem, karena mampu memberikan gambaran komprehensif mengenai pengorganisasian data serta fungsi, sehingga mendukung proses pengembangan sistem yang lebih terstruktur dan sistematis (Sunarsa et al., 2024). 
+Menurut (Ahmad et al., 2022). Pada buku “Analisa dan Perancangan Sistem Informasi Berorientasi Objek” simbol-simbol dalam Class Diagram sebagai berikut:
+Tabel 2.5 Simbol Class Diagram
+No
+Simbol
+Nama
+Keterangan
+1
+
+Generalization
+Hubungan dimana objek anak (descendent) berbagi perilaku dan struktur data dari objek yang ada diatasnya objek induk (ancestor).
+2
+
+Nary Association
+Upaya untuk menghindari asosiasi dengan lebih dari dua objek.
+3
+
+Class
+Himpunan dari objek-objek yang berbagi atribut serta operasi yang sama.
+4
+
+Collaboration
+Deskripsi dari urutan aksi-aksi yang ditampilkan sistem yang akan menghasilkan suatu hasil yang terukur bagi suatu aktor.
+5
+
+Realization
+Operasi yang benar-benar dilakukan oleh suatu objek.
+6
+
+Dependency
+Hubungan dimana perubahan yang terjadi pada suatu elemen mandiri (independent) akan mempengaruhi elemen yang bergantung pada elemen yang tidak mandiri.
+7
+
+Assocation
+Garis yang menghubungkan antara objek satu dengan objek lainnya.
+
+Aplikasi Pendukung
+XAMPP
+XAMPP merupakan perangkat lunak bersifat open-source yang digunakan sebagai paket server lokal untuk mendukung proses pengembangan dan pengujian aplikasi berbasis web. Perangkat ini mengintegrasikan berbagai komponen utama, antara lain Apache HTTP Server yang berfungsi sebagai web server, MySQL atau MariaDB sebagai sistem manajemen basis data, serta bahasa pemrograman seperti PHP dan Perl. Integrasi tersebut dirancang untuk menyederhanakan proses instalasi dan konfigurasi, sehingga pengembang dapat menyiapkan lingkungan server secara lebih cepat tanpa melalui prosedur yang kompleks (Albert Yakobus Chandra & Putry Wahyu Setyaningsih, 2025).
+Hyper Text Markup Language (HTML)
+Hyper Text Markup Language (HTML) adalah bahasa markup standar yang digunakan untuk membentuk struktur dasar dari sebuah halaman web. HTML digunakan untuk menentukan berbagai elemen seperti teks, gambar, link, tabel, serta media multimedia dalam sebuah dokumen website, sehingga dokumen tersebut dapat ditampilkan oleh peramban. HTML bekerja dengan konsep struktur berbasis tag yang membentuk hierarki pohon (tree structure), sehingga setiap bagian halaman memiliki makna dan fungsi yang jelas. Dalam perkembangan teknologi web modern, HTML tetap menjadi dasar utama dalam pembuatan aplikasi berbasis web, terutama setelah diperkenalkannya HTML5 yang memungkinkan dukungan terhadap fitur multimedia, struktur semantik, serta integrasi dengan berbagai teknologi lain seperti CSS dan JavaScript. HTML juga memainkan peran yang sangat penting dalam meningkatkan kemudahan akses dan kemampuan beroperasi bersama antar berbagai platform, sehingga menjadi bagian yang tidak terpisahkan dari sistem pengembangan web yang ada saat ini (Alida et al., 2025).
+Hypertext Preprocessor (PHP)
+PHP, atau Preprocessor Hypertext, adalah bahasa pemrograman scripting server-side yang bersifat open source yang dimaksudkan untuk membuat aplikasi web dinamis (Bansal, 2025). PHP adalah bahasa pemrograman yang bersifat interpretatif yang dapat diintegrasikan secara langsung ke dalam struktur dokumen HTML (Arafat et al., 2022). 
+Cascading Style Sheets  (CSS)
+Cascading Style Sheets (CSS) adalah bahasa stylesheet yang digunakan untuk mengatur tampilan dan desain visual dari halaman web yang dikembangkan menggunakan HTML. CSS digunakan untuk memisahkan tata letak dan tampilan dari isi konten, sehingga memudahkan pengembang dalam mengelola desain, termasuk warna, jenis font, pengaturan tata letak, serta kemampuan halaman untuk merespons perubahan ukuran layar. Berkat penggunaan CSS, tampilan sebuah halaman web menjadi lebih menarik, konsisten, dan mudah diadaptasi untuk berbagai jenis perangkat. Selain itu, CSS juga membantu dalam mengelola kode secara lebih efisien karena satu file stylesheet dapat diterapkan pada beberapa halaman sekaligus. Dalam evolusi teknologi web terkini, CSS berperan sebagai salah satu elemen penting bersama HTML dan JavaScript dalam menciptakan antarmuka pengguna yang interaktif serta responsive (Cohen & Chugh, 2025). 
+Pengujian Sistem
+Black Box Testing
+Black Box Testing merupakan salah satu metode dalam pengujian perangkat lunak yang menitikberatkan pada evaluasi fungsi sistem berdasarkan kebutuhan dan spesifikasi yang telah ditentukan, tanpa mempertimbangkan aspek internal seperti struktur maupun kode program. Pendekatan ini dilakukan dengan cara menganalisis keterkaitan antara masukan (input) yang diberikan dengan keluaran (output) yang dihasilkan, guna memastikan bahwa sistem beroperasi sesuai dengan harapan. Oleh karena itu, Black Box Testing juga dikenal sebagai functional testing, karena berfokus pada pengujian fungsi sistem dari perspektif pengguna (Alshamaa & Saleem, 2025). 
+White Box Testing
+White Box Testing merupakan suatu metode pengujian perangkat lunak yang menitikberatkan pada pemeriksaan aspek internal sistem, meliputi struktur program, logika pemrosesan, serta alur eksekusi kode. Pendekatan ini dilakukan melalui analisis langsung terhadap kode sumber dengan tujuan untuk memastikan bahwa seluruh jalur eksekusi, kondisi percabangan, dan mekanisme perulangan telah berfungsi sesuai dengan spesifikasi yang ditetapkan. Dalam praktiknya, pengujian ini umumnya dilakukan oleh pengembang atau penguji yang memiliki pemahaman komprehensif terhadap kode program, sehingga mampu mendeteksi kesalahan secara lebih rinci pada tingkat implementasi (Rafli et al., 2024).
+
+BAB IIIANALISA DAN PERANCANGAN
+Analisa Sistem
+Berdasarkan uraian pada sistem berjalan, proses diagnosa troubleshooting komputer dan software di Pondok Pesantren Al-Gontory masih dilakukan secara manual. Pengguna harus menghubungi teknisi secara langsung ke lokasi untuk melakukan pengecekan, yang membutuhkan waktu yang cukup lama karena teknisi harus memeriksa kerusakan secara pribadi tanpa sistem yang dapat membantu proses diagnosa. Selain itu, pengguna harus menunggu kedatangan teknisi.
+ Analisa Sistem Saat Ini
+Gambar 3.1 Sistem Berjalan
+
+ Analisa Sistem Usulan
+Berdasarkan permasalahan pada sistem berjalan, proses diagnosa troubleshooting komputer dan software di Pondok Pesantren Al-Gontory masih membutuhkan bantuan teknisi secara langsung. Maka sistem yang diusulkan adalah sistem pakar berbasis web untuk membantu proses diagnosa troubleshooting komputer dan software di Pondok Pesantren Al-Gontory. Sistem ini menggunakan metode Forward Chaining untuk mencocokkan gejala yang dipilih pengguna dengan aturan yang tersimpan di dalam basis pengetahuan. Hasil dari proses tersebut berupa informasi jenis kerusakan serta solusi yang dapat digunakan sebagai rekomendasi penanganan awal.
+Gambar 3.2 Sistem Usulan
+              
+
+
+Analisa Data
+Data yang digunakan dalam sistem pakar diagnosa troubleshooting komputer dan software ini terdiri dari data gejala, data kerusakan, serta solusi penanganan. Data tersebut diperoleh dari pengalaman pribadi penulis, forum dan komunitas, wawancara dengan pakar atau teknisi yang ada di Pondok Pesantren Al-Gontory, serta berbagai sumber informasi lain yang relevan seperti jurnal, buku dan internet.
+
+
+ Analisa Gejala Dan Kerusakan
+Analisa gejala dan kerusakan dilakukan untuk menentukan hubungan antara gejala yang dialami dengan kemungkinan kerusakan pada komputer dan software. Gejala yang digunakan dalam sistem ini merupakan tanda-tanda awal yang sering muncul ketika terjadi permasalahan pada komputer atau software, seperti komputer tidak menyala, sistem lambat, aplikasi tidak dapat dibuka, koneksi internet bermasalah, atau perangkat mengalami error tertentu. Setiap gejala kemudian dikaitkan dengan jenis kerusakan yang sesuai agar dapat digunakan dalam proses diagnosa.
+Tabel 3.1 Gejala Dan Kerusakan Komputer
+No
+Gejala
+Kerusakan
+1
+Komputer tidak bisa menyala sama sekali
+Kerusakan Power Supply
+
+Lampu indikator power tidak menyala
+
+2
+Terdengar bunyi beep berulang saat dinyalakan
+Kerusakan RAM (Memory)
+
+Komputer menyala tapi tidak ada tampilan di layar
+
+
+Kipas berputar tapi tidak ada POST
+
+3
+Komputer menyala tapi tidak ada tampilan di layar
+Kerusakan VGA Card
+
+Layar bergaris atau berkedip
+
+4
+Hardisk berbunyi aneh (klik-klik)
+Kerusakan Hardisk
+
+Komputer tidak dapat booting ke Windows
+
+
+Muncul pesan “Operating System Not Found”
+
+5
+Komputer tidak dapat booting ke Windows
+Sistem Operasi Corrupt
+
+Windows loading sangat lama
+
+
+Komputer hang saat masuk Windows
+
+6
+Komputer sering restart sendiri
+Overheating (Panas Berlebih)
+
+Muncul Blue Screen of Death (BSOD)
+
+
+Suhu komputer sangat panas
+
+7
+Komputer sangat lambat saat digunakan
+Driver atau Software Bermasalah
+
+Aplikasi sering not responding
+
+
+Audio tidak keluar suara
+
+8
+USB device tidak terdeteksi
+Kerusakan Port USB
+
+Keyboard atau mouse tidak berfungsi
+
+9
+Koneksi internet tidak stabil
+Kerusakan Jaringan
+
+Tidak dapat terhubung ke jaringan WiFi
+
+
+Koneksi internet sering terputus
+
+
+Tabel 3.2 Solusi Yang Disarankan
+No
+Kerusakan
+Keterangan
+Solusi
+1
+Kerusakan Power Supply
+Kerusakan pada komponen daya yang menyebabkan komputer tidak menyala atau indikator power tidak aktif.
+Lakukan pengecekan pada kabel power apakah sudah terpasang dengan benar; lakukan pengujian power supply menggunakan PSU tester; ganti power supply apabila rusak; periksa saklar power di bagian belakang PSU.
+2
+Kerusakan RAM (Memory)
+Kerusakan pada memori yang menyebabkan komputer tidak menampilkan gambar, muncul beep, atau gagal POST.
+Buka casing dan bersihkan slot RAM menggunakan kuas halus; lepas dan pasang kembali RAM dengan benar; uji RAM satu per satu jika menggunakan lebih dari satu modul; ganti RAM apabila masih bermasalah.
+3
+Kerusakan VGA Card
+Kerusakan pada perangkat tampilan yang menyebabkan layar tidak tampil, bergaris, atau berkedip.
+Bersihkan slot VGA dan konektor VGA; pastikan VGA terpasang dengan benar; cek kabel monitor ke VGA; lakukan pengujian menggunakan VGA lain jika memungkinkan.
+4
+Kerusakan Hardisk
+Kerusakan pada media penyimpanan yang menyebabkan gagal booting, data tidak terbaca, atau muncul pesan error sistem.
+Lakukan backup data apabila masih dapat diakses; periksa kabel SATA atau IDE hardisk; lakukan pemindaian hardisk menggunakan tools seperti HD Tune; perbaiki bad sector menggunakan HDD Regenerator apabila memungkinkan.
+5
+Sistem Operasi Corrupt
+Kerusakan pada sistem operasi yang menyebabkan komputer gagal masuk Windows, loading lama, atau hang saat startup.
+Lakukan repair Windows menggunakan installation media; gunakan System Restore ke titik sebelumnya; jalankan SFC/scannow melalui Command Prompt; lakukan instal ulang Windows jika sistem tidak dapat diperbaiki.
+6
+Overheating (Panas Berlebih)
+Kondisi suhu komputer terlalu tinggi yang menyebabkan restart sendiri, BSOD, atau performa menurun.
+Bersihkan debu di dalam casing menggunakan air duster; periksa dan bersihkan heatsink processor; ganti thermal paste processor; pastikan seluruh kipas berfungsi dengan baik.
+7
+Driver atau Software Bermasalah
+Gangguan pada driver atau software yang menyebabkan komputer lambat, aplikasi error, atau perangkat tidak berfungsi.
+Update driver ke versi terbaru; uninstall dan instal ulang driver; gunakan Driver Booster untuk update otomatis; lakukan rollback driver ke versi sebelumnya jika masalah muncul setelah update.
+8
+Kerusakan Port USB
+Kerusakan pada port USB atau pengontrolnya yang menyebabkan perangkat USB tidak terdeteksi atau tidak berfungsi.
+Coba gunakan port USB yang berbeda; update driver USB Controller; disable dan enable kembali USB Controller melalui Device Manager; cek pengaturan BIOS untuk memastikan USB dalam keadaan aktif.
+9
+Kerusakan Jaringan
+Gangguan pada koneksi LAN atau WiFi yang menyebabkan komputer tidak dapat terhubung ke jaringan atau koneksi internet menjadi tidak stabil.
+Periksa koneksi kabel LAN atau jaringan WiFi yang digunakan; pastikan komputer terhubung ke jaringan yang benar; restart router atau access point jika koneksi tidak stabil; periksa pengaturan IP Address, Gateway, dan DNS pada komputer; update atau instal ulang driver network adapter; disable dan enable kembali adapter jaringan melalui Device Manager; hubungi teknisi jaringan apabila koneksi tetap bermasalah.
+
+ Analisa Metode Pelacakan
+Metode pelacakan yang digunakan pada sistem pakar diagnosa troubleshooting komputer dan software ini adalah metode Forward Chaining. Metode ini bekerja dengan cara menelusuri fakta awal berupa gejala yang dipilih oleh pengguna, kemudian mencocokkan fakta tersebut dengan aturan atau rule yang terdapat pada basis pengetahuan. Apabila seluruh gejala pada bagian IF dalam suatu rule terpenuhi, maka sistem akan menghasilkan kesimpulan pada bagian THEN berupa jenis kerusakan. Metode ini digambarkan sebagai berikut :
+Gambar 3.3 Proses Pelacakan Forward Chaining
+                     
+ Analisa Rule Keputusan (Basis Aturan)
+Berdasarkan data yang diperoleh penulis maka dapat disusun basis pengetahuan yang digunakan dalam sistem pakar diagnosa troubleshooting komputer dan software. Basis pengetahuan tersebut terdiri dari data gejala, data kerusakan, dan rule keputusan.
+ Data Gejala
+Data gejala merupakan daftar gejala yang digunakan sebagai fakta awal dalam proses diagnosa. Setiap gejala diberikan kode tertentu agar lebih mudah digunakan dalam proses pencocokan rule oleh sistem. Berikut merupakan data gejala yang digunakan pada sistem pakar diagnosa troubleshooting komputer dan software.
+Tabel 3.3 Gejala
+Kode
+Gejala
+G001
+Komputer tidak bisa menyala sama sekali
+G002
+Lampu indikator power tidak menyala
+G003
+Terdengar bunyi beep berulang saat dinyalakan
+G004
+Komputer menyala tapi tidak ada tampilan di layar
+G005
+Kipas berputar tapi tidak ada POST
+G006
+Komputer sering restart sendiri
+G007
+Muncul Blue Screen of Death (BSOD)
+G008
+Komputer sangat lambat saat digunakan
+G009
+Aplikasi sering not responding
+G010
+Hardisk berbunyi aneh (klik-klik)
+G011
+Komputer tidak dapat booting ke Windows
+G012
+Muncul pesan "Operating System Not Found"
+G013
+Windows loading sangat lama
+G014
+Komputer hang saat masuk Windows
+G015
+Layar bergaris atau berkedip
+G016
+Suhu komputer sangat panas
+G017
+Koneksi internet tidak stabil
+G018
+USB device tidak terdeteksi
+G019
+Keyboard atau mouse tidak berfungsi
+G020
+Audio tidak keluar suara
+G021
+Tidak dapat terhubung ke jaringan WiFi
+G022
+Koneksi internet sering terputus
+
+Berdasarkan tabel di atas, setiap gejala digunakan sebagai fakta awal yang akan dipilih oleh pengguna ketika melakukan proses diagnosa. Gejala-gejala tersebut kemudian akan dicocokkan dengan basis aturan yang telah dibuat untuk menentukan jenis kerusakan yang sesuai.
+ Data Kerusakan
+Data kerusakan merupakan daftar kemungkinan kerusakan yang dapat dihasilkan oleh sistem setelah proses pelacakan dilakukan. Setiap kerusakan memiliki kode yang digunakan sebagai hasil akhir dari rule keputusan.
+Tabel 3.4 Kerusakan
+Kode
+Kerusakan
+K001
+Kerusakan Power Supply
+K002
+Kerusakan RAM (Memory)
+K003
+Kerusakan VGA Card
+K004
+Kerusakan Hardisk
+K005
+Sistem Operasi Corrupt
+K006
+Overheating (Panas Berlebih)
+K007
+Driver atau Software Bermasalah
+K008
+Kerusakan Port USB
+K009
+Kerusakan Jaringan
+
+Data kerusakan tersebut menjadi kesimpulan akhir dari proses inferensi. Setelah sistem menemukan rule yang sesuai dengan gejala yang dipilih pengguna, sistem akan menampilkan jenis kerusakan berdasarkan kode kerusakan yang terhubung dengan rule tersebut.
+ Rule Keputusan
+Berdasarkan data gejala dan kerusakan yang telah diperoleh, maka dapat dibuat tabel keputusan sebagai dasar proses inferensi pada sistem pakar. Tabel keputusan ini digunakan untuk menunjukkan hubungan antara gejala dengan jenis kerusakan. Setiap tanda √ menunjukkan bahwa gejala tersebut digunakan dalam rule untuk menentukan kerusakan tertentu.
+Tabel 3.5 Keputusan (Basis Aturan)
+Kode Gejala
+K001
+K002
+K003
+K004
+K005
+K006
+K007
+K008
+K009
+G001
+√
+
+
+
+
+
+
+
+
+G002
+√
+
+
+
+
+
+
+
+
+G003
+
+√
+
+
+
+
+
+
+
+G004
+
+√
+√
+
+
+
+
+
+
+G005
+
+√
+
+
+
+
+
+
+
+G006
+
+
+
+
+
+√
+
+
+
+G007
+
+
+
+
+
+√
+
+
+
+G008
+
+
+
+
+
+
+√
+
+
+G009
+
+
+
+
+
+
+√
+
+
+G010
+
+
+
+√
+
+
+
+
+
+G011
+
+
+
+√
+√
+
+
+
+
+G012
+
+
+
+√
+
+
+
+
+
+G013
+
+
+
+
+√
+
+
+
+
+G014
+
+
+
+
+√
+
+
+
+
+G015
+
+
+√
+
+
+
+
+
+
+G016
+
+
+
+
+
+√
+
+
+
+G017
+
+
+
+
+
+
+
+
+√
+G018
+
+
+
+
+
+
+
+√
+
+G019
+
+
+
+
+
+
+
+√
+
+G020
+
+
+
+
+
+
+√
+
+
+G021
+
+
+
+
+
+
+
+
+√
+G022
+
+
+
+
+
+
+
+
+√             
+
+Tabel 3.6 Keterangan Kode Kerusakan
+Kode Kerusakan
+Nama Kerusakan
+K001
+Kerusakan Power Supply
+K002
+Kerusakan RAM (Memory)
+K003
+Kerusakan VGA Card
+K004
+Kerusakan Hardisk
+K005
+Sistem Operasi Corrupt
+K006
+Overheating (Panas Berlebih)
+K007
+Driver atau Software Bermasalah
+K008
+Kerusakan Port USB
+K009
+Kerusakan Jaringan
+
+Berdasarkan tabel keputusan di atas, setiap jenis kerusakan memiliki kombinasi gejala yang berbeda. Sebagai contoh, kerusakan K006 atau Overheating (Panas Berlebih) memiliki gejala G006, G007, dan G016. Apabila pengguna memilih ketiga gejala tersebut, maka sistem akan mencocokkannya dengan basis aturan dan menghasilkan diagnosa berupa overheating.
+Tabel 3.7 Rule (Basis Aturan) Forward Chaining
+Rule
+IF
+THEN
+1
+K001
+G001, G002
+2
+K002
+G003, G004, G005
+3
+K003
+G004, G015
+4
+K004
+G010, G011, G012
+5
+K005
+G011, G013, G014
+6
+K006
+G006, G007, G016
+7
+K007
+G008, G009, G020
+8
+K008
+G018, G019
+9
+K009
+G017, G021, G022
+
+ Analisa Pohon Keputusan
+Berdasarkan tabel keputusan dan basis aturan yang telah dibuat, maka dapat dirancang pohon keputusan untuk sistem pakar diagnosa troubleshooting komputer dan software menggunakan metode Forward Chaining. Pohon keputusan digunakan untuk menggambarkan alur penelusuran gejala hingga menghasilkan kesimpulan berupa jenis kerusakan. Dalam sistem ini, setiap gejala yang dipilih oleh pengguna akan menjadi fakta awal yang kemudian ditelusuri oleh mesin inferensi berdasarkan rule yang tersedia.
+Gambar 3.4 Pohon Keputusan
+
+Perancangan Basis Data
+Dalam pembuatan sistem pakar diagnosa troubleshooting komputer dan software, perancangan basis data bertujuan untuk menyimpan data yang dibutuhkan oleh sistem secara terstruktur. Basis data digunakan untuk menyimpan data user, data gejala, data kerusakan, data rule, data diagnosa, serta detail gejala yang dipilih pada saat proses diagnosa dilakukan.
+Perancangan basis data yang baik diperlukan agar sistem dapat melakukan pengelolaan data secara efisien, mempermudah proses pencarian data, mendukung proses inferensi menggunakan metode Forward Chaining, serta menyimpan riwayat hasil diagnosa yang telah dilakukan oleh asisten. Dengan adanya basis data, sistem dapat menampilkan hasil diagnosa, solusi penanganan, dan laporan diagnosa secara lebih cepat dan akurat.
+ Entity Relationship Diagram (ERD)
+Entity Relationship Diagram atau ERD digunakan untuk menggambarkan hubungan antar entitas yang terdapat dalam sistem. Pada sistem pakar diagnosa troubleshooting komputer dan software ini, terdapat beberapa entitas utama, yaitu user, gejala, kerusakan, rule, rule_detail, diagnosa, dan diagnosa_detail.
+Gambar 3.5 Entity Relationship Diagram (ERD)
+
+ Transformasi ERD ke Logical Record Structure (LRS)
+Gambar berikut merupakan tahapan transformasi dari diagram Entity Relationship Diagram (ERD) ke dalam bentuk Logical Record Structure (LRS). Transformasi ini dilakukan untuk mengubah entitas, atribut, dan relasi pada ERD menjadi struktur data logis yang dapat digunakan dalam perancangan basis data.
+                      
+Gambar 3.6 Transformasi ERD ke LRS
+
+ Logical Record Structure (LRS)
+Setelah dilakukan transformasi ERD ke LRS, maka terbentuk struktur data logis yang digunakan sebagai dasar dalam pembuatan basis data sistem. Logical Record Structure digunakan untuk menggambarkan tabel-tabel yang terdapat pada sistem beserta atribut dan relasi antar tabel. Tampilan LRS dapat dilihat pada gambar berikut:
+Gambar 3.7 Logical Record Structure (LRS)
+
+ Spesifikasi Basis Data
+Rancangan basis data yang diusulkan terdiri dari beberapa tabel yang tersimpan di dalam database. Tahapan ini menjelaskan nama tabel, nama field, tipe data, panjang data, primary key, foreign key, serta deskripsi dari masing-masing field. Spesifikasi basis data digunakan untuk memperjelas struktur tabel yang digunakan dalam sistem pakar diagnosa troubleshooting komputer dan software.
+ Nama Table   : users
+    Isi   : data pengguna sistem
+ Primary Key: id_user
+Tabel 3.8 Data Pengguna Sistem
+Nama Field
+Tipe Data
+Panjang
+Key
+Deskripsi
+id_user
+Int
+11
+PK
+Id user
+username
+Varchar
+50
+-
+Username untuk login
+password
+Varchar
+255
+-
+Password untuk login
+role
+Enum
+-
+-
+Hak akses user, yaitu admin atau asisten_lab
+nama_lengkap
+Varchar
+100
+-
+Nama lengkap pengguna
+created_at
+Timestamp
+-
+-
+Waktu data user dibuat
+ Nama Table: gejala
+    Isi: data gejala kerusakan komputer dan software
+ Primary Key: id_gejala
+Tabel 3.9 Data Gejala Kerusakan Komputer dan Software
+Nama Field
+Tipe Data
+Panjang
+Key
+Deskripsi
+id_gejala
+Int
+11
+PK
+Id gejala
+kode_gejala
+Varchar
+10
+-
+Kode gejala
+nama_gejala
+Text
+-
+-
+Nama atau deskripsi gejala
+kata_kunci
+Text
+-
+-
+Kata kunci gejala untuk kebutuhan pencarian atau pencocokan
+ Nama Table: kerusakan
+ Isi: data kerusakan dan solusi penanganan
+ Primary Key: id_kerusakan
+
+
+Tabel 3.10 Data Kerusakan dan Solusi Penanganan
+Nama Field
+Tipe Data
+Panjang
+Key
+Deskripsi
+id_kerusakan
+Int
+11
+PK
+Id kerusakan
+kode_kerusakan
+Varchar
+10
+-
+Kode kerusakan
+nama_kerusakan
+Text
+-
+-
+Nama kerusakan
+solusi
+Text
+-
+-
+Solusi penanganan kerusakan
+ Nama Table: rule
+  Isi: data aturan utama forward chaining
+Primary Key: id_rule
+Foreign Key: id_kerusakan
+Tabel 3.11 Data Aturan Forward Chaining
+Nama Field
+Tipe Data
+Panjang
+Key
+Deskripsi
+id_rule
+Int
+11
+PK
+Id rule
+id_kerusakan
+Int
+11
+FK
+Id kerusakan yang menjadi hasil dari rule
+ Nama Table: rule_detail
+ Isi: data detail gejala pada setiap rule
+ Primary Key: id
+ Foreign Key: id_rule, id_gejala
+
+Tabel 3.12 Data Detail Gejala Pada Setiap Rule
+Nama Field
+Tipe Data
+Panjang
+Key
+Deskripsi
+id
+Int
+11
+PK
+Id rule detail
+id_rule
+Int
+11
+FK
+Id rule yang digunakan
+id_gejala
+Int
+11
+FK
+Id gejala yang menjadi bagian dari rule
+ Nama Table: diagnosa
+ Isi: data hasil diagnosa pengguna
+ Primary Key: id_diagnosa
+ Foreign Key: id_user
+Tabel 3.13 Data Hasil Diagnosa Pengguna
+Nama Field
+Tipe Data
+Panjang
+Key
+Deskripsi
+id_diagnosa
+Int
+11
+PK
+Id diagnosa
+id_user
+Int
+11
+FK
+Id user yang melakukan diagnosa
+tanggal
+Datetime
+-
+-
+Tanggal dan waktu diagnosa dilakukan
+hasil_kerusakan
+Text
+-
+-
+Hasil kerusakan dari proses diagnosa
+ Nama Table: diagnosa_detail
+  Isi: data gejala yang dipilih pada proses diagnosa
+Primary Key: id
+Foreign key: id_diagnosa, id_gejala
+
+Tabel 3.14 Data Gejala Proses Diagnosa
+Nama Field
+Tipe Data
+Panjang
+Key
+Deskripsi
+id
+Int
+11
+PK
+Id diagnosa detail
+id_diagnosa
+Int
+11
+FK
+Id diagnosa
+id_gejala
+Int
+11
+FK
+Id gejala yang dipilih saat diagnosa
+Perancangan Unified Modelling Language (UML)
+Perancangan Unified Modelling Language (UML) digunakan untuk menggambarkan rancangan sistem secara visual sebelum sistem diimplementasikan. UML membantu menjelaskan alur kerja sistem, interaksi antara aktor dengan sistem, serta hubungan antar komponen yang terdapat pada aplikasi.
+ Use Case Diagram
+Use Case Diagram di atas menggambarkan hubungan antara aktor dengan fungsi yang terdapat pada sistem pakar diagnosa troubleshooting komputer dan software. Aktor Admin memiliki hak akses untuk mengelola data gejala, data kerusakan dan solusi, data rule Forward Chaining, data user, serta laporan diagnosa. Aktor Asisten memiliki hak akses untuk melakukan diagnosa kerusakan, memilih gejala, melihat hasil diagnosa dan solusi, melihat riwayat diagnosa, melihat detail diagnosa, serta melakukan export laporan diagnosa.
+         
+Gambar 3.8 Use Case Diagram
+
+ Activity Diagram
+Activity Diagram digunakan untuk menggambarkan alur aktivitas yang terjadi pada sistem. Diagram ini menjelaskan tahapan proses yang dilakukan oleh aktor mulai dari login, masuk ke dashboard, memilih menu, hingga sistem memberikan keluaran sesuai aktivitas yang dilakukan.
+Pada sistem pakar diagnosa troubleshooting komputer dan software ini, activity diagram dibagi menjadi dua, yaitu Activity Diagram Admin dan Activity Diagram Asisten. Admin bertugas mengelola data master dan laporan diagnosa, sedangkan Asisten bertugas melakukan proses diagnosa kerusakan komputer atau software.
+Activity Diagram Admin
+ Activity Diagram Login Admin
+
+Gambar 3.9 Activity Diagram Login Admin
+Berdasarkan Activity Diagram Login Admin di atas, proses login dimulai ketika Admin membuka aplikasi. Sistem kemudian menampilkan halaman login, lalu Admin memasukkan username dan password. Sistem akan melakukan validasi terhadap data yang dimasukkan. Jika data login sesuai, maka sistem akan menampilkan Dashboard Admin. Namun, jika data login tidak sesuai, sistem akan menampilkan pesan gagal login dan mengarahkan Admin kembali ke halaman login.
+
+
+
+ Activity Diagram Mengelola User
+
+Gambar 3.10 Activity Diagram Mengelola User
+Berdasarkan Activity Diagram Mengelola User di atas, Admin dapat melakukan pengelolaan data user melalui menu Manajemen User. Sistem akan menampilkan daftar user yang tersedia, kemudian Admin dapat memilih aksi tambah, ubah, atau hapus data. Pada proses tambah dan ubah data, sistem melakukan validasi terlebih dahulu. Jika data yang dimasukkan valid, maka sistem akan menyimpan perubahan ke dalam database. Jika data tidak valid, sistem akan menampilkan pesan kesalahan. Setelah proses selesai, sistem akan menampilkan daftar user terbaru.
+ Activity Diagram Mengelola Data Gejala
+    
+Gambar 3.11 Activity Diagram Mengelola Data Gejala
+Berdasarkan Activity Diagram Mengelola Data Gejala di atas, Admin dapat melakukan pengelolaan data gejala melalui menu Manajemen Gejala. Sistem menampilkan daftar gejala yang telah tersimpan di database dan menyediakan form untuk menambahkan gejala baru. Admin dapat menambah, mengubah, atau menghapus data gejala. Pada proses tambah dan edit, sistem melakukan validasi data terlebih dahulu. Jika data valid, maka sistem akan menyimpan atau memperbarui data ke database. Jika data tidak valid, sistem akan menampilkan pesan kesalahan. Setelah proses selesai, sistem akan menampilkan daftar gejala terbaru.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Activity Diagram Mengelola Data Kerusakan dan Solusi
+   
+      Gambar 3.12 Activity Diagram Mengelola Kerusakan dan Solusi
+Berdasarkan Activity Diagram Mengelola Kerusakan dan Solusi di atas, Admin dapat melakukan pengelolaan data kerusakan melalui menu Manajemen Kerusakan. Sistem menampilkan daftar kerusakan yang telah tersimpan di database serta menyediakan form untuk menambahkan data kerusakan baru. Admin dapat menambah, mengubah, atau menghapus data kerusakan dan solusi. Pada proses tambah dan edit, sistem melakukan validasi data terlebih dahulu. Jika data valid, maka sistem akan menyimpan atau memperbarui data ke database. Jika data tidak valid, sistem akan menampilkan pesan kesalahan. Setelah proses selesai, sistem akan menampilkan daftar kerusakan terbaru.
+ Activity Diagram Mengelola Rule Forward Chaining
+    
+Gambar 3.13 Activity Diagram Mengelola Rule Forward Chaining
+Berdasarkan Activity Diagram Mengelola Rule Forward Chaining di atas, Admin dapat melakukan pengelolaan rule melalui menu Manajemen Rule. Sistem menampilkan form tambah rule baru yang terdiri dari pilihan kerusakan dan daftar gejala. Admin dapat menambahkan rule baru, mengubah rule yang sudah ada, atau menghapus rule. Pada proses tambah dan edit, sistem melakukan validasi untuk memastikan kerusakan telah dipilih dan gejala minimal satu telah dipilih. Jika data valid, sistem akan menyimpan data rule dan detail gejala ke database. Setelah proses selesai, sistem akan menampilkan daftar rule terbaru.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Activity Diagram Mengelola Laporan Diagnosa
+    
+Gambar 3.14 Activity Diagram Mengelola Laporan Diagnosa
+Berdasarkan Activity Diagram Mengelola Laporan Diagnosa di atas, Admin dapat melihat dan mengelola data laporan diagnosa melalui menu Laporan Diagnosa. Sistem menampilkan form filter laporan dan tabel data diagnosa yang berisi tanggal, Asisten Lab, hasil kerusakan, gejala yang dipilih, serta aksi detail. Admin dapat melakukan filter berdasarkan tanggal mulai, tanggal akhir, dan Asisten Lab. Selain itu, Admin dapat melihat gejala yang dipilih, melihat detail diagnosa, serta mencetak atau menyimpan laporan dalam bentuk PDF. Setelah setiap proses dilakukan, sistem akan menampilkan kembali data laporan diagnosa sesuai kebutuhan Admin.
+ Activity Diagram Logout Admin
+    
+Gambar 3.15 Activity Diagram Logout Admin
+Berdasarkan Activity Diagram Logout Admin di atas, proses logout dimulai ketika Admin berada pada halaman dashboard. Admin memilih tombol Logout, kemudian sistem menampilkan pesan konfirmasi untuk memastikan apakah Admin benar-benar ingin keluar dari sistem. Jika Admin membatalkan proses logout, maka sistem akan tetap menampilkan halaman Dashboard Admin. Namun, jika Admin mengonfirmasi logout, sistem akan melakukan validasi logout dengan mengakhiri sesi pengguna. Setelah proses logout berhasil, Admin akan diarahkan keluar dari sistem menuju halaman login.
+Activity Diagram Asisten
+ Activity Diagram Login Asisten
+
+Gambar 3.16 Activity Diagram Login Asisten
+Berdasarkan Activity Diagram Login Asisten di atas, proses login dimulai ketika Asisten membuka aplikasi. Sistem kemudian menampilkan halaman login, lalu Asisten memasukkan username dan password. Sistem akan melakukan validasi terhadap data yang dimasukkan. Jika data login sesuai, maka sistem akan menampilkan Dashboard Asisten. Namun, jika data login tidak sesuai, sistem akan menampilkan pesan gagal login dan mengarahkan Asisten kembali ke halaman login.
+
+
+
+
+
+ Activity Diagram Diagnosa Kerusakan
+
+     Gambar 3.17 Activity Diagram Diagnosa Kerusakan
+Berdasarkan Activity Diagram Diagnosa Kerusakan di atas, Asisten dapat melakukan proses diagnosa melalui menu Diagnosa Kerusakan. Sistem akan menampilkan daftar gejala kerusakan komputer atau software yang tersimpan di database. Asisten memilih gejala sesuai dengan kondisi kerusakan, kemudian menekan tombol Proses Diagnosa. Sistem melakukan validasi untuk memastikan terdapat gejala yang dipilih. Jika gejala telah dipilih, sistem melakukan proses Forward Chaining dengan mencocokkan gejala terhadap basis aturan. Apabila rule yang sesuai ditemukan, sistem menampilkan hasil diagnosa berupa jenis kerusakan dan solusi penanganan. Jika tidak ditemukan rule yang sesuai, sistem menampilkan hasil kerusakan tidak teridentifikasi. Hasil proses diagnosa kemudian disimpan ke dalam riwayat diagnosa.
+ Activity Diagram Chat Bot Diagnosa
+    
+Gambar 3.18 Activity Diagram Chat Bot Diagnosa
+Berdasarkan Activity Diagram Chat Bot Diagnosa di atas, Asisten dapat melakukan diagnosa melalui fitur percakapan dengan mengetik keluhan kerusakan komputer atau memilih contoh keluhan yang tersedia. Sistem akan menerima pesan dari Asisten, kemudian menganalisis teks keluhan dan mencocokkannya dengan data gejala. Jika gejala yang sesuai ditemukan, sistem akan melakukan proses Forward Chaining dengan mencocokkan gejala terhadap basis aturan. Apabila rule yang sesuai ditemukan, sistem menampilkan hasil diagnosa berupa jenis kerusakan dan solusi. Jika tidak ditemukan rule yang sesuai, sistem menampilkan hasil kerusakan tidak teridentifikasi. Hasil diagnosa kemudian disimpan ke dalam riwayat diagnosa.
+ Activity Diagram Riwayat Diagnosa
+    
+Gambar 3.19 Activity Diagram Riwayat Diagnosa
+Berdasarkan Activity Diagram Riwayat Diagnosa di atas, Asisten dapat melihat daftar riwayat diagnosa yang pernah dilakukan melalui menu Riwayat Diagnosa. Sistem akan mengambil data riwayat dari database dan menampilkannya dalam bentuk tabel yang berisi ID diagnosa, tanggal, hasil kerusakan, jumlah gejala, serta aksi. Asisten dapat memilih tombol Detail untuk melihat informasi hasil diagnosa secara lengkap, tombol Gejala untuk melihat daftar gejala yang dipilih, tombol Diagnosa Baru untuk menuju halaman diagnosa kerusakan, serta tombol Export Laporan untuk menuju halaman Export Laporan pada sidebar.
+ Activity Diagram Export Laporan
+    
+Gambar 3.20 Activity Diagram Export Laporan
+Berdasarkan Activity Diagram Export Laporan di atas, Asisten dapat membuat laporan diagnosa melalui menu Export Laporan. Sistem akan menampilkan form filter laporan berdasarkan tanggal mulai dan tanggal akhir, serta menampilkan preview laporan diagnosa. Setelah Asisten mengisi periode laporan dan menekan tombol Filter, sistem akan mengambil data diagnosa dari database sesuai periode yang dipilih. Jika data ditemukan, sistem akan menampilkan laporan diagnosa. Jika data tidak ditemukan, sistem akan menampilkan pesan bahwa data laporan tidak tersedia. Asisten kemudian dapat memilih tombol Cetak / Save as PDF untuk menyimpan laporan diagnosa dalam bentuk PDF.
+ Activity Diagram Logout Asisten
+    
+Gambar 3.21 Activity Diagram Logout Asisten
+Berdasarkan Activity Diagram Logout Asisten di atas, proses logout dimulai ketika Asisten berada pada halaman dashboard. Asisten memilih tombol Logout, kemudian sistem menampilkan pesan konfirmasi untuk memastikan apakah Asisten benar-benar ingin keluar dari sistem. Jika Asisten membatalkan proses logout, maka sistem akan tetap menampilkan halaman Dashboard Asisten. Namun, jika Asisten mengonfirmasi logout, sistem akan melakukan validasi logout dengan mengakhiri sesi pengguna. Setelah proses logout berhasil, Asisten akan diarahkan keluar dari sistem menuju halaman login.
+ Sequence Diagram
+Sequence Diagram Admin
+Sequence Diagram Login Admin
+
+Gambar 3.22 Sequence Diagram Login Admin
+Berdasarkan Sequence Diagram Login Admin di atas, proses login dimulai ketika Admin membuka website sistem pakar. Sistem menampilkan halaman login, kemudian Admin memasukkan username dan password serta menekan tombol Login. Data login dikirim ke proses login untuk divalidasi dengan data user yang tersimpan di database. Jika username, password, dan role Admin valid, sistem membuat session dan mengarahkan Admin ke Dashboard Admin. Jika data login tidak valid, sistem menampilkan pesan login gagal dan Admin diminta memasukkan kembali data login yang benar.
+Sequence Diagram Mengelola User
+    
+Gambar 3.23 Sequence Diagram Mengelola User
+Berdasarkan Sequence Diagram Mengelola User Admin di atas, proses dimulai ketika Admin memilih menu Manajemen User. Sistem kemudian mengambil data user dari database dan menampilkan halaman Manajemen User yang berisi daftar user serta form tambah user. Admin dapat melakukan tambah, edit, dan hapus data user. Pada proses tambah dan edit, sistem melakukan validasi terlebih dahulu sebelum data disimpan atau diperbarui ke database. Jika data tidak valid, sistem akan menampilkan pesan kesalahan. Pada proses hapus, sistem menampilkan konfirmasi terlebih dahulu sebelum data user dihapus. Setelah proses berhasil dilakukan, sistem memperbarui isi tabel dan menampilkan daftar user terbaru kepada Admin.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sequence Diagram Mengelola Data Gejala
+                  
+Gambar 3.24 Sequence Diagram Mengelola Data Gejala
+Berdasarkan Sequence Diagram Mengelola Gejala Admin di atas, proses dimulai ketika Admin memilih menu Manajemen Gejala. Sistem menampilkan halaman Manajemen Gejala dengan mengambil data gejala dari database. Admin dapat melakukan tambah, edit, dan hapus data gejala. Pada proses tambah dan edit, data dikirim ke proses kelola gejala untuk divalidasi terlebih dahulu. Jika data valid, sistem akan menyimpan atau memperbarui data ke database. Jika data tidak valid, sistem akan menampilkan pesan kesalahan. Pada proses hapus, sistem menampilkan konfirmasi sebelum data gejala dihapus dari database. Setelah setiap proses berhasil dilakukan, sistem akan menampilkan daftar gejala terbaru.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sequence Diagram Mengelola Data Kerusakan dan Solusi
+    
+Gambar 3.25 Sequence Diagram Mengelola Data Kerusakan dan Solusi
+Berdasarkan Sequence Diagram Mengelola Data Kerusakan dan Solusi Admin di atas, proses dimulai ketika Admin memilih menu Manajemen Kerusakan. Sistem kemudian mengambil data kerusakan dan solusi dari database, lalu menampilkannya pada halaman Manajemen Kerusakan. Admin dapat melakukan proses tambah, edit, dan hapus data kerusakan. Pada proses tambah dan edit, sistem melakukan validasi data terlebih dahulu sebelum data disimpan atau diperbarui ke database. Jika data tidak valid, sistem akan menampilkan pesan kesalahan. Pada proses hapus, sistem menampilkan konfirmasi sebelum data kerusakan dihapus. Setelah proses berhasil dilakukan, sistem memperbarui isi tabel dan menampilkan daftar kerusakan terbaru kepada Admin.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sequence Diagram Mengelola Rule Forward Chaining
+    
+Gambar 3.26 Sequence Diagram Mengelola Rule Forward Chaining
+Berdasarkan Sequence Diagram Mengelola Rule Forward Chaining Admin di atas, proses dimulai ketika Admin memilih menu Manajemen Rule. Sistem mengambil data kerusakan, data gejala, dan data rule dari database, kemudian menampilkannya pada halaman Manajemen Rule. Admin dapat melakukan tambah, edit, dan hapus data rule. Pada proses tambah rule, sistem menyimpan data aturan utama ke tabel rule dan menyimpan detail gejala ke tabel rule_detail. Pada proses edit rule, sistem memperbarui data rule serta mengganti detail gejala yang berkaitan dengan rule tersebut. Pada proses hapus rule, sistem menghapus data pada tabel rule_detail terlebih dahulu, kemudian menghapus data pada tabel rule. Setelah proses berhasil dilakukan, sistem menampilkan daftar rule terbaru kepada Admin.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sequence Diagram Mengelola Laporan Diagnosa
+       
+Gambar 3.27 Sequence Diagram Mengelola Laporan Diagnosa
+Berdasarkan Sequence Diagram Mengelola Laporan Diagnosa Admin di atas, proses dimulai ketika Admin memilih menu Laporan Diagnosa. Sistem kemudian mengambil data diagnosa dari database dan menampilkannya pada halaman Laporan Diagnosa. Admin dapat melakukan filter laporan berdasarkan tanggal mulai, tanggal akhir, dan Asisten Lab. Sistem akan memproses parameter filter dan mengambil data diagnosa sesuai kriteria yang dimasukkan. Jika data ditemukan, sistem menampilkan hasil filter laporan. Jika data tidak ditemukan, sistem menampilkan pesan bahwa data diagnosa belum tersedia. Selain itu, Admin dapat melihat gejala yang dipilih, melihat detail hasil diagnosa, serta mencetak atau menyimpan laporan dalam bentuk PDF.
+Sequence Diagram Logout Admin
+
+Gambar 3.28 Sequence Diagram Logout Admin
+Berdasarkan Sequence Diagram Logout Admin di atas, proses logout dimulai ketika Admin berada pada halaman Dashboard Admin dan memilih tombol Logout. Sistem kemudian menampilkan pesan konfirmasi untuk memastikan apakah Admin benar-benar ingin keluar dari sistem. Jika Admin memilih tombol Batal, maka sistem tetap menampilkan halaman Dashboard Admin. Jika Admin memilih tombol Ya, Logout, maka sistem akan memproses logout dengan menghapus session Admin. Setelah session berhasil dihapus, sistem mengarahkan Admin kembali ke halaman login.
+
+
+
+
+
+Sequence Diagram Asisten
+Sequence Diagram Login Asisten
+
+Gambar 3.29 Sequence Diagram Login Asisten
+Berdasarkan Sequence Diagram Login Asisten di atas, proses login dimulai ketika Asisten membuka website sistem pakar. Sistem menampilkan halaman login, kemudian Asisten memasukkan username dan password serta menekan tombol Login. Data login dikirim ke proses login untuk divalidasi dengan data user yang tersimpan di database. Jika username, password, dan role Asisten valid, sistem membuat session dan mengarahkan Asisten ke Dashboard Asisten. Jika data login tidak valid, sistem menampilkan pesan login gagal dan Asisten diminta memasukkan kembali data login yang benar.
+
+
+
+
+
+
+Sequence Diagram Diagnosa Kerusakan
+  
+Gambar 3.30 Sequence Diagram Diagnosa Kerusakan
+Berdasarkan Sequence Diagram Diagnosa Kerusakan Asisten di atas, proses dimulai ketika Asisten memilih menu Diagnosa Kerusakan. Sistem mengambil data gejala dari database dan menampilkannya pada halaman diagnosa. Asisten memilih gejala yang sesuai, kemudian dapat melakukan reset pilihan atau memproses diagnosa. Sistem memvalidasi gejala yang dipilih, mengambil data aturan (rule), dan melakukan proses Forward Chaining. Jika aturan ditemukan, sistem menampilkan hasil diagnosa beserta solusi. Jika tidak ditemukan, sistem menampilkan hasil kerusakan tidak teridentifikasi. Seluruh hasil diagnosa kemudian disimpan ke dalam riwayat diagnosa.
+Sequence Diagram Chat Bot Diagnosa
+
+Gambar 3.31 Sequence Diagram Chat Bot Diagnosa
+Berdasarkan Sequence Diagram Chat Bot Diagnosa Asisten di atas, proses dimulai ketika Asisten memilih menu Chat Bot Diagnosa dan mengirimkan keluhan melalui chat. Sistem kemudian menganalisis keluhan, mencocokkannya dengan data gejala, serta melakukan proses Forward Chaining berdasarkan basis aturan. Selanjutnya, sistem menampilkan hasil diagnosa beserta solusi atau informasi bahwa kerusakan tidak teridentifikasi. Hasil diagnosa kemudian disimpan ke dalam riwayat diagnosa.
+Sequence Diagram Riwayat Diagnosa
+
+Gambar 3.32 Sequence Diagram Riwayat Diagnosa
+Berdasarkan Sequence Diagram Riwayat Diagnosa Asisten di atas, proses dimulai ketika Asisten memilih menu Riwayat Diagnosa. Sistem mengambil data riwayat diagnosa dari database dan menampilkannya dalam bentuk tabel. Asisten dapat melihat detail hasil diagnosa, melihat daftar gejala yang dipilih, melakukan diagnosa baru, atau menuju ke halaman Export Laporan. Setiap aksi yang dipilih akan diproses oleh sistem dengan mengambil data yang diperlukan dari database atau mengarahkan Asisten ke halaman yang sesuai.
+
+
+Sequence Diagram Export Laporan
+
+Gambar 3.33 Sequence Diagram Export Laporan
+Berdasarkan Sequence Diagram Export Laporan Asisten di atas, proses dimulai ketika Asisten memilih menu Export Laporan. Sistem mengambil data diagnosa dari database dan menampilkannya pada halaman export. Asisten dapat melakukan filter laporan berdasarkan rentang tanggal atau mencetak laporan dalam format PDF. Sistem akan memproses permintaan, mengambil data yang sesuai dari database, kemudian menampilkan hasil filter atau menghasilkan file PDF yang dapat diunduh oleh Asisten.
+
+Sequence Diagram Logout Asisten
+
+Gambar 3.34 Sequence Diagram Logout Asisten
+Berdasarkan Activity Diagram Logout Asisten di atas, proses logout dimulai ketika Asisten berada pada halaman dashboard. Asisten memilih tombol Logout, kemudian sistem menampilkan pesan konfirmasi untuk memastikan apakah Asisten benar-benar ingin keluar dari sistem. Jika Asisten membatalkan proses logout, maka sistem akan tetap menampilkan halaman Dashboard Asisten. Namun, jika Asisten mengonfirmasi logout, sistem akan melakukan validasi logout dengan mengakhiri sesi pengguna. Setelah proses logout berhasil, Asisten akan diarahkan keluar dari sistem menuju halaman login.
+ Class Diagram
+
+Gambar 3.35 Class Diagram
+Pada Class Diagram Sistem Pakar Diagnosa Troubleshooting Komputer ini ditampilkan beberapa class yang terdapat pada sistem beserta relasi antar class. Selain itu, ditampilkan pula atribut dan operasi (method) yang dimiliki oleh setiap class. Class diagram ini menggambarkan struktur sistem yang terdiri atas class users, gejala, kerusakan, rule, rule_detail, diagnosa, dan diagnosa_detail yang saling berhubungan dalam mendukung proses diagnosa kerusakan komputer menggunakan metode Forward Chaining.
+Perancangan Antarmuka (User Interface)
+Perancangan antarmuka (User Interface) merupakan tahap perancangan tampilan sistem yang digunakan sebagai media interaksi antara pengguna dengan sistem. Perancangan ini bertujuan untuk memberikan gambaran mengenai tata letak, navigasi, serta komponen yang terdapat pada setiap halaman sebelum sistem diimplementasikan. Berikut merupakan rancangan antarmuka yang digunakan pada Sistem Pakar Diagnosa Troubleshooting Komputer.
+Rancangan Halaman Login
+    
+Gambar 3.36 Rancangan Halaman Login
+Rancangan halaman login merupakan tampilan awal yang digunakan pengguna untuk masuk ke dalam sistem. Pada halaman ini terdapat form yang terdiri dari kolom username, password, dan tombol Login. Pengguna harus memasukkan data akun yang valid agar dapat mengakses fitur-fitur sistem sesuai dengan hak akses yang dimiliki.
+Rancangan Halaman Dashboard Admin
+    
+Gambar 3.37 Rancangan Halaman Dashboard Admin
+Rancangan halaman Dashboard Admin merupakan halaman utama yang ditampilkan setelah admin berhasil masuk ke dalam sistem. Halaman ini menampilkan ringkasan informasi berupa total gejala, kerusakan, rule, diagnosa, dan asisten laboratorium. Selain itu, tersedia menu navigasi untuk mengakses fitur manajemen data, laporan diagnosa, manajemen pengguna, serta informasi sistem.
+
+
+
+Rancangan Halaman Admin Manajemen Gejala
+    
+Gambar 3.38 Rancangan Halaman Admin Manajemen Gejala
+Rancangan halaman Admin Manajemen Gejala digunakan untuk mengelola data gejala yang menjadi bagian dari basis pengetahuan sistem pakar. Pada halaman ini, admin dapat menambahkan gejala baru dengan memasukkan kode dan nama gejala. Data gejala yang telah tersimpan ditampilkan dalam bentuk tabel dan dapat dikelola melalui fitur ubah dan hapus.
+
+
+
+
+
+
+
+
+Rancangan Halaman Admin Manajemen Kerusakan
+    
+Gambar 3.39 Rancangan Halaman Admin Manajemen Kerusakan
+Rancangan halaman Admin Manajemen Kerusakan digunakan untuk mengelola data kerusakan beserta solusi penanganannya. Pada halaman ini, admin dapat menambahkan data kerusakan baru dengan memasukkan kode kerusakan, nama kerusakan, dan solusi penanganan. Data yang telah tersimpan ditampilkan dalam bentuk tabel dan dapat dikelola melalui fitur ubah dan hapus.
+
+
+
+
+
+
+
+
+Rancangan Halaman Admin Manajemen Rule
+    
+Gambar 3.40 Rancangan Halaman Admin Manajemen Rule
+Rancangan halaman Admin Manajemen Rule digunakan untuk mengelola aturan (rule) dalam proses diagnosa menggunakan metode Forward Chaining. Pada halaman ini, admin dapat membuat rule baru dengan memilih jenis kerusakan dan satu atau beberapa gejala yang berkaitan. Data rule yang telah tersimpan ditampilkan dalam bentuk tabel dan dapat dikelola melalui fitur ubah dan hapus.
+
+
+
+
+
+
+
+Rancangan Halaman Admin Laporan Diagnosa
+    
+Gambar 3.41 Rancangan Halaman Admin Laporan Diagnosa
+Rancangan halaman Admin Laporan Diagnosa digunakan untuk melihat dan mengelola rekap hasil diagnosa yang telah dilakukan oleh asisten laboratorium. Pada halaman ini, admin dapat memfilter data berdasarkan tanggal mulai, tanggal akhir, dan asisten laboratorium. Data diagnosa ditampilkan dalam bentuk tabel serta dapat dicetak atau disimpan dalam format PDF.
+
+
+
+
+
+
+
+
+Rancangan Halaman Admin Manajemen User
+    
+Gambar 3.42 Rancangan Halaman Admin Manajemen User
+Rancangan halaman Admin Manajemen User digunakan untuk mengelola data pengguna yang memiliki akses ke dalam sistem. Pada halaman ini, admin dapat melihat daftar pengguna beserta informasi username, nama lengkap, role, dan tanggal pembuatan akun. Admin juga dapat menambahkan pengguna baru dengan mengisi data yang tersedia serta mengelola data pengguna melalui menu aksi.
+
+
+
+
+
+
+
+Rancangan Halaman Dashboard Asisten
+    
+Gambar 3.43 Rancangan Halaman Dashboard Asisten
+Rancangan halaman Dashboard Asisten merupakan halaman utama yang ditampilkan setelah asisten berhasil masuk ke dalam sistem. Halaman ini menampilkan ringkasan jumlah diagnosa secara keseluruhan, diagnosa hari ini, dan diagnosa minggu ini. Selain itu, tersedia tombol untuk memulai proses diagnosa serta tabel diagnosa terbaru yang menampilkan riwayat hasil diagnosa yang telah dilakukan oleh asisten.
+
+
+
+
+
+
+
+Rancangan Halaman Asisten Diagnosa Kerusakan
+    
+Gambar 3.44 Rancangan Halaman Asisten Diagnosa Kerusakan
+Rancangan Halaman Asisten Diagnosa Kerusakan merupakan halaman yang digunakan oleh asisten laboratorium untuk melakukan proses diagnosa kerusakan komputer dan software. Pada halaman ini, sistem menampilkan daftar gejala kerusakan yang dapat dipilih sesuai dengan kondisi yang ditemukan. Setelah memilih satu atau beberapa gejala, asisten dapat menekan tombol Proses Diagnosa untuk memperoleh hasil diagnosa berdasarkan metode Forward Chaining. Selain itu, tersedia tombol Reset untuk menghapus seluruh gejala yang telah dipilih.
+
+
+
+
+
+Rancangan Halaman Asisten Chat Bot Diagnosa
+      
+Gambar 3.45 Rancangan Halaman Asisten Chat Bot Diagnosa
+Rancangan Halaman Asisten Chat Bot Diagnosa merupakan antarmuka yang digunakan oleh asisten untuk melakukan diagnosa kerusakan komputer melalui percakapan berbasis teks. Pada halaman ini, asisten dapat memasukkan keluhan atau permasalahan komputer pada kolom pesan, kemudian sistem akan menganalisis keluhan tersebut untuk menentukan hasil diagnosa dan solusi yang sesuai berdasarkan basis pengetahuan yang tersedia.
+
+
+
+
+
+
+
+Rancangan Halaman Asisten Riwayat Diagnosa
+      
+Gambar 3.46 Rancangan Halaman Asisten Riwayat Diagnosa
+Rancangan Halaman Asisten Riwayat Diagnosa merupakan halaman yang digunakan untuk melihat riwayat hasil diagnosa yang telah dilakukan oleh asisten. Halaman ini menampilkan informasi berupa ID, tanggal, hasil kerusakan, jumlah gejala, dan aksi untuk melihat informasi lebih lanjut. Selain itu, tersedia tombol Diagnosa Baru untuk melakukan diagnosa kembali dan Export Laporan untuk menuju halaman pembuatan laporan.
+
+
+
+
+
+
+
+Rancangan Halaman Asisten Export Laporan
+      
+Gambar 3.47 Rancangan Halaman Asisten Export Laporan
+Rancangan Halaman Asisten Export Laporan merupakan halaman yang digunakan untuk menampilkan dan mengekspor laporan hasil diagnosa yang telah dilakukan oleh asisten. Pada halaman ini, asisten dapat memfilter laporan berdasarkan tanggal mulai dan tanggal akhir. Hasil laporan ditampilkan dalam bentuk preview serta dapat dicetak atau disimpan dalam format PDF melalui tombol Cetak / Save as PDF.
+
+
+
+
+
+
+
+Rancangan Halaman Logout
+      
+Gambar 3.48 Rancangan Halaman Logout
+Rancangan Halaman Logout merupakan tampilan konfirmasi yang muncul ketika pengguna memilih menu Logout. Sistem menampilkan pesan konfirmasi untuk memastikan pengguna benar-benar ingin keluar dari sistem. Pengguna dapat memilih tombol Batal untuk tetap berada di dalam sistem atau tombol Ya, Logout untuk mengakhiri sesi dan kembali ke halaman login.
+
+BAB IVIMPLEMENTASI DAN PENGUJIAN
+Implementasi
+Tahap implementasi merupakan proses penerapan hasil analisis dan perancangan sistem yang telah dijelaskan pada bab sebelumnya ke dalam bentuk aplikasi yang dapat digunakan. Pada tahap ini, rancangan sistem, basis data, dan antarmuka pengguna diimplementasikan menjadi sebuah sistem pakar untuk mendiagnosis kerusakan komputer dan software.
+Spesifikasi Sistem
+Spesifikasi sistem menjelaskan kebutuhan perangkat yang digunakan dalam proses pengembangan dan implementasi sistem pakar diagnosis kerusakan komputer dan software dengan metode Forward Chaining. Spesifikasi ini mencakup perangkat keras (hardware) dan perangkat lunak (software) yang digunakan untuk mendukung proses pembangunan, pengujian, serta pengoperasian sistem.
+Spesifikasi Perangkat Keras (Hardware)
+Spesifikasi perangkat keras merupakan perangkat fisik yang digunakan untuk mendukung proses pengembangan, implementasi, dan pengujian sistem pakar. Berikut adalah spesifikasi perangkat keras yang digunakan dalam pembangunan sistem ini.
+Tabel 4.1 Spesifikasi Perangkat Keras
+No
+Perangkat Keras
+Spesifikasi
+1
+Laptop
+Acer Nitro AN515-46 R8PD
+2
+Processor
+AMD Ryzen 7 6800H
+3
+Memory
+16 GB DDR5
+4
+Storage
+SSD NVMe 1TB Gen 4
+5
+VGA Card
+NVIDIA GeForce RTX 3060 6 GB
+
+Spesifikasi Perangkat Lunak (Software)
+Spesifikasi perangkat lunak merupakan perangkat lunak yang digunakan untuk mendukung proses pengembangan, implementasi, dan pengujian sistem pakar. Berikut adalah perangkat lunak yang digunakan dalam pembangunan sistem ini.
+Tabel 4.2 Spesifikasi Perangkat Lunak
+No
+Perangkat Lunak
+Spesifikasi
+1
+Windows 11 Home 64Bit
+Sistem Operasi
+2
+XAMPP
+Web Server dan Database Lokal
+3
+Visual Studio Code
+Merancang kode-kode desain sistem
+4
+Bahasa Pemrograman
+PHP, HTML, CSS, JS
+5
+Google Chrome
+Web Browser dan Preview Sistem
+
+Implementasi Antarmuka
+Antarmuka merupakan bagian dari sistem yang berfungsi sebagai sarana interaksi antara pengguna dengan sistem. Implementasi antarmuka pada sistem ini menggunakan Graphical User Interface (GUI) berbasis web untuk memudahkan pengguna dalam mengakses dan menjalankan setiap fitur yang tersedia. Antarmuka sistem dibedakan berdasarkan hak akses pengguna, yaitu Admin dan Asisten. Berikut merupakan implementasi antarmuka yang telah dibuat:
+
+
+
+
+
+
+Halaman Login
+
+Gambar 4.1 Halaman Login
+Halaman login berfungsi sebagai halaman awal sistem yang digunakan oleh pengguna untuk melakukan proses login dengan memasukkan username dan password sesuai dengan akun yang telah terdaftar.
+Halaman Dashboard Admin
+
+Gambar 4.2 Halaman Dashboard Admin
+Halaman dashboard admin merupakan halaman yang ditampilkan setelah Admin berhasil melakukan login. Halaman Dashboard Admin berfungsi untuk menampilkan ringkasan data sistem, seperti jumlah gejala, kerusakan, rule, diagnosa, dan asisten laboratorium, serta menyediakan akses ke berbagai menu pengelolaan sistem.
+Halaman Admin Manajemen Gejala
+
+Gambar 4.3 Halaman Admin Manajemen Gejala
+Halaman manajemen gejala berfungsi untuk mengelola data gejala kerusakan komputer dan software. Admin dapat menambahkan gejala baru serta melihat, mengubah, dan menghapus data gejala yang telah tersimpan dalam sistem.
+Halaman Admin Manajemen Kerusakan
+
+Gambar 4.4 Halaman Admin Manajemen Kerusakan
+Halaman manajemen kerusakan berfungsi untuk mengelola data kerusakan komputer dan software beserta solusi penanganannya. Admin dapat menambahkan data kerusakan baru serta melihat, mengubah, dan menghapus data kerusakan yang telah tersimpan dalam sistem.
+Halaman Admin Manajemen Rule
+
+Gambar 4.5 Halaman Admin Manajemen Rule
+Halaman Manajemen Rule berfungsi untuk mengelola aturan (rule) dalam proses diagnosa menggunakan metode Forward Chaining. Admin dapat menambahkan, mengubah, dan menghapus rule dengan menentukan jenis kerusakan serta gejala-gejala yang berkaitan.
+Halaman Admin Laporan Diagnosa
+
+Gambar 4.6 Halaman Admin Laporan Diagnosa
+Halaman Laporan Diagnosa berfungsi untuk menampilkan dan merekap seluruh data hasil diagnosa yang dilakukan oleh asisten. Admin dapat memfilter data berdasarkan periode dan asisten, melihat detail diagnosa, serta mencetak atau menyimpan laporan dalam format PDF.
+Halaman Admin Manajemen User
+
+Gambar 4.7 Halaman Admin Manajemen User
+Halaman Manajemen User berfungsi untuk mengelola data pengguna yang memiliki akses ke dalam sistem. Admin dapat menambahkan, mengubah, dan menghapus pengguna serta menentukan role pengguna sebagai Admin atau Asisten Lab.
+Halaman Dashboard Asisten
+
+Gambar 4.8 Halaman Dashboard Asisten
+Halaman Dashboard Asisten merupakan halaman utama yang ditampilkan setelah asisten berhasil melakukan login. Halaman ini menampilkan ringkasan jumlah diagnosa, diagnosa hari ini, diagnosa minggu ini, akses untuk memulai proses diagnosa, serta daftar riwayat diagnosa terbaru.
+Halaman Asisten Diagnosa Kerusakan
+
+Gambar 4.9 Halaman Asisten Diagnosa Kerusakan
+Halaman Diagnosa Kerusakan berfungsi untuk melakukan proses diagnosa troubleshooting komputer. Asisten dapat memilih satu atau beberapa gejala yang sesuai dengan kondisi kerusakan, kemudian menekan tombol Proses Diagnosa untuk memperoleh hasil diagnosa dan solusi berdasarkan metode Forward Chaining.
+Halaman Asisten Chat Bot Diagnosa
+
+Gambar 4.10 Halaman Asisten Chat Bot Diagnosa
+Halaman Chat Bot Diagnosa berfungsi untuk melakukan diagnosa kerusakan komputer melalui percakapan. Asisten dapat memasukkan keluhan dalam bentuk teks atau memilih contoh keluhan yang tersedia, kemudian sistem akan menganalisis keluhan untuk memberikan hasil diagnosa dan solusi.
+Halaman Asisten Riwayat Diagnosa
+
+Gambar 4.11 Halaman Asisten Riwayat Diagnosa
+Halaman Riwayat Diagnosa berfungsi untuk menampilkan seluruh riwayat diagnosa yang telah dilakukan oleh asisten. Asisten dapat melihat detail hasil diagnosa, gejala yang dipilih, melakukan diagnosa baru, serta mengekspor laporan diagnosa.
+Halaman Asisten Export Laporan
+
+Gambar 4.12 Halaman Asisten Export Laporan
+Halaman Export Laporan berfungsi untuk menampilkan dan mencetak laporan hasil diagnosa yang telah dilakukan oleh asisten. Asisten dapat memfilter laporan berdasarkan rentang tanggal serta menyimpan laporan dalam format PDF.
+Halaman Logout
+
+Gambar 4.13 Halaman Logout
+Halaman Logout berfungsi untuk mengakhiri sesi pengguna pada sistem. Ketika pengguna memilih menu logout, sistem akan menampilkan konfirmasi untuk memastikan tindakan tersebut sebelum pengguna keluar dan diarahkan kembali ke halaman login.
+Pengujian Sistem
+Pengujian sistem merupakan tahapan yang dilakukan untuk memastikan bahwa seluruh fungsi dan fitur pada sistem telah berjalan sesuai dengan kebutuhan dan rancangan yang telah ditentukan. Pengujian dilakukan untuk menemukan kemungkinan kesalahan serta memastikan bahwa masukan, proses, dan keluaran sistem dapat berfungsi dengan baik. 
+Pengujian Black Box
+Blackbox testing adalah pengujian perangkat lunak yang dilakukan dengan memeriksa fungsi-fungsi sistem berdasarkan input dan output yang dihasilkan. Pengujian ini tidak memperhatikan struktur internal kode, tetapi fokus pada apakah hasil yang muncul sudah sesuai dengan kebutuhan pengguna.
+Tabel 4.3 Tabel Pengujian
+Item Uji
+ Jenis Pengujian
+Login
+Black Box Testing
+Manajemen Gejala
+Black Box Testing
+Manajemen Kerusakan dan Solusi
+Black Box Testing
+Manajemen Rule
+Black Box Testing
+Diagnosa Kerusakan
+Black Box Testing
+Chat Bot Diagnosa
+Black Box Testing
+Berdasarkan rencana pengujian yang telah disusun, maka dapat dilakukan pengujian sebagai berikut:
+
+Pengujian Login
+Tabel 4.4 Pengujian Login
+Kasus dan Hasil Uji (Data Benar)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Login User
+Memasukkan username dan password
+Sistem menerima data login dan menampilkan halaman Dashboard sesuai role pengguna
+Sistem berhasil menampilkan Dashboard sesuai role pengguna
+☑ Diterima ☐ Ditolak
+Kasus dan Hasil Uji (Data Salah)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Login User
+Memasukkan username atau password yang tidak sesuai
+Sistem menolak proses login dan menampilkan pesan kesalahan
+Sistem menampilkan pesan bahwa username atau password salah
+☑ Diterima ☐ Ditolak
+
+Pengujian Manajemen Gejala
+Tabel 4.5 Pengujian Manajemen Gejala
+Kasus dan Hasil Uji (Data Benar)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Menambahkan data gejala baru dengan data lengkap
+Input Kode: G001, Nama Gejala: Komputer tidak dapat menyala
+Sistem menyimpan dan menampilkan data gejala baru
+Data gejala berhasil disimpan dan ditampilkan
+☑ Diterima ☐ Ditolak
+Mengubah data gejala dengan data yang valid
+Kode dan Nama gejala diubah dengan data baru
+Sistem memperbarui data gejala
+Data gejala berhasil diperbarui
+☑ Diterima ☐ Ditolak
+Menghapus data gejala dan mengonfirmasi penghapusan
+Memilih data dan menekan konfirmasi hapus
+Sistem menghapus data gejala
+Data gejala berhasil dihapus
+☑ Diterima ☐ Ditolak
+Kasus dan Hasil Uji (Data Salah)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Menambahkan data gejala tanpa mengisi data wajib
+Kode dan nama gejala kosong
+Sistem menolak penyimpanan dan menampilkan validasi
+Sistem berhasil menampilkan pesan validasi
+☑ Diterima ☐ Ditolak
+Mengubah data gejala dengan mengosongkan data wajib
+Kode atau Nama gejala kosong
+Sistem menolak perubahan dan menampilkan validasi
+Sistem berhasil menolak perubahan data
+☑ Diterima ☐ Ditolak
+Membatalkan proses penghapusan data gejala
+Memilih tombol batal pada konfirmasi
+Sistem membatalkan penghapusan
+Data gejala tetap tersimpan
+☑ Diterima ☐ Ditolak
+
+Pengujian Manajemen Kerusakan
+Tabel 4.6 Pengujian Manajemen Kerusakan
+Kasus dan Hasil Uji (Data Benar)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Menambahkan data kerusakan dan solusi dengan data lengkap
+Input Kode K001, nama kerusakan, dan solusi diisi lengkap
+Sistem menyimpan data kerusakan dan solusi
+Data berhasil disimpan
+☑ Diterima ☐ Ditolak
+Mengubah data kerusakan dan solusi
+Data diubah dengan data yang valid
+Sistem memperbarui data
+Data berhasil diperbarui
+☑ Diterima ☐ Ditolak
+Menghapus data kerusakan
+Mengonfirmasi penghapusan
+Sistem menghapus data
+Data berhasil dihapus
+☑ Diterima ☐ Ditolak
+Kasus dan Hasil Uji (Data Salah)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Menambahkan data dengan data wajib yang kosong
+Nama kerusakan atau solusi kosong
+Sistem menolak penyimpanan dan menampilkan validasi
+Sistem berhasil menampilkan validasi
+☑ Diterima ☐ Ditolak
+Mengubah data dengan mengosongkan data wajib
+Data wajib dikosongkan
+Sistem menolak perubahan
+Sistem berhasil menolak perubahan
+☑ Diterima ☐ Ditolak
+Membatalkan penghapusan data kerusakan
+Memilih tombol batal
+Sistem membatalkan penghapusan
+Data tetap tersimpan
+☑ Diterima ☐ Ditolak
+
+Pengujian Manajemen Rule
+Tabel 4.7 Pengujian Manajemen Rule
+Kasus dan Hasil Uji (Data Benar)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Menambahkan rule dengan memilih kerusakan dan gejala
+Kerusakan dipilih dan minimal satu gejala dipilih
+Sistem menyimpan rule
+Rule berhasil disimpan
+☑ Diterima ☐ Ditolak
+Mengubah rule menggunakan data yang valid
+Kerusakan atau gejala diubah
+Sistem memperbarui rule
+Rule berhasil diperbarui
+☑ Diterima ☐ Ditolak
+Menghapus rule
+Mengonfirmasi penghapusan
+Sistem menghapus rule
+Rule berhasil dihapus
+☑ Diterima ☐ Ditolak
+Kasus dan Hasil Uji (Data Salah)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Menambahkan rule tanpa memilih kerusakan
+Kerusakan tidak dipilih
+Sistem menolak penyimpanan dan menampilkan validasi
+Sistem berhasil menampilkan validasi
+☑ Diterima ☐ Ditolak
+Menambahkan rule tanpa memilih gejala
+Gejala tidak dipilih
+Sistem menolak penyimpanan dan menampilkan validasi
+Sistem berhasil menampilkan validasi
+☑ Diterima ☐ Ditolak
+Mengubah rule tanpa memilih gejala
+Seluruh gejala tidak dipilih
+Sistem menolak perubahan
+Sistem berhasil menolak perubahan
+☑ Diterima ☐ Ditolak
+Membatalkan penghapusan rule
+Memilih tombol batal
+Sistem membatalkan penghapusan
+Rule tetap tersimpan
+☑ Diterima ☐ Ditolak
+
+
+
+Pengujian Diagnosa Kerusakan
+Tabel 4.8 Pengujian Diagnosa Kerusakan
+Kasus dan Hasil Uji (Data Benar)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Melakukan diagnosa dengan kombinasi gejala yang memenuhi rule
+Memilih gejala sesuai rule kerusakan
+Sistem memproses Forward Chaining dan menampilkan kerusakan serta solusi
+Hasil diagnosa berhasil ditampilkan
+☑ Diterima ☐ Ditolak
+Melakukan reset pilihan gejala
+Beberapa gejala telah dipilih
+Sistem menghapus seluruh pilihan gejala
+Pilihan gejala berhasil direset
+☑ Diterima ☐ Ditolak
+Menyimpan hasil diagnosa
+Diagnosa berhasil dilakukan
+Sistem menyimpan hasil ke riwayat diagnosa
+Hasil berhasil disimpan
+☑ Diterima ☐ Ditolak
+Kasus dan Hasil Uji (Data Salah)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Melakukan diagnosa tanpa memilih gejala
+Tidak ada gejala yang dipilih
+Sistem menolak proses diagnosa dan menampilkan peringatan
+Sistem berhasil menampilkan peringatan
+☑ Diterima ☐ Ditolak
+Melakukan diagnosa dengan kombinasi gejala yang tidak memenuhi rule
+Gejala tidak sesuai dengan rule
+Sistem menampilkan hasil kerusakan tidak teridentifikasi
+Hasil tidak teridentifikasi berhasil ditampilkan
+☑ Diterima ☐ Ditolak
+
+Pengujian Chat Bot Diagnosa
+Tabel 4.9 Pengujian Chat Bot Diagnosa
+Kasus dan Hasil Uji (Data Benar)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Mengirimkan keluhan yang sesuai dengan gejala
+“Komputer tidak menyala”
+Sistem mengenali gejala dan memproses diagnosa
+Keluhan berhasil diproses
+☑ Diterima ☐ Ditolak
+Memilih contoh keluhan yang tersedia
+Memilih salah satu contoh keluhan
+Sistem memproses contoh keluhan
+Keluhan berhasil diproses
+☑ Diterima ☐ Ditolak
+Memproses gejala yang memenuhi rule
+Gejala hasil analisis memenuhi rule
+Sistem menampilkan kerusakan dan solusi
+Hasil diagnosa berhasil ditampilkan
+☑ Diterima ☐ Ditolak
+Kasus dan Hasil Uji (Data Salah)
+Skenario Pengujian
+Data Masukan
+Hasil yang diharapkan
+Hasil Pengujian
+Kesimpulan
+Mengirimkan teks yang tidak berkaitan dengan gejala
+Teks yang tidak dikenali sistem
+Sistem menampilkan informasi keluhan tidak dikenali
+Informasi berhasil ditampilkan
+☑ Diterima ☐ Ditolak
+Mengirimkan pesan kosong
+Kolom pesan kosong
+Sistem tidak memproses pesan
+Pesan kosong tidak diproses
+☑ Diterima ☐ Ditolak
+Memproses gejala yang tidak memenuhi rule
+Gejala tidak sesuai dengan rule
+Sistem menampilkan hasil tidak teridentifikasi
+Informasi berhasil ditampilkan
+☑ Diterima ☐ Ditolak
+
+Pengujian White Box
+Pengujian White Box dilakukan dengan menguji struktur dan alur logika kode program yang telah dibuat. Pengujian ini dilakukan untuk memastikan setiap jalur pada kode program telah dieksekusi dan berjalan sesuai dengan proses yang dirancang.
+Login User
+Tabel 4.10 Login User
+No
+Source Code
+1
+<?php
+session_start();
+require_once '../Config/koneksi.php';
+2
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+header("Location: login.php");
+exit(); 
+}
+3
+if (empty($username) || empty($password)) {
+header("Location: login.php?error=empty_fields");
+exit(); 
+}
+4
+if (mysqli_num_rows($result) == 0) {
+header("Location: login.php?error=invalid_credentials");
+exit(); 
+}
+5
+if (!password_verify($password, $user['password'])) {
+header("Location: login.php?error=invalid_credentials");
+exit(); 
+}
+6
+if ($user['role'] == 'admin') {
+header("Location: ../Admin/dashboard_admin.php");
+exit(); 
+}
+7
+if ($user['role'] == 'asisten_lab') {
+header("Location: ../Asisten/dashboard_asisten.php");
+exit(); 
+}
+8
+session_destroy();
+header("Location: login.php?error=invalid_role");
+exit();
+Berdasarkan potongan kode diatas, maka dibentuklah  flowgraph dan matrix graph dari baris program untuk login.
+
+
+
+
+Flowgraph
+
+Gambar 4.14 Diagram Alir Pengujian Login dengan Flowgraph
+Berdasarkan gambar diatas jumlah edge = 13 dan jumlah node = 8 sehingga nilai cylomatic complexity (CC) adalah sebagai berikut:
+       V(G) = e – n + 2
+                   V(G) = 13 – 8 + 2
+                   V(G) = 7
+Maka jalur independent yang didapat adalah sebagai berikut:
+Jalur 1 : 1 → 2 → 8
+Jalur 2 : 1 → 2 → 3 → 8
+Jalur 3 : 1 → 2 → 3 → 4 → 8
+Jalur 4 : 1 → 2 → 3 → 4 → 5 → 8
+Jalur 5 : 1 → 2 → 3 → 4 → 5 → 6 → 8
+Jalur 6 : 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
+Jalur 7 : 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
+Matrix Graph
+    
+Gambar 4.15 Diagram Alir Pengujian Login dengan Matrix Graph
+Berdasarkan gambar diatas, dapat digambarkan matrix graph sebagai berikut:
+Tabel 4.11 Matrix Graph Pengujian Login
+
+Connected To Node
+Jumlah Koneksi Node Dikurang 1
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+Node
+1
+
+a
+
+
+
+
+
+
+1 – 1 = 0
+
+2
+
+
+b
+
+
+
+
+c
+2 – 1 = 1
+
+3
+
+
+
+d
+
+
+
+e
+2 – 1 = 1
+
+4
+
+
+
+
+f
+
+
+g
+2 – 1 = 1
+
+5
+
+
+
+
+
+h
+
+i
+2 – 1 = 1
+
+6
+
+
+
+
+
+
+j
+k
+2 – 1 = 1
+
+7
+
+
+
+
+
+
+
+l, m
+2 – 1 = 1
+
+8
+
+
+
+
+
+
+
+
+
+Jumlah Predikat Node (P)
+6
+Cyclomatic Complexity (CC)
+6 + 1 = 7
+Berdasarkan tabel diatas, jumlah predikat node = 6 maka cyclomatic complexity yang diperoleh adalah sebagai berikut:
+  V(G) = P + 1
+  V(G) = 6 + 1
+  V(G) = 7
+Manajemen Gejala
+Tabel 4.12 Manajemen Gejala
+No
+Source Code
+1
+if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
+2
+$id = mysqli_real_escape_string($koneksi, $_GET['id']);
+$query_delete = "DELETE FROM gejala WHERE id_gejala = '$id'";
+if (mysqli_query($koneksi, $query_delete)) {
+$success_message = "Gejala berhasil dihapus!";
+} else {
+$error_message = "Gagal menghapus gejala: " . mysqli_error($koneksi);
+}
+}
+3
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+4
+$kode_gejala = mysqli_real_escape_string($koneksi, trim($_POST['kode_gejala']));
+$nama_gejala = mysqli_real_escape_string($koneksi, trim($_POST['nama_gejala']));
+if (isset($_POST['id_gejala']) && !empty($_POST['id_gejala'])) {
+// Update
+$id = mysqli_real_escape_string($koneksi, $_POST['id_gejala']);
+$query = "UPDATE gejala SET kode_gejala='$kode_gejala', nama_gejala='$nama_gejala' WHERE id_gejala='$id'";
+$success_msg = "Gejala berhasil diupdate!";
+} else {
+// Insert
+$query = "INSERT INTO gejala (kode_gejala, nama_gejala) VALUES ('$kode_gejala', '$nama_gejala')";
+$success_msg = "Gejala berhasil ditambahkan!";
+}
+if (mysqli_query($koneksi, $query)) {
+$success_message = $success_msg;
+} else {
+$error_message = "Gagal menyimpan data: " . mysqli_error($koneksi);
+}
+}
+$edit_data = null;
+5
+if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+6
+$id_edit = mysqli_real_escape_string($koneksi, $_GET['edit']);
+$query_edit = "SELECT * FROM gejala WHERE id_gejala = '$id_edit'";
+$result_edit = mysqli_query($koneksi, $query_edit);
+if (mysqli_num_rows($result_edit) > 0) {
+$edit_data = mysqli_fetch_assoc($result_edit);
+}
+}
+7
+$query_gejala = "SELECT * FROM gejala ORDER BY kode_gejala ASC";
+$result_gejala = mysqli_query($koneksi, $query_gejala);
+?>
+Berdasarkan potongan kode diatas, maka dibentuklah  flowgraph dan matrix graph dari baris program untuk manajemen gejala.
+Flowgraph 
+ 
+Gambar 4.16 Diagram Alir Pengujian Manajemen Gejala dengan Flowgraph
+Berdasarkan gambar diatas jumlah edge = 9 dan jumlah node = 7 sehingga nilai cylomatic complexity (CC) adalah sebagai berikut:
+       V(G) = e – n + 2
+                   V(G) = 9 – 7 + 2
+                   V(G) = 4
+Maka jalur independent yang didapat adalah sebagai berikut:
+Jalur 1 : 1 → 3 → 5 → 7
+Jalur 2 : 1 → 2 → 3 → 5 → 7
+Jalur 3 : 1 → 3 → 4 → 5 → 7 
+Jalur 4 : 1 → 3 → 5 → 6 → 7 
+Matrix Graph
+
+Gambar 4.17 Diagram Alir Pengujian Manajemen Gejala dengan Matrix Graph
+Berdasarkan gambar diatas, dapat digambarkan matrix graph sebagai berikut:
+Tabel 4.13 Matrix Graph Pengujian Manajemen Gejala
+
+Connected To Node
+Jumlah Koneksi Node Dikurang 1
+
+1
+2
+3
+4
+5
+6
+7
+
+Node
+1
+
+a
+b
+
+
+
+
+2 – 1 = 1
+
+2
+
+
+c
+
+
+
+
+1 – 1 = 0
+
+3
+
+
+
+d
+e
+
+
+2 – 1 = 1
+
+4
+
+
+
+
+f
+
+
+1 – 1 = 0
+
+5
+
+
+
+
+
+g
+h
+2 – 1 = 1
+
+6
+
+
+
+
+
+
+i
+1 – 1 = 0
+
+7
+
+
+
+
+
+
+
+
+Jumlah Predikat Node (P)
+3
+Cyclomatic Complexity (CC)
+3 + 1 = 4
+Berdasarkan tabel diatas, jumlah predikat node = 3 maka cyclomatic complexity yang diperoleh adalah sebagai berikut:
+  V(G) = P + 1
+  V(G) = 3 + 1
+  V(G) = 4
+Manajemen Kerusakan dan Solusi
+Tabel 4.14 Manajemen Kerusakan dan Solusi
+No
+Source Code
+1
+if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
+2
+$id = mysqli_real_escape_string($koneksi, $_GET['id']);
+$query_delete = "DELETE FROM kerusakan WHERE id_kerusakan = '$id'";
+if (mysqli_query($koneksi, $query_delete)) {
+$success_message = "Kerusakan berhasil dihapus!";
+} else {
+$error_message = "Gagal menghapus kerusakan: " . mysqli_error($koneksi);
+}
+}
+3
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+4
+$kode_kerusakan = mysqli_real_escape_string($koneksi, trim($_POST['kode_kerusakan']));
+$nama_kerusakan = mysqli_real_escape_string($koneksi, trim($_POST['nama_kerusakan']));
+$solusi = mysqli_real_escape_string($koneksi, trim($_POST['solusi']));
+if (isset($_POST['id_kerusakan']) && !empty($_POST['id_kerusakan'])) {
+// Update
+$id = mysqli_real_escape_string($koneksi, $_POST['id_kerusakan']);
+$query = "UPDATE kerusakan SET kode_kerusakan='$kode_kerusakan', nama_kerusakan='$nama_kerusakan', solusi='$solusi' WHERE id_kerusakan='$id'";
+$success_msg = "Kerusakan berhasil diupdate!";
+} else {
+// Insert
+$query = "INSERT INTO kerusakan (kode_kerusakan, nama_kerusakan, solusi) VALUES ('$kode_kerusakan', '$nama_kerusakan', '$solusi')";
+$success_msg = "Kerusakan berhasil ditambahkan!";
+}
+if (mysqli_query($koneksi, $query)) {
+$success_message = $success_msg;
+} else {
+$error_message = "Gagal menyimpan data: " . mysqli_error($koneksi);
+}
+}
+$edit_data = null;
+5
+if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+6
+$id_edit = mysqli_real_escape_string($koneksi, $_GET['edit']);
+$query_edit = "SELECT * FROM kerusakan WHERE id_kerusakan = '$id_edit'";
+$result_edit = mysqli_query($koneksi, $query_edit);
+if (mysqli_num_rows($result_edit) > 0) {
+$edit_data = mysqli_fetch_assoc($result_edit);
+}
+}
+7
+$query_kerusakan = "SELECT * FROM kerusakan ORDER BY kode_kerusakan ASC";
+$result_kerusakan = mysqli_query($koneksi, $query_kerusakan);
+?>
+Berdasarkan potongan kode diatas, maka dibentuklah  flowgraph dan matrix graph dari baris program untuk manajemen kerusakan dan solusi.
+Flowgraph
+
+Gambar 4.18 Diagram Alir Pengujian Manajemen Kerusakan dan Solusi dengan Flowgraph
+Berdasarkan gambar diatas jumlah edge = 9 dan jumlah node = 7 sehingga nilai cylomatic complexity (CC) adalah sebagai berikut:
+       V(G) = e – n + 2
+                   V(G) = 9 – 7 + 2
+                   V(G) = 4
+Maka jalur independent yang didapat adalah sebagai berikut:
+Jalur 1 : 1 → 3 →  5 → 7
+Jalur 2 : 1 → 2 → 3 → 5 → 7 
+Jalur 3 : 1 → 3 → 4 → 5 → 7  
+Jalur 4 : 1 → 3 → 5 → 6 → 7
+Matrix Graph
+
+Gambar 4.19 Diagram Alir Pengujian Manajemen Kerusakan dan Solusi dengan Matrix Graph
+Berdasarkan gambar diatas, dapat digambarkan matrix graph sebagai berikut:
+Tabel 4.15 Matrix Graph Pengujian Manajemen Kerusakan dan Solusi
+
+Connected To Node
+Jumlah Koneksi Node Dikurang 1
+
+1
+2
+3
+4
+5
+6
+7
+
+Node
+1
+
+a
+b
+
+
+
+
+2 – 1 = 1
+
+2
+
+
+c
+
+
+
+
+1 – 1 = 0
+
+3
+
+
+
+d
+e
+
+
+2 – 1 = 1
+
+4
+
+
+
+
+f
+
+
+1 – 1 = 0
+
+5
+
+
+
+
+
+g
+h
+2 – 1 = 1
+
+6
+
+
+
+
+
+
+i
+1 – 1 = 0
+
+7
+
+
+
+
+
+
+
+
+Jumlah Predikat Node (P)
+3
+Cyclomatic Complexity (CC)
+3 + 1 = 4
+Berdasarkan tabel diatas, jumlah predikat node = 3 maka cyclomatic complexity yang diperoleh adalah sebagai berikut:
+  V(G) = P + 1
+  V(G) = 3 + 1
+  V(G) = 4
+Manajemen Rule
+Tabel 4.16 Manajemen Rule
+No
+Source Code
+1
+if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
+2
+$id = mysqli_real_escape_string($koneksi, $_GET['id']);
+// Eksekusi hapus rule dan rule_detail
+mysqli_query($koneksi, "DELETE FROM rule_detail WHERE id_rule = '$id'");
+$query_delete = "DELETE FROM rule WHERE id_rule = '$id'";
+if (mysqli_query($koneksi, $query_delete)) {
+$success_message = "Rule berhasil dihapus!";
+} else {
+$error_message = "Gagal menghapus rule: " . mysqli_error($koneksi);
+}
+}
+3
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+4
+$id_kerusakan = mysqli_real_escape_string($koneksi, $_POST['id_kerusakan']);
+$gejala_array = isset($_POST['gejala']) ? $_POST['gejala'] : array();
+// Eksekusi validasi dan simpan (Update atau Insert)
+if (empty($gejala_array)) {
+$error_message = "Minimal pilih 1 gejala untuk rule!";
+} else {
+if (isset($_POST['id_rule']) && !empty($_POST['id_rule'])) {
+// Proses Update Rule & Hapus-Insert rule_detail
+} else {
+// Proses Insert Rule & rule_detail Baru
+}
+}
+}
+$edit_data = null;
+$edit_gejala = array();
+5
+if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+6
+$id_edit = mysqli_real_escape_string($koneksi, $_GET['edit']);
+$query_edit = "SELECT * FROM rule WHERE id_rule = '$id_edit'";
+$result_edit = mysqli_query($koneksi, $query_edit);
+if (mysqli_num_rows($result_edit) > 0) {
+$edit_data = mysqli_fetch_assoc($result_edit);
+// Eksekusi ambil gejala yang dipilih (rule_detail)
+}
+}
+7
+$query_rules = "SELECT r.*, k.kode_kerusakan, k.nama_kerusakan FROM rule r ...";
+$result_rules = mysqli_query($koneksi, $query_rules);
+$query_kerusakan_list = "SELECT * FROM kerusakan ORDER BY kode_kerusakan ASC";
+$result_kerusakan_list = mysqli_query($koneksi, $query_kerusakan_list);
+$query_gejala_list = "SELECT * FROM gejala ORDER BY kode_gejala ASC";
+$result_gejala_list = mysqli_query($koneksi, $query_gejala_list);
+?>
+Berdasarkan potongan kode diatas, maka dibentuklah  flowgraph dan matrix graph dari baris program untuk manajemen rule.
+Flowgraph
+
+Gambar 4.20 Diagram Alir Pengujian Manajemen Rule dengan Flowgraph
+Berdasarkan gambar diatas jumlah edge = 9 dan jumlah node = 7 sehingga nilai cylomatic complexity (CC) adalah sebagai berikut:
+       V(G) = e – n + 2
+                   V(G) = 9 – 7 + 2
+                   V(G) = 4
+Maka jalur independent yang didapat adalah sebagai berikut:
+Jalur 1 : 1 → 3 → 5 → 7
+Jalur 2 : 1 → 2 → 3 → 5 → 7
+Jalur 3 : 1 → 3 → 4 → 5 → 7
+Jalur 4 : 1 → 3 → 5 → 6 → 7 
+Matrix Graph
+
+Gambar 4.21 Diagram Alir Pengujian Manajemen Rule dengan Matrix Graph
+Berdasarkan gambar diatas, dapat digambarkan matrix graph sebagai berikut:
+Tabel 4.17 Matrix Graph Pengujian Manajemen Rule
+
+Connected To Node
+Jumlah Koneksi Node Dikurang 1
+
+1
+2
+3
+4
+5
+6
+7
+
+Node
+1
+
+a
+b
+
+
+
+
+2 – 1 = 1
+
+2
+
+
+c
+
+
+
+
+1 – 1 = 0
+
+3
+
+
+
+d
+e
+
+
+2 – 1 = 1
+
+4
+
+
+
+
+f
+
+
+1 – 1 = 0
+
+5
+
+
+
+
+
+g
+h
+2 – 1 = 1
+
+6
+
+
+
+
+
+
+i
+1 – 1 = 0
+
+7
+
+
+
+
+
+
+
+
+Jumlah Predikat Node (P)
+3
+Cyclomatic Complexity (CC)
+3 + 1 = 4
+Berdasarkan tabel diatas, jumlah predikat node = 3 maka cyclomatic complexity yang diperoleh adalah sebagai berikut:
+  V(G) = P + 1
+  V(G) = 3 + 1
+  V(G) = 4
+Diagnosa Kerusakan
+Tabel 4.22 Diagnosa Kerusakan
+No
+Source Code
+1
+<?php
+require_once '../Auth/cek_session.php';
+cek_role('asisten_lab');
+require_once '../Config/koneksi.php';
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$gejala_dipilih = isset($_POST['gejala']) ? $_POST['gejala'] : array();
+2
+if (empty($gejala_dipilih)) {
+header("Location: diagnosa.php?error=no_gejala");
+exit(); 
+}
+$rule_cocok = null; $kerusakan_hasil = null;
+$result_rules = mysqli_query($koneksi, "SELECT * FROM rule");
+3
+while ($rule = mysqli_fetch_assoc($result_rules)) {
+// Ambil array syarat gejala...
+$difference = array_diff($gejala_rule, $gejala_dipilih);
+4
+if (empty($difference)) {
+// Syarat Rule Terpenuhi!
+$kerusakan_hasil = mysqli_fetch_assoc($result_kerusakan);
+break; // Keluar dari Loop, lanjut ke Node 5
+}
+} 
+5
+if ($kerusakan_hasil) {
+6
+$query_insert = "INSERT INTO diagnosa ...";
+mysqli_query($koneksi, $query_insert);
+header("Location: hasil_diagnosa.php?id=$id_diagnosa&success=1");
+exit(); // LOMPAT KE AKHIR (NODE 8)
+} else {
+7
+$hasil_kerusakan = "Kerusakan Tidak Teridentifikasi";
+$query_insert = "INSERT INTO diagnosa ...";
+mysqli_query($koneksi, $query_insert);
+header("Location: hasil_diagnosa.php?id=$id_diagnosa&not_found=1");
+exit(); // LOMPAT KE AKHIR (NODE 8)
+}
+} else {
+8
+header("Location: diagnosa.php");
+exit(); 
+}
+?>
+Berdasarkan potongan kode diatas, maka dibentuklah  flowgraph dan matrix graph dari baris program untuk diagnosa kerusakan.
+
+
+
+
+
+
+
+
+
+Flowgraph
+
+Gambar 4.22 Diagram Alir Pengujian Diagnosa Kerusakan dengan Flowgraph
+Berdasarkan gambar diatas jumlah edge = 12 dan jumlah node = 8 sehingga nilai cylomatic complexity (CC) adalah sebagai berikut:
+       V(G) = e – n + 2
+                   V(G) = 10 – 8 + 2
+                   V(G) = 6
+Maka jalur independent yang didapat adalah sebagai berikut:
+Jalur 1 : 1 → 8 
+Jalur 2 : 1 → 2 → 8 
+Jalur 3 : 1 → 2 → 3 → 5 → 7 →8 
+Jalur 4 : 1 → 2 → 3 → 4 → 3 → 5 → 7 → 8 
+Jalur 5 : 1 → 2 → 3 → 4 → 5 → 6 → 8 
+Jalur 6 : 1 → 2 → 3 → 4 → 3 → 4 → 5 → 6 → 8
+Matrix Graph
+
+Gambar 4.23 Diagram Alir Pengujian Diagnosa Kerusakan dengan Matrix Graph
+Berdasarkan gambar diatas, dapat digambarkan matrix graph sebagai berikut:
+Tabel 4.23 Matrix Graph Pengujian Diagnosa Kerusakan
+
+Connected To Node
+Jumlah Koneksi Node Dikurang 1
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+Node
+1
+
+a
+
+
+
+
+
+b
+2 – 1 = 1
+
+2
+
+
+c
+
+
+
+
+d
+2 – 1 = 1
+
+3
+
+
+
+e
+f
+
+
+
+2 – 1 = 1
+
+4
+
+
+h
+
+g
+
+
+
+2 – 1 = 1
+
+5
+
+
+
+
+
+i
+j
+
+2 – 1 = 1
+
+6
+
+
+
+
+
+
+
+k
+1 – 1 = 0
+
+7
+
+
+
+
+
+
+
+l
+1 – 1 = 0
+
+8
+
+
+
+
+
+
+
+
+
+Jumlah Predikat Node (P)
+5
+Cyclomatic Complexity (CC)
+5 + 1 = 6
+Berdasarkan tabel diatas, jumlah predikat node = 5 maka cyclomatic complexity yang diperoleh adalah sebagai berikut:
+  V(G) = P + 1
+  V(G) = 5 + 1
+  V(G) = 6
+Chat Bot Diagnosa
+Tabel 4.24 Chat Bot Diagnosa
+No
+Source Code
+1
+<?php
+session_start();
+require_once '../Config/koneksi.php';
+header('Content-Type: application/json');
+if (!isset($_SESSION['id_user']) || empty(trim($_POST['message']))) {
+echo json_encode(['success' => false, 'message' => 'Error/Kosong']);
+exit(); 
+}
+// (Proses NLP: Ekstraksi kata kunci dari pesan chat user)
+$input_lower = strtolower($_POST['message']);
+foreach ($kata_kunci_gejala as $id_gejala => $keywords) { 
+// Proses mencocokkan kata ke dalam array $gejala_teridentifikasi
+}
+2
+if (empty($gejala_teridentifikasi)) {
+echo json_encode(['success' => false, 'message' => 'Gejala tidak dipahami']);
+exit();
+}
+// BLOK 3: LOOP FORWARD CHAINING (Mencari Rule)
+$diagnosa_hasil = null; $max_match = 0;
+$result_rules = mysqli_query($koneksi, "SELECT * FROM rule");
+
+3
+while ($rule = mysqli_fetch_assoc($result_rules)) {
+$matched = array_intersect($gejala_rule, $gejala_teridentifikasi);
+$match_count = count($matched);
+4
+if ($rule_match && $match_count > $max_match) {
+$max_match = $match_count;
+$diagnosa_hasil = [ ... ]; // Simpan rule terbaik sementara
+}
+}
+5
+if ($diagnosa_hasil) {
+6
+$query_insert = "INSERT INTO diagnosa ...";
+mysqli_query($koneksi, $query_insert);
+echo json_encode(['success' => true, 'diagnosa' => $diagnosa_hasil]);
+exit(); // LOMPAT KE NODE 8 (END)
+} else {
+7
+if ($input_mengarah_ke_kombinasi_tidak_sesuai_rule) {
+echo json_encode(['success' => true, 'message' => 'Kombinasi belum cocok...']);
+exit(); // LOMPAT KE NODE 8 (END)
+}
+8
+$gejala_names = [];
+foreach ($gejala_teridentifikasi as $id_gejala) {
+$q = mysqli_query($koneksi, "SELECT nama_gejala FROM gejala WHERE id_gejala = '$id_gejala'");
+if ($row = mysqli_fetch_assoc($q)) {
+$gejala_names[] = $row['nama_gejala'];
+}
+}
+?>
+Berdasarkan potongan kode diatas, maka dibentuklah  flowgraph dan matrix graph dari baris program untuk chat bot diagnosa.
+Flowgraph
+
+Gambar 4.24 Diagram Alir Pengujian Chat Bot Diagnosa dengan Flowgraph
+Berdasarkan gambar diatas jumlah edge = 12 dan jumlah node = 8 sehingga nilai cylomatic complexity (CC) adalah sebagai berikut:
+       V(G) = e – n + 2
+                   V(G) = 12 – 8 + 2
+                   V(G) = 6
+Maka jalur independent yang didapat adalah sebagai berikut:
+Jalur 1 : 1 → 8
+Jalur 2 : 1 → 2 → 8 
+Jalur 3 : 1 → 2 → 3 → 5 → 7 → 8 
+Jalur 4 : 1 → 2 → 3 → 5 → 7 → 8 
+Jalur 5 : 1 → 2 → 3 → 4 → 3 → 5 → 6 → 8
+Jalur 6 : 1 → 2 → 3 → 4 → 3 → 4 → 3 → 5 → 6 → 8
+Matrix Graph
+
+Gambar 4.25 Diagram Alir Pengujian Chat Bot Diagnosa dengan Matrix Graph
+Berdasarkan gambar diatas, dapat digambarkan matrix graph sebagai berikut:
+Tabel 4.25 Matrix Graph Pengujian Chat Bot Diagnosa
+
+Connected To Node
+Jumlah Koneksi Node Dikurang 1
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+Node
+1
+
+a
+
+
+
+
+
+b
+2 – 1 = 1
+
+2
+
+
+c
+
+
+
+
+d
+2 – 1 = 1
+
+3
+
+
+
+e
+f
+
+
+
+2 – 1 = 1
+
+4
+
+
+g
+
+
+
+
+
+1 – 1 = 0
+
+5
+
+
+
+
+
+h
+i
+
+2 – 1 = 1
+
+6
+
+
+
+
+
+
+
+j
+1 – 1 = 0
+
+7
+
+
+
+
+
+
+
+K, l
+2 – 1 = 1
+
+8
+
+
+
+
+
+
+
+
+
+Jumlah Predikat Node (P)
+5
+Cyclomatic Complexity (CC)
+5 + 1 = 6
+Berdasarkan tabel diatas, jumlah predikat node = 5 maka cyclomatic complexity yang diperoleh adalah sebagai berikut:
+  V(G) = P + 1
+  V(G) = 5 + 1
+  V(G) = 6
+
+BAB VPENUTUP
+
+
+
+
+Kesimpulan
+Mengacu pada hasil pembahasan dalam penelitian implementasi sistem pakar diagnosa troubleshooting komputer dan software di lab komputer Pondok Pesantren Al-Gontory, dapat ditarik kesimpulan sebagai berikut:
+ Penelitian ini berhasil mengumpulkan dan mengimplementasikan pengetahuan pakar mengenai jenis kerusakan komputer dan software, gejala yang menyertainya, serta solusi penanganannya ke dalam sebuah sistem pakar berbasis web sehingga pengetahuan tersebut dapat digunakan sebagai dasar proses diagnosa.
+Basis pengetahuan dan aturan (rule base) pada sistem pakar telah berhasil dirancang dan diimplementasikan dengan baik menggunakan metode Forward Chaining. Metode ini mampu memproses fakta berupa gejala-gejala yang dialami untuk menghasilkan keputusan diagnosa kerusakan yang akurat.
+Berdasarkan hasil penilaian, implementasi sistem pakar berbasis web ini terbukti dapat mempercepat proses diagnosa kerusakan. Dengan adanya sistem ini, pengguna dapat mengetahui jenis kerusakan dan solusi penanganannya secara mandiri, sehingga secara efektif dapat mengurangi ketergantungan terhadap kehadiran fisik tenaga ahli atau teknisi di lab komputer Pondok Pesantren Al-Gontory.
+Saran
+Sedangkan saran-saran dari penulis terkait implementasi sistem pakar diagnosa kerusakan komputer dan software ini untuk pengembangan ke depannya yaitu sebagai berikut:
+ Perlu dilakukan penambahan dan pemutakhiran data basis pengetahuan (gejala, kerusakan, dan solusi) serta basis aturan secara berkala. Hal tersebut dilakukan agar sistem pakar selalu up-to-date dan dapat melakukan diagnosa dengan lebih akurat ketika muncul jenis kerusakan hardware atau software yang baru.
+Disarankan untuk mengembangkan antarmuka pengguna (user interface) agar lebih interaktif dan user-friendly, serta menambahkan fitur modul tutorial bergambar atau video untuk memudahkan pengguna awam saat mempraktikkan langkah-langkah perbaikan.
+ Menambahkan fitur pendukung, seperti unggah gambar kerusakan, riwayat perbaikan yang lebih lengkap, serta notifikasi atau rekomendasi tindakan lanjutan untuk meningkatkan kemudahan penggunaan sistem.
+
+
+DAFTAR PUSTAKA
+
+Ahmad, N., Krisnanik, E., Rupilele, F. G. J., Muliawati, A., Syamsiyah, N., Kraugusteeliana, K., Cahyono, B. D., Sriyeni, Y., Kristanto, T., & Irwanto, I. (2022). ANALISA & PERANCANGAN SISTEM INFORMASI BERORIENTASI OBJEK. Penerbit Widina.
+Albert Yakobus Chandra, & Putry Wahyu Setyaningsih. (2025). Benchmarking Local Development Environments: Analyzing the Performance of XAMPP, MAMP, and Laragon. Bulletin of Computer Science Research, 5(3), 193–206. https://doi.org/10.47065/bulletincsr.v5i3.493
+Alfareza, M., Kurniawansyah, K., Akbar, Z., Sains, F., Teknologi, D., & Jambi, U. M. (2024). SISTEM PAKAR KERUSAKAN HARDWARE KOMPUTER DENGAN METODE FORWARD CHAINING PADA ELEVEN KOMPUTER. Jurnal Informatika, Sistem Informasi Dan Kehutanan (FORSINTA), 3(2).
+Alfareza, M., Rohayani, H., Kurniawansyah, K., & Marthiawati, N. (2023). Rancang Bangun Sistem Pakar Untuk Mendiagnosa Kerusakan Hardware Komputer dengan Metode Forward Chaining. Journal of Informatics Management and Information Technology, 3(3), 97–102. https://doi.org/10.47065/jimat.v3i3.248
+Alida, M., Arum, L., Thyas, K., & Jajuli, A. R. (2025). Implementasi Website Weji Coffee dengan Fitur Reservasi Menggunakan HTML, JavaScript, dan Tailwind CSS. Jurnal Minfo Polgan, 14(2). https://doi.org/10.33395/jmp.v14i2.15675
+Alshamaa, Z. M., & Saleem, N. N. (2025). Black Box Software Testing Techniques: a Literature Review. Passer Journal of Basic and Applied Sciences, 7(2), 1001–1011. https://doi.org/10.24271/psr.2025.508216.1963
+Andy Jhonatan Marpaung, & Koko Handoko. (2023). (6) Sistem Pakar untuk Diagnosa Kerusakan Komputer Menggunakan Metode Forward Chaining dan Certainty Factor Berbasis Web. 09.
+Arafat, M., Trimarsiah, Y., Susantho, H., & Redaksi, D. (2022). INFORMATIKA DAN TEKNOLOGI (INTECH) Rancang Bangun Sistem Informasi Pemesanan Online Percetakan Sriwijaya Multi Grafika Berbasis Website INFORMASI ARTIKEL A B S T R A K. JURNAL INTECH, 3(2), 6–11.
+Bansal, D. (2025). Developing Dynamic Web Applications with PHP and MySQL. International Journal of Inventions in Engineering & Science Technology, 11, 10–15. https://doi.org/10.37648/ijiest.v11i01.002
+Cohen, S., & Chugh, R. (2025). Code Style Sheets: CSS for Code. Proceedings of the ACM on Programming Languages, 9(OOPSLA1). https://doi.org/10.1145/3720421
+Darmawan, R., & Darni, R. (2025). PT. Media Akademik Publisher SISTEM PAKAR DIAGNOSA KERUSAKAN KOMPUTER MENGGUNAKAN METODE FORWARD CHAINING DI LABORATORIUM MULTIMEDIA UNIVERSITAS NEGERI PADANG Oleh. JMA), 3(6), 3031–5220. https://doi.org/10.62281
+Fadzar, A., Azkiya, M. A., & Hakim, T. D. (2024). PERANCANGAN BASIS DATA BUDIDAYA BENIH IKAN AIR TAWAR ADIT FARM MENGGUNAKAN MYSQL. Jurnal Informatika Dan Teknik Elektro Terapan, 12(3). https://doi.org/10.23960/jitet.v12i3.4437
+Fikri Marsandi, A., Rizky Pratama, A., Sulistya Kusumaningrum, D., & Rohana, T. (2024). KLIK: Kajian Ilmiah Informatika dan Komputer Sistem Pakar Deteksi Kerusakan Laptop Menggunakan Algoritma Forward Chaining Dan Backward Chaining. Media Online), 5(1), 49–56. https://doi.org/10.30865/klik.v5i1.2041
+Hendra Pratama, Y., Kunci, K., & Pakar, S. (2023). Sistem Pakar Diagnosa dan Troubleshooting Kerusakan Website Menggunakan Metode Dempster-Shafer Expert System for Diagnosing and Troubleshooting Website Damage Using the Dempster-Shafer Method. Jurnal Bumigora Information Technology (BITe), 5(1), 31–42. https://doi.org/10.30812/bite/v5i1.2933
+Johari, mun, & Kandau, L. (2022). SISTEM PAKAR DENGAN PENDEKATAN METODE FORWARD CHAINING UNTUK MENDIAGNOSA TROUBLESHOOTING/KERUSAKAN PADA KOMPUTER CV NEUTRON KOMPUTER. 7(2).
+Kalyzta, J., & Syafrullah, M. (2023). Sistem Pakar Diagnosa Kerusakan Komputer Dengan Algoritma Certainty Factor Pada Lab ICT Budi Luhur. SKANIKA: Sistem Komputer Dan Teknik Informatika, 6(1), 12–21.
+Kartika Delimayanti, M., Yusfendri, R., Laya, M., Rizqi, D., & Naryanto, F. (2022). Sistem Pakar Diagnosa Kerusakan Hardware Laptop dengan Metode Forward Chaining Berbasis Web (Vol. 1, Number 1).
+Kusuma, A. S., Parwati, N. N., Tegeh, I. M., Sudarma, I. K., & Efitra, E. (2024). BUKU AJAR ANALISIS DESAIN SISTEM INFORMASI BERBASIS TRI HITA KARANA. PT. Sonpedia Publishing Indonesia.
+Mafirah, D., Hary, A., Annisa, L., Teknologi Informasi, P., & Tinggi Keguruan dan Ilmu Pendidikan Amal Bakti, S. (2026). Evaluasi Strategi Pemodelan Basis Data melalui Entity Relationship Diagram (ERD) dalam Perspektif Akademik dan Praktik Industri: Literature Review. Jurnal Pendidikan Tambusai, 10, 3935–3943.
+Maina, N. K., Muketha, G. M., & Wambugu, G. M. (2023). A New Complexity Metric for UML Sequence Diagrams. International Journal of Software Engineering & Applications, 14(01), 09–22. https://doi.org/10.5121/ijsea.2023.14102
+Pamekas, B. W., & Muhammad, N. F. (2024). Perancangan Sistem Pakar Untuk Mendeteksi Gejala Kerusakan Pada Komputer Menggunakan Metode Forward Chaining 1 (Vol. 17).
+Pria Sukamto, P. S., Muhammad Cahyadi Agustian, & Umar Tsani Abdurahman. (2023). Aplikasi sistem pakar diagnosa troubleshooting jaringan lan menggunakan metode backward chaining. INFOTECH : Jurnal Informatika & Teknologi, 4(1), 128–136. https://doi.org/10.37373/infotech.v4i1.397
+Purwawijaya, E. (2024). Kompleksitas Fungsional Perangkat Lunak Menggunakan Serangkaian Kriteria Baru dalam Unified Modeling Language (UML). Jurnal Minfo Polgan, 13(1), 271–277. https://doi.org/10.33395/jmp.v13i1.13623
+Rafli, H., Zen, R., Nuryasin, I., Informatika, P., Malang, U. M., Raya, J., No, T., 246, K., & Lowokwaru, K. M. (2024). PENERAPAN WHITEBOX TESTING PADA PENGUJIAN SISTEM MENGGUNAKAN TEKNIK BASIS PATH. Journal Of Information Systems And Informatics Engineering, 8(1), 101–111. https://doi.org/10.35145/joisie.v8i1.4229
+Ramdany, S. W., Aulia Kaidar, S., Aguchino, B., Amelia, C., Putri, A., & Anggie, R. (2024). Penerapan UML Class Diagram dalam Perancangan Sistem Informasi Perpustakaan Berbasis Web. In Journal of Industrial and Engineering System (Vol. 5, Number 1).
+Renny Puspita Sari, M. T., Ferdy Febriyanto, M. K., & Pustaka, D. (2025). Rekayasa Perangkat Lunak - Pendekatan Sistematis untuk Pengembangan Aplikasi. Detak Pustaka.
+Riston Burju Jordan Simatupang, & Nur Nawaningtyas Pusparini. (2025). Sistem Pakar Diagnosa Kerusakan Notebook Berbasis Web Menggunakan Metode Certainty Factor dengan Pengujian Blackbox. Merkurius : Jurnal Riset  Sistem Informasi Dan Teknik Informatika, 3(4), 247–266. https://doi.org/10.61132/merkurius.v3i4.955
+Riven Refany, H. S., & Annurrullah Fajrin, A. (2024). SISTEM PAKAR MENDIAGNOSIS KERUSAKAN PADA KOMPUTER DENGAN MENGGUNAKAN METODE FORWARD CHAINING BERBASIS WEB. JURNAL COMASIE, 11(02).
+Saputra, O., Fitri, I., Tri, E., & Handayani, E. (2022). Sistem Pakar Diagnosa Kerusakan Hardware Komputer Menggunakan Metode Forward Chaining dan Certainty Factor Berbasis Website. Jurnal Teknologi Informasi Dan Komunikasi), 6(2), 2022. https://doi.org/10.35870/jti
+Septian Isna, R. H., & Ardiansyah, T. (2024). Implementasi Forward Chaining Untuk Mendeteksi Kerusakan Komputer. JUSTINDO (Jurnal Sistem Dan Teknologi Informasi Indonesia), 9(1), 46–54. https://doi.org/10.32528/justindo.v9i1.1224
+Solecha, K., Badri, E., & Haidir, A. (2021). Sistem Pakar Untuk Mendeteksi Kerusakan Komputer Dengan Metode Forward Chaining Diterima. In Jurnal Infortech (Vol. 3, Number 2). http://ejournal.bsi.ac.id/ejurnal/index.php/infortech
+Sunarsa, T., Ridwan, M., Cahyono, A., Elektronika, T., Tunggal, G., & Maulana, A. (2024). Perancangan Unified Modelling Language Sistem Informasi Surat Jalan dan Lembaran Permintaan Perbaikan Berbasis Website. Jurnal Instrumentasi Dan Teknologi Informatika (JITI), 6(1).
+Surya Pratama, H., Putri Efendy, M., Roby, M., Halimah Tusakdiyah, S., Teknik, F., Abdurrab, U., Riau Ujung No, J., Hitam, A., Sekaki, P., Payung Sekaki, K., & Pekanbaru, K. (2022). Sistem Pakar Deteksi Kerusakan Laptop Atau Komputer Menggunakan Metode Forward Chaining (Vol. 2, Number 1).
+Taufiq, R., & Sandi, A. P. (2021). PENERAPAN METODE FORWARD CHAINING. In JIKA: ISSN.
+Utami, E., & Amikom, U. (n.d.). Teori, Analisa dan Implementasi Jaringan Tanpa Disk pada GNU/Linux. Penerbit Andi.
+Waliyah, Aprilyani, F., Muchlis, & Febriyanti, V. (2025). Pengembangan Sistem Informasi Penjualan Berbasis Web. 14.
+ 
+
+
+
+
+
+
+
+LAMPIRAN

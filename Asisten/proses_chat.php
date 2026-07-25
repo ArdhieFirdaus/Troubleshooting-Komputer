@@ -105,41 +105,47 @@ if (!$result_gejala) {
     exit();
 }
 
-// Definisi kata kunci untuk setiap gejala (mapping manual)
-// Kata kunci asli + Kata kunci kombinasi 2-3 gejala
-$kata_kunci_gejala = [
-    1 => ['tidak menyala', 'mati total', 'tidak bisa nyala', 'mati sama sekali', 'tidak hidup', 'komputer mati', 'pc mati', 'komputer saya tidak menyala', 'pc saya tidak menyala', 'unit cpu tidak menyala', 'tidak ada tanda kehidupan', 'mati dan tidak ada lampu', 'mati total lampu mati', 'komputer saya tidak menyala, lampu power juga tidak hidup sama sekali'],
-    2 => ['lampu power', 'lampu indikator', 'led mati', 'indikator tidak menyala', 'lampu mati semua', 'indikator power mati', 'lampu power tidak menyala', 'lampu indikator power mati', 'indikator power tidak hidup', 'led indikator mati total', 'lampu depan mati', 'komputer saya tidak menyala, lampu power juga tidak hidup sama sekali'],
-    3 => ['bunyi beep', 'beep berulang', 'bunyi tut', 'beep berbunyi', 'beep dan layar hitam', 'beep tidak ada tampilan', 'beep kipas nyala', 'beep nyala tapi gelap', 'komputer bunyi beep', 'komputer beep terus', 'bunyi beep saat dinyalakan', 'beep berkali-kali', 'motherboard bunyi beep', 'komputer saya tidak menyala lalu terdengar bunyi beep berulang saat dinyalakan'],
-    4 => ['tidak ada tampilan', 'layar hitam', 'no display', 'layar mati', 'monitor hitam', 'tidak tampil', 'nyala tapi gelap', 'hidup layar hitam', 'bunyi beep layar hitam', 'kipas nyala layar hitam', 'nyala tapi tidak ada gambar', 'monitor tidak menampilkan gambar', 'pc hidup tapi layar kosong', 'monitor gelap', 'tidak muncul gambar', 'komputer menyala tapi monitor hitam', 'layar tidak ada gambar', 'komputer saya tidak menyala dan monitor hanya menampilkan layar hitam', 'komputer bunyi beep, layar hitam, sementara kipas masih berputar'],
-    5 => ['kipas berputar', 'fan nyala', 'tidak post', 'no post', 'nyala tapi tidak booting', 'hidup tapi tidak masuk bios', 'kipas jalan layar hitam', 'fan muter tapi gelap', 'kipas muter', 'kipas hidup tapi tidak booting', 'komputer nyala tapi tidak masuk bios', 'cpu hidup tapi layar hitam', 'komputer bunyi beep, layar hitam, sementara kipas masih berputar'],
-    6 => ['restart sendiri', 'restart otomatis', 'nyala mati sendiri', 'restart terus', 'restart berulang', 'nyala sebentar mati lagi', 'restart dan panas', 'restart blue screen', 'mati hidup mati hidup', 'restart terus menerus', 'komputer restart sendiri', 'pc restart terus', 'komputer menyala lalu restart', 'hidup sebentar lalu mati lagi', 'komputer saya sering restart sendiri lalu tiba-tiba muncul blue screen', 'komputer restart terus dan terasa panas sekali saat dipakai'],
-    7 => ['blue screen', 'bsod', 'layar biru', 'blue screen restart', 'bsod terus menerus', 'error biru', 'layar biru restart', 'bsod dan restart', 'komputer blue screen', 'muncul layar biru', 'error bsod', 'komputer saya sering restart sendiri lalu tiba-tiba muncul blue screen'],
-    8 => ['lambat', 'lemot', 'lelet', 'hang', 'sering hang', 'lambat dan freeze', 'lemot aplikasi macet', 'kinerja menurun', 'performa lemot', 'komputer lemot', 'komputer sangat lambat', 'pc terasa berat', 'komputer terasa lemot dan beberapa aplikasi jadi not responding'],
-    9 => ['not responding', 'aplikasi freeze', 'program macet', 'aplikasi tidak merespon', 'sering freeze', 'lambat dan freeze', 'aplikasi sering macet', 'aplikasi tidak bisa dibuka', 'program tidak merespon', 'komputer sering freeze', 'komputer terasa lemot dan beberapa aplikasi jadi not responding'],
-    10 => ['hardisk bunyi', 'hdd bunyi', 'bunyi klik', 'klik klik', 'hardisk klik', 'bunyi aneh dan tidak boot', 'bunyi klik tidak bisa booting', 'hardisk berbunyi tidak boot', 'klik klik os not found', 'hardisk bunyi klik terus', 'hardisk seperti berdecit', 'hardisk bunyi klik terus, komputer gagal boot, dan akhirnya muncul no bootable device'],
-    11 => ['tidak bisa booting', 'gagal boot', 'tidak masuk windows', 'booting error', 'hardisk bunyi tidak boot', 'loading lama tidak masuk', 'stuck di logo', 'tidak bisa masuk windows', 'booting gagal terus', 'komputer gagal boot', 'windows tidak mau masuk', 'komputer gagal boot karena proses loading windows terlalu lama', 'hardisk bunyi klik terus, komputer gagal boot, dan akhirnya muncul no bootable device'],
-    12 => ['operating system not found', 'os not found', 'sistem operasi tidak ditemukan', 'hardisk tidak terdeteksi', 'boot device not found', 'no bootable device', 'os hilang', 'komputer no bootable device', 'tidak ada sistem operasi', 'hardisk bunyi klik terus, komputer gagal boot, dan akhirnya muncul no bootable device'],
-    13 => ['loading lama', 'windows lama', 'booting lama', 'loading lama dan hang', 'startup lambat sekali', 'lama masuk windows', 'lama banget loadingnya', 'booting lambat sekali', 'komputer lama sekali masuk windows', 'startup sangat lama', 'komputer gagal boot karena proses loading windows terlalu lama', 'windows loading lama lalu hang saat masuk ke desktop'],
-    14 => ['hang masuk windows', 'freeze windows', 'macet windows', 'loading lama hang', 'stuck starting windows', 'macet waktu login', 'freeze saat masuk windows', 'windows hang saat startup', 'komputer macet di logo windows', 'windows loading lama lalu hang saat masuk ke desktop'],
-    15 => ['layar bergaris', 'garis di layar', 'monitor bergaris', 'layar berkedip', 'artifact di layar', 'tampilan rusak', 'glitch layar', 'garis garis di monitor', 'monitor muncul garis', 'gambar di layar pecah', 'layar bergaris dan komputer terasa panas setelah beberapa menit dipakai'],
-    16 => ['panas', 'overheat', 'suhu tinggi', 'kepanasan', 'panas dan restart', 'overheat shutdown', 'panas blue screen', 'terlalu panas', 'kepanasan dan mati', 'panas restart sendiri', 'komputer terasa sangat panas', 'kipas berbunyi keras karena panas', 'komputer restart terus dan terasa panas sekali saat dipakai', 'layar bergaris dan komputer terasa panas setelah beberapa menit dipakai'],
-    17 => ['internet lambat', 'koneksi putus', 'wifi error', 'jaringan lambat', 'putus nyambung', 'wifi disconnect', 'internet sering putus', 'wifi lemot', 'sinyal internet lemah', 'komputer susah konek internet', 'internet lambat sementara usb juga tidak terdeteksi di komputer saya'],
-    18 => ['usb tidak terdeteksi', 'usb tidak kebaca', 'flashdisk tidak terbaca', 'port usb mati', 'usb device not recognized', 'usb tidak terdeteksi sama sekali', 'flashdisk tidak terbaca di pc', 'usb gagal dikenali', 'internet lambat sementara usb juga tidak terdeteksi di komputer saya'],
-    19 => ['keyboard error', 'mouse error', 'keyboard tidak fungsi', 'mouse mati', 'keyboard tidak merespon', 'mouse tidak gerak', 'keyboard mouse mati', 'keyboard tidak terdeteksi', 'mouse tidak terdeteksi', 'keyboard tidak terdeteksi dan speaker tidak bunyi sama sekali'],
-    20 => ['tidak ada suara', 'audio mati', 'speaker mati', 'suara hilang', 'no sound', 'suara tidak keluar', 'speaker tidak bunyi', 'komputer tidak ada suara', 'audio tidak terdengar', 'keyboard tidak terdeteksi dan speaker tidak bunyi sama sekali']
-];
+$all_keywords = [];
+// Kumpulkan semua kata kunci
+while ($gejala = mysqli_fetch_assoc($result_gejala)) {
+    $id_gejala = $gejala['id_gejala'];
+    $kata_kunci_db = $gejala['kata_kunci'];
+
+    if (empty($kata_kunci_db)) {
+        continue;
+    }
+
+    $keywords = explode(',', $kata_kunci_db);
+    foreach ($keywords as $keyword) {
+        $keyword = trim($keyword);
+        if (!empty($keyword)) {
+            $all_keywords[] = [
+                'id_gejala' => $id_gejala,
+                'keyword' => strtolower($keyword),
+                'length' => strlen($keyword)
+            ];
+        }
+    }
+}
+
+// Urutkan kata kunci dari yang paling panjang ke paling pendek
+// Ini mencegah kata kunci pendek (misal "lambat") bertabrakan dengan kata kunci panjang (misal "jaringan lambat")
+usort($all_keywords, function($a, $b) {
+    return $b['length'] - $a['length'];
+});
+
+$gejala_teridentifikasi = [];
+$input_temp = $input_lower;
 
 // Cari kata kunci yang cocok dengan input user
-foreach ($kata_kunci_gejala as $id_gejala => $keywords) {
-    foreach ($keywords as $keyword) {
-        if (stripos($input_lower, $keyword) !== false) {
-            // Kata kunci ditemukan!
-            if (!in_array($id_gejala, $gejala_teridentifikasi)) {
-                $gejala_teridentifikasi[] = $id_gejala;
-            }
-            break; // Lanjut ke gejala berikutnya
+foreach ($all_keywords as $item) {
+    if (stripos($input_temp, $item['keyword']) !== false) {
+        // Kata kunci ditemukan!
+        if (!in_array($item['id_gejala'], $gejala_teridentifikasi)) {
+            $gejala_teridentifikasi[] = $item['id_gejala'];
         }
+        // Timpa kata yang sudah cocok dengan bintang agar tidak terdeteksi dua kali oleh kata kunci yang lebih pendek
+        $input_temp = str_ireplace($item['keyword'], '***', $input_temp);
     }
 }
 
@@ -208,21 +214,34 @@ while ($rule = mysqli_fetch_assoc($result_rules)) {
     if ($jumlah_gejala_input == 1) {
         $rule_match = ($match_count >= 1);
     } else {
-        $rule_match = ($match_count === $jumlah_gejala_input && $match_count === $total_rule_gejala);
+        // Jika user memasukkan kombinasi gejala, asalkan semua gejala yang diinputkan 
+        // terdapat di dalam rule ini (match_count == jumlah_gejala_input), maka rule ini valid
+        $rule_match = ($match_count === $jumlah_gejala_input);
     }
 
-    if ($rule_match && $match_count > $max_match) {
-        $max_match = $match_count;
-        $diagnosa_hasil = [
-            'id_kerusakan' => $rule['id_kerusakan'],
-            'kode_kerusakan' => $rule['kode_kerusakan'],
-            'nama_kerusakan' => $rule['nama_kerusakan'],
-            'solusi' => $rule['solusi'],
-            'match_percentage' => round($match_percentage, 2),
-            'matched_symptoms' => $match_count,
-            'total_symptoms' => $total_rule_gejala
-        ];
+    if ($rule_match) {
+        if ($match_count > $max_match) {
+            $max_match = $match_count;
+            $diagnosa_hasil = [
+                'id_kerusakan' => $rule['id_kerusakan'],
+                'kode_kerusakan' => $rule['kode_kerusakan'],
+                'nama_kerusakan' => $rule['nama_kerusakan'],
+                'solusi' => $rule['solusi'],
+                'match_percentage' => round($match_percentage, 2),
+                'matched_symptoms' => $match_count,
+                'total_symptoms' => $total_rule_gejala
+            ];
+            $tied_rules = 1;
+        } elseif ($match_count === $max_match) {
+            $tied_rules++;
+        }
     }
+}
+
+// Jika ada lebih dari satu rule yang memiliki jumlah kecocokan yang sama tingginya,
+// berarti gejala tersebut ambigu (lintas rule) dan tidak bisa diidentifikasi.
+if (isset($tied_rules) && $tied_rules > 1) {
+    $diagnosa_hasil = null;
 }
 
 // ==========================================
