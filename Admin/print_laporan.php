@@ -7,9 +7,10 @@ $filter_tanggal_mulai = isset($_GET['tanggal_mulai']) ? $_GET['tanggal_mulai'] :
 $filter_tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : '';
 $filter_asisten = isset($_GET['asisten']) ? $_GET['asisten'] : '';
 
-$query = "SELECT d.*, u.nama_lengkap, u.username 
+$query = "SELECT d.*, u.nama_lengkap, u.username, k.kategori 
           FROM diagnosa d 
           INNER JOIN users u ON d.id_user = u.id_user 
+          LEFT JOIN kerusakan k ON d.hasil_kerusakan = k.nama_kerusakan 
           WHERE 1=1";
 
 if (!empty($filter_tanggal_mulai) && !empty($filter_tanggal_akhir)) {
@@ -95,6 +96,7 @@ if (!empty($filter_asisten)) {
                     <th>Tanggal</th>
                     <th>Asisten Lab</th>
                     <th>Hasil Kerusakan</th>
+                    <th>Kategori</th>
                     <th>Gejala</th>
                 </tr>
             </thead>
@@ -115,12 +117,26 @@ if (!empty($filter_asisten)) {
                             <td><?php echo date('d/m/Y H:i:s', strtotime($row['tanggal'])); ?></td>
                             <td><?php echo htmlspecialchars($row['nama_lengkap']); ?> (<?php echo htmlspecialchars($row['username']); ?>)</td>
                             <td><?php echo !empty($row['hasil_kerusakan']) ? htmlspecialchars($row['hasil_kerusakan']) : '-'; ?></td>
+                            <td>
+                                <?php 
+                                if ($row['hasil_kerusakan'] == 'Kerusakan Tidak Teridentifikasi'):
+                                    echo '<span class="badge bg-secondary">Tidak Diketahui</span>';
+                                else:
+                                    $kat = isset($row['kategori']) && !empty($row['kategori']) ? $row['kategori'] : 'Hardware';
+                                    if ($kat == 'Hardware'): 
+                                        echo '<span class="badge bg-primary">Hardware</span>';
+                                    else: 
+                                        echo '<span class="badge bg-success">Software</span>';
+                                    endif;
+                                endif;
+                                ?>
+                            </td>
                             <td><?php echo !empty($gejala_list) ? implode('<br>', $gejala_list) : '-'; ?></td>
                         </tr>
                         <?php
                     }
                 } else {
-                    echo '<tr><td colspan="5" class="text-center">Tidak ada data diagnosa</td></tr>';
+                    echo '<tr><td colspan="6" class="text-center">Tidak ada data diagnosa</td></tr>';
                 }
                 ?>
             </tbody>

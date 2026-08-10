@@ -14,9 +14,10 @@ $filter_tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] :
 $filter_asisten = isset($_GET['asisten']) ? $_GET['asisten'] : '';
 
 // Build query dengan filter
-$query = "SELECT d.*, u.nama_lengkap, u.username 
+$query = "SELECT d.*, u.nama_lengkap, u.username, k.kategori 
           FROM diagnosa d 
           INNER JOIN users u ON d.id_user = u.id_user 
+          LEFT JOIN kerusakan k ON d.hasil_kerusakan = k.nama_kerusakan 
           WHERE 1=1";
 
 if (!empty($filter_tanggal_mulai) && !empty($filter_tanggal_akhir)) {
@@ -144,9 +145,10 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                                         <th width="5%">No</th>
                                         <th width="12%">Tanggal</th>
                                         <th width="18%">Asisten Lab</th>
-                                        <th width="30%">Hasil Kerusakan</th>
-                                        <th width="20%">Gejala yang Dipilih</th>
-                                        <th width="15%" class="text-center">Aksi</th>
+                                        <th width="25%">Hasil Kerusakan</th>
+                                        <th width="12%">Kategori</th>
+                                        <th width="15%">Gejala yang Dipilih</th>
+                                        <th width="13%" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -185,6 +187,23 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                                             <?php 
                                             $hasil = htmlspecialchars($row['hasil_kerusakan']);
                                             echo !empty($hasil) ? $hasil : '<em class="text-muted">Tidak ada hasil</em>'; 
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                            if ($row['hasil_kerusakan'] == 'Kerusakan Tidak Teridentifikasi'):
+                                            ?>
+                                                <span class="badge bg-secondary"><i class="bi bi-question-circle"></i> Tidak Diketahui</span>
+                                            <?php 
+                                            else:
+                                                $kat = isset($row['kategori']) && !empty($row['kategori']) ? $row['kategori'] : 'Hardware';
+                                                if ($kat == 'Hardware'): 
+                                                ?>
+                                                    <span class="badge bg-primary"><i class="bi bi-cpu"></i> Hardware</span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-success"><i class="bi bi-window-stack"></i> Software</span>
+                                                <?php endif; 
+                                            endif;
                                             ?>
                                         </td>
                                         <td>
