@@ -65,7 +65,7 @@ Dokumen ini dipakai untuk mengetes chatbot diagnosa berdasarkan kata kunci yang 
 - **Rule 1 - Kerusakan Power Supply**
   - **Input 1**: `laptop mati total dan lampu indikatornya nggak nyala` *(Gejala 1, 2)*
   - **Input 2**: `nggak bisa dihidupkan sama sekali dan lampu di pc mati` *(Gejala 1, 2)*
-  - **Hasil**: **Kerusakan Power Supply**
+  - **Hasil**: **Kerusakan Power Supply** q
 
 - **Rule 3 - Kerusakan VGA**
   - **Input 1**: `layar ngga muncul apa apa dan layarnya patah patah` *(Gejala 4, 15)*
