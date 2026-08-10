@@ -10,8 +10,12 @@ require_once '../Config/koneksi.php';
 
 $id_user = $_SESSION['id_user'];
 
-// Ambil semua diagnosa milik user ini
-$query = "SELECT * FROM diagnosa WHERE id_user = '$id_user' ORDER BY tanggal DESC";
+// Ambil semua diagnosa milik user ini beserta kategori kerusakannya
+$query = "SELECT d.*, k.kategori 
+          FROM diagnosa d 
+          LEFT JOIN kerusakan k ON d.hasil_kerusakan = k.nama_kerusakan 
+          WHERE d.id_user = '$id_user' 
+          ORDER BY d.tanggal DESC";
 $result_diagnosa = mysqli_query($koneksi, $query);
 ?>
 <!DOCTYPE html>
@@ -77,9 +81,10 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                                         <th width="5%">No</th>
                                         <th width="8%">ID</th>
                                         <th width="15%">Tanggal</th>
-                                        <th width="40%">Hasil Kerusakan</th>
-                                        <th width="12%">Jumlah Gejala</th>
-                                        <th width="20%" class="text-center">Aksi</th>
+                                        <th width="32%">Hasil Kerusakan</th>
+                                        <th width="15%">Kategori</th>
+                                        <th width="10%">Jumlah Gejala</th>
+                                        <th width="15%" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -103,6 +108,23 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                                             <span class="badge <?php echo $badge_class; ?>">
                                                 <?php echo $row['hasil_kerusakan']; ?>
                                             </span>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                            if ($row['hasil_kerusakan'] == 'Kerusakan Tidak Teridentifikasi'):
+                                            ?>
+                                                <span class="badge bg-secondary"><i class="bi bi-question-circle"></i> Tidak Diketahui</span>
+                                            <?php 
+                                            else:
+                                                $kat = isset($row['kategori']) && !empty($row['kategori']) ? $row['kategori'] : 'Hardware';
+                                                if ($kat == 'Hardware'): 
+                                                ?>
+                                                    <span class="badge bg-primary"><i class="bi bi-cpu"></i> Hardware</span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-success"><i class="bi bi-window-stack"></i> Software</span>
+                                                <?php endif; 
+                                            endif;
+                                            ?>
                                         </td>
                                         <td class="text-center">
                                             <span class="badge bg-info"><?php echo $count; ?> gejala</span>
