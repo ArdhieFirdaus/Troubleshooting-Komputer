@@ -24,19 +24,20 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $kode_kerusakan = mysqli_real_escape_string($koneksi, trim($_POST['kode_kerusakan']));
     $nama_kerusakan = mysqli_real_escape_string($koneksi, trim($_POST['nama_kerusakan']));
+    $kategori = isset($_POST['kategori']) ? mysqli_real_escape_string($koneksi, trim($_POST['kategori'])) : 'Hardware';
     $solusi = mysqli_real_escape_string($koneksi, trim($_POST['solusi']));
     
     if (isset($_POST['id_kerusakan']) && !empty($_POST['id_kerusakan'])) {
         // Update
         $id = mysqli_real_escape_string($koneksi, $_POST['id_kerusakan']);
         $query = "UPDATE kerusakan SET kode_kerusakan='$kode_kerusakan', 
-                  nama_kerusakan='$nama_kerusakan', solusi='$solusi' 
+                  nama_kerusakan='$nama_kerusakan', kategori='$kategori', solusi='$solusi' 
                   WHERE id_kerusakan='$id'";
         $success_msg = "Kerusakan berhasil diupdate!";
     } else {
         // Insert
-        $query = "INSERT INTO kerusakan (kode_kerusakan, nama_kerusakan, solusi) 
-                  VALUES ('$kode_kerusakan', '$nama_kerusakan', '$solusi')";
+        $query = "INSERT INTO kerusakan (kode_kerusakan, nama_kerusakan, kategori, solusi) 
+                  VALUES ('$kode_kerusakan', '$nama_kerusakan', '$kategori', '$solusi')";
         $success_msg = "Kerusakan berhasil ditambahkan!";
     }
     
@@ -124,18 +125,26 @@ $result_kerusakan = mysqli_query($koneksi, $query_kerusakan);
                             <?php endif; ?>
                             
                             <div class="row">
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-2 mb-3">
                                     <label for="kode_kerusakan" class="form-label">Kode Kerusakan <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="kode_kerusakan" name="kode_kerusakan" 
                                            value="<?php echo $edit_data ? $edit_data['kode_kerusakan'] : ''; ?>" 
                                            placeholder="Contoh: K001" required>
                                 </div>
                                 
-                                <div class="col-md-9 mb-3">
+                                <div class="col-md-7 mb-3">
                                     <label for="nama_kerusakan" class="form-label">Nama Kerusakan <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="nama_kerusakan" name="nama_kerusakan" 
                                            value="<?php echo $edit_data ? $edit_data['nama_kerusakan'] : ''; ?>" 
                                            placeholder="Masukkan nama kerusakan" required>
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label for="kategori" class="form-label">Kategori <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="kategori" name="kategori" required>
+                                        <option value="Hardware" <?php echo ($edit_data && isset($edit_data['kategori']) && $edit_data['kategori'] == 'Hardware') ? 'selected' : ''; ?>>Hardware (Perangkat Keras)</option>
+                                        <option value="Software" <?php echo ($edit_data && isset($edit_data['kategori']) && $edit_data['kategori'] == 'Software') ? 'selected' : ''; ?>>Software (Perangkat Lunak)</option>
+                                    </select>
                                 </div>
                             </div>
                             
@@ -173,8 +182,9 @@ $result_kerusakan = mysqli_query($koneksi, $query_kerusakan);
                                         <th width="5%">No</th>
                                         <th width="8%">Kode</th>
                                         <th width="25%">Nama Kerusakan</th>
-                                        <th width="42%">Solusi</th>
-                                        <th width="20%" class="text-center">Aksi</th>
+                                        <th width="15%">Kategori</th>
+                                        <th width="32%">Solusi</th>
+                                        <th width="15%" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -187,6 +197,16 @@ $result_kerusakan = mysqli_query($koneksi, $query_kerusakan);
                                         <td><?php echo $no++; ?></td>
                                         <td><strong><?php echo $row['kode_kerusakan']; ?></strong></td>
                                         <td><?php echo $row['nama_kerusakan']; ?></td>
+                                        <td>
+                                            <?php 
+                                            $kat = isset($row['kategori']) && !empty($row['kategori']) ? $row['kategori'] : 'Hardware';
+                                            if ($kat == 'Hardware'): 
+                                            ?>
+                                                <span class="badge bg-primary"><i class="bi bi-cpu"></i> Hardware</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-success"><i class="bi bi-window-stack"></i> Software</span>
+                                            <?php endif; ?>
+                                        </td>
                                         <td>
                                             <div style="max-height: 100px; overflow-y: auto;">
                                                 <?php echo nl2br($row['solusi']); ?>
@@ -208,7 +228,7 @@ $result_kerusakan = mysqli_query($koneksi, $query_kerusakan);
                                     else:
                                     ?>
                                     <tr>
-                                        <td colspan="5" class="text-center text-muted">
+                                        <td colspan="6" class="text-center text-muted">
                                             <em>Belum ada data kerusakan</em>
                                         </td>
                                     </tr>

@@ -94,7 +94,7 @@ if (isset($_GET['edit']) && !empty($_GET['edit'])) {
 }
 
 // Ambil semua data rule dengan join
-$query_rules = "SELECT r.*, k.kode_kerusakan, k.nama_kerusakan 
+$query_rules = "SELECT r.*, k.kode_kerusakan, k.nama_kerusakan, k.kategori 
                 FROM rule r 
                 INNER JOIN kerusakan k ON r.id_kerusakan = k.id_kerusakan 
                 ORDER BY r.id_rule ASC";
@@ -177,9 +177,10 @@ $result_gejala_list = mysqli_query($koneksi, $query_gejala_list);
                                     mysqli_data_seek($result_kerusakan_list, 0);
                                     while($k = mysqli_fetch_assoc($result_kerusakan_list)): 
                                         $selected = ($edit_data && $edit_data['id_kerusakan'] == $k['id_kerusakan']) ? 'selected' : '';
+                                        $kat_label = isset($k['kategori']) && !empty($k['kategori']) ? $k['kategori'] : 'Hardware';
                                     ?>
                                     <option value="<?php echo $k['id_kerusakan']; ?>" <?php echo $selected; ?>>
-                                        <?php echo $k['kode_kerusakan'] . ' - ' . $k['nama_kerusakan']; ?>
+                                        <?php echo $k['kode_kerusakan'] . ' - ' . $k['nama_kerusakan'] . ' [' . $kat_label . ']'; ?>
                                     </option>
                                     <?php endwhile; ?>
                                 </select>
@@ -235,9 +236,10 @@ $result_gejala_list = mysqli_query($koneksi, $query_gejala_list);
                                     <tr>
                                         <th width="5%">No</th>
                                         <th width="10%">ID Rule</th>
-                                        <th width="25%">Kerusakan</th>
-                                        <th width="40%">Gejala yang Dipilih</th>
-                                        <th width="20%" class="text-center">Aksi</th>
+                                        <th width="25%">Kerusakan Target</th>
+                                        <th width="15%">Kategori</th>
+                                        <th width="30%">Gejala Syarat (IF)</th>
+                                        <th width="15%" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -259,6 +261,16 @@ $result_gejala_list = mysqli_query($koneksi, $query_gejala_list);
                                         <td>
                                             <strong><?php echo $row['kode_kerusakan']; ?></strong><br>
                                             <small><?php echo $row['nama_kerusakan']; ?></small>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                            $kat_rule = isset($row['kategori']) && !empty($row['kategori']) ? $row['kategori'] : 'Hardware';
+                                            if ($kat_rule == 'Hardware'): 
+                                            ?>
+                                                <span class="badge bg-primary"><i class="bi bi-cpu"></i> Hardware</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-success"><i class="bi bi-window-stack"></i> Software</span>
+                                            <?php endif; ?>
                                         </td>
                                         <td>
                                             <ul class="mb-0" style="font-size: 13px;">
@@ -286,7 +298,7 @@ $result_gejala_list = mysqli_query($koneksi, $query_gejala_list);
                                     else:
                                     ?>
                                     <tr>
-                                        <td colspan="5" class="text-center text-muted">
+                                        <td colspan="6" class="text-center text-muted">
                                             <em>Belum ada rule. Silakan tambah rule baru.</em>
                                         </td>
                                     </tr>
