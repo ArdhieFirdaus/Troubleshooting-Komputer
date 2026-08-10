@@ -57,7 +57,7 @@ Dokumen ini dipakai untuk mengetes chatbot diagnosa berdasarkan kata kunci yang 
 - **Rule 9 - Kerusakan Jaringan**
   - **Input 1**: `jaringan lambat` *(Gejala 17)*
   - **Input 2**: `jaringan internet ga stabil` *(Gejala 17)*
-  - **Hasil**: **Kerusakan Jaringan**
+  - **Hasil**: **Kerusakan Jaringan**qq
   - **Solusi**: Periksa koneksi kabel LAN atau jaringan WiFi, restart router atau access point, periksa pengaturan IP Address.
 
 ### B. Diagnosa dengan 2 Kombinasi Gejala
