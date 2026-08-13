@@ -18,13 +18,16 @@ $filter_tanggal_mulai = isset($_GET['tanggal_mulai']) ? $_GET['tanggal_mulai'] :
 $filter_tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : '';
 
 // Build query
-$query = "SELECT * FROM diagnosa WHERE id_user = '$id_user'";
+$query = "SELECT d.*, k.kategori 
+          FROM diagnosa d 
+          LEFT JOIN kerusakan k ON d.hasil_kerusakan = k.nama_kerusakan 
+          WHERE d.id_user = '$id_user'";
 
 if (!empty($filter_tanggal_mulai) && !empty($filter_tanggal_akhir)) {
-    $query .= " AND DATE(tanggal) BETWEEN '$filter_tanggal_mulai' AND '$filter_tanggal_akhir'";
+    $query .= " AND DATE(d.tanggal) BETWEEN '$filter_tanggal_mulai' AND '$filter_tanggal_akhir'";
 }
 
-$query .= " ORDER BY tanggal DESC";
+$query .= " ORDER BY d.tanggal DESC";
 $result_diagnosa = mysqli_query($koneksi, $query);
 
 ?>
@@ -168,6 +171,7 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                                         <th style="color:#000 !important">No</th>
                                         <th style="color:#000 !important">Tanggal</th>
                                         <th style="color:#000 !important">Hasil Kerusakan</th>
+                                        <th style="color:#000 !important">Kategori</th>
                                         <th style="color:#000 !important">Gejala yang Dipilih</th>
                                     </tr>
                                 </thead>
@@ -185,11 +189,25 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                                     <tr>
                                         <td><?php echo $no++; ?></td>
                                         <td><?php echo date('d/m/Y H:i', strtotime($row['tanggal'])); ?></td>
-                                        <td><strong><?php echo $row['hasil_kerusakan']; ?></strong></td>
+                                        <td><strong><?php echo htmlspecialchars($row['hasil_kerusakan']); ?></strong></td>
+                                        <td>
+                                            <?php 
+                                            if ($row['hasil_kerusakan'] == 'Kerusakan Tidak Teridentifikasi'):
+                                                echo '<span class="badge bg-secondary">Tidak Diketahui</span>';
+                                            else:
+                                                $kat = isset($row['kategori']) && !empty($row['kategori']) ? $row['kategori'] : 'Hardware';
+                                                if ($kat == 'Hardware'): 
+                                                    echo '<span class="badge bg-primary">Hardware</span>';
+                                                else: 
+                                                    echo '<span class="badge bg-success">Software</span>';
+                                                endif;
+                                            endif;
+                                            ?>
+                                        </td>
                                         <td>
                                             <ol style="margin: 0; padding-left: 20px; font-size: 12px;">
                                                 <?php while($g = mysqli_fetch_assoc($result_gejala)): ?>
-                                                <li><?php echo $g['kode_gejala'] . ' - ' . $g['nama_gejala']; ?></li>
+                                                <li><?php echo htmlspecialchars($g['kode_gejala']) . ' - ' . htmlspecialchars($g['nama_gejala']); ?></li>
                                                 <?php endwhile; ?>
                                             </ol>
                                         </td>
