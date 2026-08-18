@@ -31,7 +31,7 @@ CREATE TABLE `diagnosa` (
   `id_diagnosa` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `tanggal` datetime NOT NULL,
-  `hasil_kerusakan` text NOT NULL
+  `hasil_kerusakan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

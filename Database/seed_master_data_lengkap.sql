@@ -30,6 +30,9 @@ DEALLOCATE PREPARE alterIfNotExists;
 UPDATE `kerusakan` SET `kategori` = 'Hardware' WHERE `kode_kerusakan` IN ('K001', 'K002', 'K003', 'K004', 'K006', 'K008');
 UPDATE `kerusakan` SET `kategori` = 'Software' WHERE `kode_kerusakan` IN ('K005', 'K007', 'K009');
 
+-- Ubah Tipe Data hasil_kerusakan di tabel diagnosa dari TEXT menjadi VARCHAR(255)
+ALTER TABLE `diagnosa` MODIFY COLUMN `hasil_kerusakan` VARCHAR(255) NOT NULL;
+
 -- 2. Tambah Master Data Kerusakan Baru (K010 s.d. K018)
 INSERT IGNORE INTO `kerusakan` (`id_kerusakan`, `kode_kerusakan`, `nama_kerusakan`, `solusi`, `kategori`) VALUES
 (10, 'K010', 'Kerusakan Baterai CMOS / BIOS Setting', '1. Ganti Baterai CMOS CR2032 di motherboard\r\n2. Masuk BIOS (tekan DEL/F2) lalu set tanggal & waktu dengan benar\r\n3. Load Default BIOS Settings\r\n4. Simpan konfigurasi BIOS (F10) dan restart', 'Hardware'),
