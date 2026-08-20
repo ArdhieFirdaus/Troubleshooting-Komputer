@@ -454,5 +454,148 @@ Saya memilih **Forward Chaining** karena *troubleshooting* hardware/software kom
 Dengan membandingkan hasil wawancara, observasi, dan literatur, maka data Basis Pengetahuan (Rule Base) sistem pakar saya dapat dipertanggungjawabkan keabsahannya.
 
 ---
+---
+
+# PANDUAN DEMO LIVE: KOMBINASI GEJALA HARDWARE & SOFTWARE
+
+Gunakan panduan skenario berikut saat dosen penguji meminta Anda melakukan **Live Demo** pengujian sistem diagnosa (baik via **Form Checklist Diagnosa** maupun **Guided Chatbot**):
+
+## 🛠️ SKENARIO 1: Demo 1 Kondisi Gejala (Single Symptom)
+
+### 🔹 1A. Skenario Hardware (1 Gejala Spesifik)
+* **Pilihan Gejala:** `G023` - Tanggal dan jam BIOS selalu terreset ke default
+* **Cara Eksekusi Form:** Filter Kategori `Hardware` -> Centang `G023` -> Klik `Proses Diagnosa`
+* **Cara Eksekusi Chatbot:** Ketik/pilih `G023` atau "jam pc selalu balik ke tahun lama"
+* **Hasil Sistem:**
+  * **Kode Kerusakan:** `[K010]`
+  * **Nama Kerusakan:** Kerusakan Baterai CMOS / BIOS Setting
+  * **Kategori:** `Hardware`
+  * **Status:** Match Candidate Candidate (100% Spesifik)
+* **Speaker Note Dosen:** *"Pak/Bu, untuk pengujian 1 gejala spesifik pada hardware seperti G023 (jam BIOS terreset), sistem langsung dapat mengenali masalah ada pada Baterai CMOS motherboard."*
+
+---
+
+### 🔹 1B. Skenario Software (1 Gejala Spesifik)
+* **Pilihan Gejala:** `G035` - Ruang penyimpanan drive C: berwarna merah / penuh
+* **Cara Eksekusi Form:** Filter Kategori `Software` -> Centang `G035` -> Klik `Proses Diagnosa`
+* **Hasil Sistem:**
+  * **Kode Kerusakan:** `[K015]`
+  * **Nama Kerusakan:** Kapasitas Penyimpanan Penuh
+  * **Kategori:** `Software`
+  * **Status:** Match candidate
+* **Speaker Note Dosen:** *"Untuk kendala software dasar 1 gejala seperti Drive C penuh (G035), sistem memberikan hasil diagnosa Kapasitas Penyimpanan Penuh beserta langkah Disk Cleanup."*
+
+---
+
+## 🛠️ SKENARIO 2: Demo 2 Kombinasi Gejala (Double Symptoms)
+
+### 🔹 2A. Skenario Hardware (2 Kombinasi Gejala)
+* **Pilihan Gejala:** 
+  1. `G001` - Komputer tidak bisa menyala sama sekali
+  2. `G002` - Lampu indikator power tidak menyala
+* **Cara Eksekusi:** Centang `G001` + `G002` -> Klik `Proses Diagnosa`
+* **Hasil Sistem:**
+  * **Kode Kerusakan:** `[K001]`
+  * **Nama Kerusakan:** Kerusakan Power Supply
+  * **Kategori:** `Hardware`
+  * **Status Rule:** Rule 1 Match 100%
+* **Speaker Note Dosen:** *"Ketika pengguna mengkombinasikan 2 gejala hardware yaitu komputer mati total dan lampu indikator mati, Rule 1 pada algoritma Forward Chaining terpicu dan menyimpulkan Kerusakan Power Supply."*
+
+---
+
+### 🔹 2B. Skenario Software (2 Kombinasi Gejala)
+* **Pilihan Gejala:** 
+  1. `G008` - Komputer sangat lambat saat digunakan
+  2. `G009` - Aplikasi sering not responding
+* **Cara Eksekusi:** Centang `G008` + `G009` -> Klik `Proses Diagnosa`
+* **Hasil Sistem:**
+  * **Kode Kerusakan:** `[K007]`
+  * **Nama Kerusakan:** Driver atau Software Bermasalah
+  * **Kategori:** `Software`
+  * **Status Rule:** Rule 7 Match 100%
+* **Speaker Note Dosen:** *"Untuk kombinasi 2 gejala software (komputer lambat dan sering not responding), sistem memproses pencocokan dan mengeluarkan hasil Driver atau Software Bermasalah."*
+
+---
+
+## 🛠️ SKENARIO 3: Demo 3 Kombinasi Gejala (Triple Symptoms)
+
+### 🔹 3A. Skenario Hardware (3 Kombinasi Gejala - Pas)
+* **Pilihan Gejala:** 
+  1. `G003` - Terdengar bunyi beep berulang saat dinyalakan
+  2. `G004` - Komputer menyala tapi tidak ada tampilan di layar
+  3. `G005` - Kipas berputar tapi tidak ada POST
+* **Cara Eksekusi:** Centang `G003` + `G004` + `G005` -> Klik `Proses Diagnosa`
+* **Hasil Sistem:**
+  * **Kode Kerusakan:** `[K002]`
+  * **Nama Kerusakan:** Kerusakan RAM (Memory)
+  * **Kategori:** `Hardware`
+  * **Status Rule:** Rule 2 Match 100% (3 dari 3 Gejala Syarat Terpenuhi)
+* **Speaker Note Dosen:** *"Pada 3 kombinasi gejala hardware klasik ini (beep berulang, no display, dan no POST), Rule 2 terpenuhi secara sempurna sehingga mengarahkan pada Kerusakan RAM."*
+
+---
+
+### 🔹 3B. Skenario Software (3 Kombinasi Gejala - Pas)
+* **Pilihan Gejala:** 
+  1. `G011` - Komputer tidak dapat booting ke Windows
+  2. `G013` - Windows loading sangat lama
+  3. `G014` - Komputer hang saat masuk Windows
+* **Cara Eksekusi:** Centang `G011` + `G013` + `G014` -> Klik `Proses Diagnosa`
+* **Hasil Sistem:**
+  * **Kode Kerusakan:** `[K005]`
+  * **Nama Kerusakan:** Sistem Operasi Corrupt
+  * **Kategori:** `Software`
+  * **Status Rule:** Rule 5 Match 100%
+* **Speaker Note Dosen:** *"Untuk 3 gejala gangguan startup Windows ini, sistem mendiagnosa Sistem Operasi Corrupt dan memberikan solusi Repair/System Restore."*
+
+---
+
+## 🛠️ SKENARIO 4: Demo Beberapa Kombinasi Gejala (4+ Symptoms Multi-Combination)
+
+### 🔹 4A. Skenario Hardware (4 Kombinasi Gejala Kompleks)
+* **Pilihan Gejala:** 
+  1. `G006` - Komputer sering restart sendiri
+  2. `G007` - Muncul Blue Screen of Death (BSOD)
+  3. `G016` - Suhu komputer sangat panas
+  4. `G026` - Terdengar suara dengung keras dari casing / kipas berisik
+* **Cara Eksekusi:** Centang `G006` + `G007` + `G016` + `G026` -> Klik `Proses Diagnosa`
+* **Hasil Sistem:**
+  * **Kode Kerusakan:** `[K006]`
+  * **Nama Kerusakan:** Overheating (Panas Berlebih)
+  * **Kategori:** `Hardware`
+  * **Status Rule:** Rule 6 Multi-Match
+* **Speaker Note Dosen:** *"Jika dimasukkan beberapa kombinasi gejala sekaligus (4 gejala hardware: restart, BSOD, panas, kipas berisik), sistem berhasil mencocokkan fakta dengan Rule 6 yaitu Overheating."*
+
+---
+
+### 🔹 4B. Skenario Software (3-4 Kombinasi Gejala Kompleks)
+* **Pilihan Gejala:** 
+  1. `G009` - Aplikasi sering not responding
+  2. `G037` - Aplikasi sering Crash / Force Close saat dijalankan
+  3. `G040` - Penggunaan RAM melonjak tinggi tanpa aplikasi berat (Memory Leak)
+* **Cara Eksekusi:** Centang `G009` + `G037` + `G040` -> Klik `Proses Diagnosa`
+* **Hasil Sistem:**
+  * **Kode Kerusakan:** `[K017]`
+  * **Nama Kerusakan:** Konflik Aplikasi / Memory Leak
+  * **Kategori:** `Software`
+  * **Status Rule:** Rule 17 Multi-Match
+* **Speaker Note Dosen:** *"Pengujian multi-kombinasi software ini membuktikan keandalan Forward Chaining dalam mendeteksi Konflik Aplikasi & Memory Leak secara presisi."*
+
+---
+
+## 🛠️ SKENARIO 5: Demo Hasil Diagnosa Tidak Teridentifikasi (Ambiguous / Incompatible Combination)
+
+### 🔹 5A. Bentrok Kombinasi Gejala Hardware & Software Acak
+* **Pilihan Gejala:** 
+  1. `G001` - Komputer tidak bisa menyala sama sekali *(Hardware Daya)*
+  2. `G031` - Muncul banyak pop-up iklan / browser terarah sendiri *(Software Virus)*
+* **Cara Eksekusi:** Centang `G001` + `G031` -> Klik `Proses Diagnosa`
+* **Hasil Sistem:**
+  * **Hasil Kerusakan:** `Kerusakan Tidak Teridentifikasi`
+  * **Kategori:** `Tidak Diketahui` / `-`
+  * **Tampilan Alert:** Kotak Kuning Peringatan + Saran Tindakan Konsultasi Teknisi
+* **Speaker Note Dosen:** *"Pak/Bu, ini adalah fitur proteksi logika pada sistem. Jika pengguna memasukkan kombinasi gejala yang bertolak belakang atau acak—misalnya komputer mati total (G001) namun disaat bersamaan memilih ada iklan di browser (G031)—sistem secara cerdas tidak memaksakan hasil yang salah, melainkan mengeluarkan status **Kerusakan Tidak Teridentifikasi** karena kombinasi fakta tersebut tidak memenuhi aturan manapun di basis pengetahuan."*
+
+---
 
 **Selamat Berlatih! Semoga Sidang Skripsinya Lancar dan Mendapatkan Nilai A!**
+

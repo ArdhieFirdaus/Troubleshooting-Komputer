@@ -29,14 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     
     // ==========================================
-    // ALGORITMA FORWARD CHAINING
+    // ALGORITMA FORWARD CHAINING (HARDWARE & SOFTWARE)
     // ==========================================
     
     $rule_cocok = null;
     $kerusakan_hasil = null;
+    $max_match = 0;
+    $tied_rules = 0;
+    $jumlah_gejala_input = count($gejala_dipilih);
     
-    // Ambil semua rule dari database
-    $query_rules = "SELECT * FROM rule";
+    // Ambil semua rule beserta data kerusakan dan kategori (Hardware/Software)
+    $query_rules = "SELECT r.*, k.id_kerusakan, k.kode_kerusakan, k.nama_kerusakan, k.solusi, k.kategori 
+                    FROM rule r 
+                    JOIN kerusakan k ON r.id_kerusakan = k.id_kerusakan";
     $result_rules = mysqli_query($koneksi, $query_rules);
     
     // Loop setiap rule untuk pencocokan
@@ -49,28 +54,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         $gejala_rule = array();
         while ($row = mysqli_fetch_assoc($result_gejala_rule)) {
-            $gejala_rule[] = $row['id_gejala'];
+            $gejala_rule[] = (int)$row['id_gejala'];
         }
         
-        // PENCOCOKAN: Cek apakah SEMUA gejala di rule ada di pilihan user
-        // Menggunakan array_diff untuk cek apakah semua elemen $gejala_rule ada di $gejala_dipilih
-        $difference = array_diff($gejala_rule, $gejala_dipilih);
+        // Match intersection antara gejala rule dan gejala input user
+        $matched = array_intersect($gejala_rule, array_map('intval', $gejala_dipilih));
+        $match_count = count($matched);
+        $total_rule_gejala = count($gejala_rule);
         
-        // Jika $difference kosong, berarti semua gejala rule ada di pilihan user
-        if (empty($difference)) {
-            // Rule ini COCOK!
-            $rule_cocok = $rule;
-            
-            // Ambil data kerusakan
-            $id_kerusakan = $rule['id_kerusakan'];
-            $query_kerusakan = "SELECT * FROM kerusakan WHERE id_kerusakan = '$id_kerusakan'";
-            $result_kerusakan = mysqli_query($koneksi, $query_kerusakan);
-            $kerusakan_hasil = mysqli_fetch_assoc($result_kerusakan);
-            
-            // Keluar dari loop (ambil rule pertama yang cocok)
-            // Bisa diubah jika ingin mengambil semua rule yang cocok
-            break;
+        if ($match_count == 0) continue;
+        
+        // Evaluasi Rule Match:
+        // - Untuk 1 input gejala: rule cocok jika minimal 1 gejala ada di rule
+        // - Untuk 2+ input gejala: rule cocok jika seluruh input ada di rule ATAU seluruh gejala rule ada di input
+        $rule_match = false;
+        if ($jumlah_gejala_input == 1) {
+            $rule_match = ($match_count >= 1);
+        } else {
+            $rule_match = ($match_count === $jumlah_gejala_input) || ($match_count === $total_rule_gejala);
         }
+        
+        if ($rule_match && $match_count > 0) {
+            if ($match_count > $max_match) {
+                $max_match = $match_count;
+                $rule_cocok = $rule;
+                $kerusakan_hasil = [
+                    'id_kerusakan' => $rule['id_kerusakan'],
+                    'kode_kerusakan' => $rule['kode_kerusakan'],
+                    'nama_kerusakan' => $rule['nama_kerusakan'],
+                    'kategori' => !empty($rule['kategori']) ? $rule['kategori'] : 'Hardware',
+                    'solusi' => $rule['solusi']
+                ];
+                $tied_rules = 1;
+            } else if ($match_count === $max_match && $max_match > 0) {
+                $tied_rules++;
+            }
+        }
+    }
+    
+    // Jika ada ambiguitas (lebih dari 1 rule dengan tingkat match tertinggi yang sama)
+    if ($tied_rules > 1) {
+        $kerusakan_hasil = null;
     }
     
     // ==========================================

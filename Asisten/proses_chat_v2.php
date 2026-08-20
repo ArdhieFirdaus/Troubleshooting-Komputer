@@ -154,7 +154,7 @@ $all_matches = [];
 $max_match = 0;
 $jumlah_gejala_input = count($gejala_teridentifikasi);
 
-$query_rules = "SELECT r.*, k.kode_kerusakan, k.nama_kerusakan, k.solusi 
+$query_rules = "SELECT r.*, k.kode_kerusakan, k.nama_kerusakan, k.solusi, k.kategori 
                 FROM rule r 
                 JOIN kerusakan k ON r.id_kerusakan = k.id_kerusakan";
 $result_rules = mysqli_query($koneksi, $query_rules);
@@ -202,6 +202,7 @@ while ($rule = mysqli_fetch_assoc($result_rules)) {
                 'id_kerusakan' => $rule['id_kerusakan'],
                 'kode_kerusakan' => $rule['kode_kerusakan'],
                 'nama_kerusakan' => $rule['nama_kerusakan'],
+                'kategori' => !empty($rule['kategori']) ? $rule['kategori'] : 'Hardware',
                 'solusi' => $rule['solusi'],
                 'match_percentage' => round($match_percentage, 2),
                 'matched_symptoms' => $match_count,

@@ -34,9 +34,10 @@ $query_gejala = "SELECT g.* FROM diagnosa_detail dd
                  WHERE dd.id_diagnosa = '$id_diagnosa'";
 $result_gejala = mysqli_query($koneksi, $query_gejala);
 
-// Ambil solusi dari kerusakan (jika teridentifikasi)
+// Ambil solusi & kategori dari kerusakan (jika teridentifikasi)
 $solusi = '';
 $kode_kerusakan = '';
+$kategori = '';
 if ($diagnosa['hasil_kerusakan'] != 'Kerusakan Tidak Teridentifikasi') {
     $nama_kerusakan = mysqli_real_escape_string($koneksi, $diagnosa['hasil_kerusakan']);
     $query_solusi = "SELECT * FROM kerusakan WHERE nama_kerusakan = '$nama_kerusakan'";
@@ -46,6 +47,7 @@ if ($diagnosa['hasil_kerusakan'] != 'Kerusakan Tidak Teridentifikasi') {
         $kerusakan_data = mysqli_fetch_assoc($result_solusi);
         $solusi = $kerusakan_data['solusi'];
         $kode_kerusakan = $kerusakan_data['kode_kerusakan'];
+        $kategori = !empty($kerusakan_data['kategori']) ? $kerusakan_data['kategori'] : 'Hardware';
     }
 }
 
@@ -193,7 +195,16 @@ $not_found = isset($_GET['not_found']);
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <h6 class="text-muted mb-2">DIAGNOSA:</h6>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="text-muted mb-0">DIAGNOSA KERUSAKAN:</h6>
+                                    <?php if(!empty($kategori)): ?>
+                                        <?php if($kategori == 'Hardware'): ?>
+                                            <span class="badge bg-primary fs-6"><i class="bi bi-cpu"></i> Kategori: Hardware</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-success fs-6"><i class="bi bi-window-stack"></i> Kategori: Software</span>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
                                 <div class="alert alert-success alert-permanent mb-0">
                                     <h4 class="mb-0">
                                         <i class="bi bi-exclamation-triangle-fill"></i> 
