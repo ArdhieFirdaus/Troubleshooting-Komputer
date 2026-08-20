@@ -1,0 +1,89 @@
+================================================================================
+FORMULIR KUESIONER UAT GOOGLE FORM (SIAP COPY PASTE)
+Sistem Pakar Diagnosa Troubleshooting Komputer & Software (Forward Chaining)
+================================================================================
+
+[ 📌 1. HEADER FORMULIR GOOGLE FORM ]
+
+JUDUL FORMULIR:
+KUESIONER USER ACCEPTANCE TESTING (UAT) - SISTEM PAKAR TROUBLESHOOTING KOMPUTER & SOFTWARE
+
+DESKRIPSI FORMULIR:
+Assalamu'alaikum Wr. Wb.
+Kuesioner ini bertujuan untuk mengukur tingkat penerimaan dan kepuasan pengguna (User Acceptance Testing / UAT) terhadap aplikasi Sistem Pakar Diagnosa Troubleshooting Komputer & Software Menggunakan Metode Forward Chaining Berbasis Web pada Pondok Pesantren Al-Gontory.
+
+Mohon kesediaan Bapak/Ibu/Saudara/i untuk memberikan penilaian secara objektif berdasarkan 25 indikator pernyataan di bawah ini (5 indikator per aspek).
+Terima kasih atas partisipasi dan kerja samanya.
+
+
+================================================================================
+[ 👤 2. BAGIAN 1: IDENTITAS RESPONDEN ]
+================================================================================
+
+SOAL 1:
+Nama Lengkap
+Tipe Soal: Jawaban Singkat (Short Answer)
+Wajib Diisi: Ya (Required)
+
+SOAL 2:
+Jabatan / Peran di Lab Komputer
+Tipe Soal: Pilihan Ganda (Multiple Choice)
+Wajib Diisi: Ya (Required)
+Pilihan Opsi:
+- Kepala Laboratorium Komputer
+- Asisten Laboratorium Komputer
+- Teknisi Komputer / IT Support
+
+
+================================================================================
+[ 📊 3. BAGIAN 2: PETUNJUK PENILAIAN (SKALA LIKERT) ]
+================================================================================
+
+Skala Nilai:
+1 = Sangat Tidak Setuju (STS)
+2 = Tidak Setuju (TS)
+3 = Cukup / Netral (N)
+4 = Setuju (S)
+5 = Sangat Setuju (SS)
+
+
+================================================================================
+[ 📋 4. BAGIAN 3: DAFTAR 25 PERTANYAAN UAT (5 PER ASPEK) ]
+Tipe Soal Google Form: Skala Linier (1 s/d 5) ATAU Kisi Pilihan Ganda (Grid)
+Wajib Diisi: Ya (Required)
+================================================================================
+
+--- ASPEK I: TAMPILAN ANTARMUKA (UI/UX) ---
+P1. Tampilan antarmuka sistem web terlihat rapi, bersih, dan modern.
+P2. Tata letak menu navigasi, ikon, dan perpaduan warna nyaman dilihat.
+P3. Desain tombol dan opsi pilihan gejala terlihat jelas serta tidak membingungkan.
+P4. Tampilan respon pada fitur Chatbot Diagnosa tersaji secara rapi dan menarik.
+P5. Tampilan badge status kategori (Hardware/Software) dan hasil diagnosa terlihat kontras dan mudah dibaca.
+
+--- ASPEK II: KEMUDAHAN PENGGUNAAN (USABILITY) ---
+P6. Sistem pakar ini mudah dioperasikan tanpa memerlukan pelatihan yang rumit.
+P7. Pembagian gejala berdasarkan kelompok masalah mempermudah saya dalam menemukan gejala kerusakan.
+P8. Fitur pencarian kata kunci (search bar) membantu menemukan gejala dengan cepat.
+P9. Pengguna dapat membatalkan atau mereset pilihan gejala dengan mudah.
+P10. Instruksi dan alur pencabangan turunan gejala pada chatbot sangat jelas dan mudah diikuti.
+
+--- ASPEK III: KESESUAIAN FITUR & FUNGSI (FUNCTIONALITY) ---
+P11. Pengkategorian hasil kerusakan menjadi Hardware dan Software berjalan dengan akurat.
+P12. Fitur riwayat diagnosa mampu menyimpan log diagnosa secara rinci dan lengkap.
+P13. Fitur ekspor/cetak laporan dapat menghasilkan dokumen laporan yang rapi dan sesuai format.
+P14. Mesin inferensi Forward Chaining mampu memproses kombinasi gejala tunggal maupun jamak secara konsisten.
+P15. Sistem secara tepat menampilkan status "Kerusakan Tidak Teridentifikasi" jika kombinasi gejala tidak memiliki rule.
+
+--- ASPEK IV: KECEPATAN & KINERJA SISTEM (PERFORMANCE) ---
+P16. Kecepatan sistem dalam memproses input gejala hingga menghasilkan diagnosa sangat cepat.
+P17. Aplikasi web dapat diakses dengan lancar tanpa terjadi lag, freeze, atau crash.
+P18. Proses cetak/ekspor laporan ke bentuk cetak/PDF berlangsung singkat dan responsif.
+P19. Sistem dapat membuka dan menampilkan modal rincian gejala riwayat dengan cepat.
+P20. Respon perpindahan halaman dan pemfilteran tanggal laporan berlangsung secara instan.
+
+--- ASPEK V: KEBERMANFAATAN & DAMPAK (UTILITY & VALUE) ---
+P21. Hasil diagnosa kerusakan dan langkah solusi perbaikan yang diberikan sistem jelas dan bermanfaat.
+P22. Sistem ini dapat digunakan sebagai media pembelajaran troubleshooting komputer bagi asisten lab.
+P23. Penerapan sistem pakar ini efektif mengurangi ketergantungan terhadap teknisi dari luar.
+P24. Dokumentasi hasil diagnosa terstruktur rapi untuk mendukung perawatan komputer berkala.
+P25. Secara keseluruhan, sistem pakar ini sangat layak direkomendasikan untuk digunakan di laboratorium komputer.

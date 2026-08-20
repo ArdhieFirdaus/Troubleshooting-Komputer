@@ -112,33 +112,32 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                 </div>
                 
                 <div class="mb-3 no-print">
-                    <button onclick="prepareAndPrint()" class="btn btn-success btn-lg">
-                        <i class="bi bi-printer"></i> Cetak / Save as PDF
+                    <button id="btnDownloadPDF" onclick="downloadPDF()" class="btn btn-success btn-lg shadow-sm">
+                        <i class="bi bi-file-earmark-pdf-fill me-1"></i> Cetak / Download PDF (A4)
                     </button>
                 </div>
                 
-                <!-- Laporan (desain disesuaikan seperti Admin print) -->
-                <div class="card shadow" id="laporanContent">
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="text-center mb-3 report-header">
-                                <h4 class="mb-0">LAPORAN DIAGNOSA TROUBLESHOOTING<br>KOMPUTER</h4>
-                                <p class="mb-0">Pondok Pesantren Al-Gontory</p>
+                <div class="card shadow-sm" id="laporanContent" style="background-color: #ffffff; padding: 20px; border-radius: 8px;">
+                    <div class="card-body p-2">
+                        <div class="container-fluid">
+                            <div class="text-center mb-3 report-header" style="border-top: 2px solid #000; border-bottom: 2px solid #000; padding: 8px 0; margin-top: 0; margin-bottom: 15px;">
+                                <h4 class="mb-1 fw-bold text-uppercase" style="letter-spacing: 0.5px; font-size: 1.2rem;">LAPORAN DIAGNOSA TROUBLESHOOTING KOMPUTER</h4>
+                                <p class="mb-0 text-dark fs-6">Pondok Pesantren Al-Gontory</p>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <table class="table table-borderless table-sm">
+                            <div class="row mb-3">
+                                <div class="col-12 col-md-6">
+                                    <table class="table table-borderless table-sm mb-3">
                                         <tr>
-                                            <td><strong>Nama Asisten</strong></td>
-                                            <td>: <?php echo $_SESSION['nama_lengkap']; ?></td>
+                                            <td width="35%" class="fw-bold text-muted">Nama Asisten</td>
+                                            <td>: <strong><?php echo htmlspecialchars($_SESSION['nama_lengkap']); ?></strong></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Username</strong></td>
-                                            <td>: <?php echo $_SESSION['username']; ?></td>
+                                            <td class="fw-bold text-muted">Username</td>
+                                            <td>: <?php echo htmlspecialchars($_SESSION['username']); ?></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Periode</strong></td>
+                                            <td class="fw-bold text-muted">Periode Filter</td>
                                             <td>: 
                                                 <?php 
                                                 if(!empty($filter_tanggal_mulai) && !empty($filter_tanggal_akhir)) {
@@ -151,84 +150,87 @@ $result_diagnosa = mysqli_query($koneksi, $query);
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Tanggal Cetak</strong></td>
+                                            <td class="fw-bold text-muted">Tanggal Cetak</td>
                                             <td>: <span id="tanggalCetak"><?php echo date('d F Y, H:i:s'); ?> WIB</span></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Total Diagnosa</strong></td>
-                                            <td>: <?php echo mysqli_num_rows($result_diagnosa); ?> diagnosa</td>
+                                            <td class="fw-bold text-muted">Total Diagnosa</td>
+                                            <td>: <strong><?php echo mysqli_num_rows($result_diagnosa); ?> data</strong></td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
 
-                            <!-- Ringkasan filter dihapus -->
-
                             <?php if(mysqli_num_rows($result_diagnosa) > 0): ?>
-                            <table class="table table-bordered table-striped">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th style="color:#000 !important">No</th>
-                                        <th style="color:#000 !important">Tanggal</th>
-                                        <th style="color:#000 !important">Hasil Kerusakan</th>
-                                        <th style="color:#000 !important">Kategori</th>
-                                        <th style="color:#000 !important">Gejala yang Dipilih</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                    $no = 1;
-                                    while($row = mysqli_fetch_assoc($result_diagnosa)): 
-                                        $id_diagnosa = $row['id_diagnosa'];
-                                        $query_gejala = "SELECT g.kode_gejala, g.nama_gejala 
-                                                       FROM diagnosa_detail dd 
-                                                       INNER JOIN gejala g ON dd.id_gejala = g.id_gejala 
-                                                       WHERE dd.id_diagnosa = '$id_diagnosa'";
-                                        $result_gejala = mysqli_query($koneksi, $query_gejala);
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $no++; ?></td>
-                                        <td><?php echo date('d/m/Y H:i', strtotime($row['tanggal'])); ?></td>
-                                        <td><strong><?php echo htmlspecialchars($row['hasil_kerusakan']); ?></strong></td>
-                                        <td>
-                                            <?php 
-                                            if ($row['hasil_kerusakan'] == 'Kerusakan Tidak Teridentifikasi'):
-                                                echo '<span class="badge bg-secondary">Tidak Diketahui</span>';
-                                            else:
-                                                $kat = isset($row['kategori']) && !empty($row['kategori']) ? $row['kategori'] : 'Hardware';
-                                                if ($kat == 'Hardware'): 
-                                                    echo '<span class="badge bg-primary">Hardware</span>';
-                                                else: 
-                                                    echo '<span class="badge bg-success">Software</span>';
+                            <div class="table-responsive">
+                                <table class="table table-bordered align-middle mb-4">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="color:#000 !important" width="5%" class="text-center">No</th>
+                                            <th style="color:#000 !important" width="18%">Tanggal</th>
+                                            <th style="color:#000 !important" width="27%">Hasil Kerusakan</th>
+                                            <th style="color:#000 !important" width="15%">Kategori</th>
+                                            <th style="color:#000 !important" width="35%">Gejala yang Dipilih</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        $no = 1;
+                                        while($row = mysqli_fetch_assoc($result_diagnosa)): 
+                                            $id_diagnosa = $row['id_diagnosa'];
+                                            $query_gejala = "SELECT g.kode_gejala, g.nama_gejala 
+                                                           FROM diagnosa_detail dd 
+                                                           INNER JOIN gejala g ON dd.id_gejala = g.id_gejala 
+                                                           WHERE dd.id_diagnosa = '$id_diagnosa'";
+                                            $result_gejala = mysqli_query($koneksi, $query_gejala);
+                                        ?>
+                                        <tr>
+                                            <td class="text-center"><?php echo $no++; ?></td>
+                                            <td><?php echo date('d/m/Y H:i', strtotime($row['tanggal'])); ?></td>
+                                            <td><strong><?php echo htmlspecialchars($row['hasil_kerusakan']); ?></strong></td>
+                                            <td>
+                                                <?php 
+                                                if ($row['hasil_kerusakan'] == 'Kerusakan Tidak Teridentifikasi'):
+                                                    echo '<span class="badge bg-secondary">Tidak Diketahui</span>';
+                                                else:
+                                                    $kat = isset($row['kategori']) && !empty($row['kategori']) ? $row['kategori'] : 'Hardware';
+                                                    if ($kat == 'Hardware'): 
+                                                        echo '<span class="badge bg-primary">Hardware</span>';
+                                                    else: 
+                                                        echo '<span class="badge bg-success">Software</span>';
+                                                    endif;
                                                 endif;
-                                            endif;
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <ol style="margin: 0; padding-left: 20px; font-size: 12px;">
-                                                <?php while($g = mysqli_fetch_assoc($result_gejala)): ?>
-                                                <li><?php echo htmlspecialchars($g['kode_gejala']) . ' - ' . htmlspecialchars($g['nama_gejala']); ?></li>
-                                                <?php endwhile; ?>
-                                            </ol>
-                                        </td>
-                                    </tr>
-                                    <?php endwhile; ?>
-                                </tbody>
-                            </table>
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <ol style="margin: 0; padding-left: 20px; font-size: 12px;">
+                                                    <?php while($g = mysqli_fetch_assoc($result_gejala)): ?>
+                                                    <li><?php echo htmlspecialchars($g['kode_gejala']) . ' - ' . htmlspecialchars($g['nama_gejala']); ?></li>
+                                                    <?php endwhile; ?>
+                                                </ol>
+                                            </td>
+                                        </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                             <?php else: ?>
                             <div class="alert alert-warning">
-                                <i class="bi bi-exclamation-triangle"></i> 
+                                <i class="bi bi-exclamation-triangle me-1"></i> 
                                 Tidak ada data diagnosa pada periode yang dipilih.
                             </div>
                             <?php endif; ?>
 
-                            <div class="mt-4 text-end">
-                                <p class="mb-0">
-                                    <strong>Mengetahui,</strong><br><br><br><br>
-                                    ______________________<br>
-                                    Asisten Lab
-                                </p>
+                            <div class="row mt-4 pt-2 pe-3 float-end text-end" style="width: 250px; page-break-inside: avoid;">
+                                <div class="col-12">
+                                    <p class="mb-0 text-center">
+                                        <strong>Mengetahui,</strong><br><br><br><br>
+                                        <strong><u><?php echo htmlspecialchars($_SESSION['nama_lengkap']); ?></u></strong><br>
+                                        <small class="text-muted">Asisten Lab</small>
+                                    </p>
+                                </div>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
@@ -238,6 +240,7 @@ $result_diagnosa = mysqli_query($koneksi, $query);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../Assets/js/script.js?v=20260713"></script>
+    <script src="../Assets/js/html2pdf.bundle.min.js"></script>
     <script>
         function getWibDateTimeText() {
             const now = new Date();
@@ -265,17 +268,50 @@ $result_diagnosa = mysqli_query($koneksi, $query);
             }
         }
 
-        function prepareAndPrint() {
+        function downloadPDF() {
             updateTanggalCetak();
-            window.print();
+            const btn = document.getElementById('btnDownloadPDF');
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Mengunduh PDF...';
+
+            const element = document.getElementById('laporanContent');
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const tglStr = `${year}-${month}-${day}`;
+            
+            const rawNama = "<?php echo addslashes($_SESSION['nama_lengkap']); ?>";
+            const cleanNama = rawNama.trim().replace(/[^a-zA-Z0-9]/g, '_');
+            const filename = `Laporan_Diagnosa_Asisten_${cleanNama}_${tglStr}.pdf`;
+
+            const opt = {
+                margin:       [8, 8, 8, 8],
+                filename:     filename,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0, scrollX: 0 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+
+            html2pdf().set(opt).from(element).save().then(function() {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+            }).catch(function(err) {
+                console.error("Gagal generate PDF, fallback ke window.print()", err);
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+                window.print();
+            });
         }
 
         // Pastikan waktu cetak selalu update selama halaman terbuka.
         updateTanggalCetak();
         setInterval(updateTanggalCetak, 1000);
         window.addEventListener('beforeprint', updateTanggalCetak);
-
-
     </script>
 </body>
 </html>
+

@@ -120,12 +120,10 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                 </div>
 
                 <div class="mb-3 no-print">
-                    <button id="btnPrintAdmin" class="btn btn-success btn-lg">
-                        <i class="bi bi-printer"></i> Cetak / Save as PDF
+                    <button id="btnPrintAdmin" class="btn btn-success btn-lg shadow-sm">
+                        <i class="bi bi-file-earmark-pdf-fill me-1"></i> Cetak / Download PDF (A4)
                     </button>
                 </div>
-
-
 
                 <!-- Tabel Laporan -->
                 <div class="card shadow">
@@ -243,20 +241,22 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
         </div>
     </div>
 
-    <!-- Modal untuk preview cetak (tanpa membuka tab baru) -->
+    <!-- Modal untuk preview cetak -->
     <div class="modal fade" id="printPreviewModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Preview Cetak Laporan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-file-earmark-pdf me-2"></i>Preview Cetak Laporan (A4)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <div id="printModalBody">Memuat...</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" id="printFromModalBtn" class="btn btn-primary">Cetak</button>
+                    <button type="button" id="printFromModalBtn" class="btn btn-success">
+                        <i class="bi bi-file-earmark-pdf-fill me-1"></i> Download PDF (A4)
+                    </button>
                 </div>
             </div>
         </div>
@@ -377,6 +377,7 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../Assets/js/script.js?v=20260713"></script>
+    <script src="../Assets/js/html2pdf.bundle.min.js"></script>
     <script>
         function buildPrintUrl() {
             const tglMulai = document.getElementById('tanggal_mulai').value;
@@ -389,7 +390,12 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
             return 'print_laporan.php?' + params.toString();
         }
 
-        async function prepareAndPrintAdmin() {
+        async function downloadAdminPDFDirectly() {
+            const btn = document.getElementById('btnPrintAdmin');
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Mengunduh PDF...';
+
             const url = buildPrintUrl();
             try {
                 const res = await fetch(url, { credentials: 'same-origin' });
@@ -397,24 +403,25 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 const content = doc.getElementById('laporanContent');
-                const modalBody = document.getElementById('printModalBody');
-                if (content) {
-                    modalBody.innerHTML = content.outerHTML;
-                } else {
-                    modalBody.innerHTML = html;
+
+                if (!content) {
+                    throw new Error("Elemen konten laporan tidak ditemukan.");
                 }
 
-                // hapus elemen label "Filter:" jika ada (tidak perlu ditampilkan di preview karena sudah ada info di atas)
-                const strongs = modalBody.querySelectorAll('strong');
-                strongs.forEach(function(s){
-                    if (s.textContent && s.textContent.trim().toLowerCase() === 'filter:') {
-                        const parent = s.closest('.mb-3') || s.parentElement;
-                        if (parent) parent.remove();
-                    }
-                });
+                // Temporary container offscreen with fixed 0 top position
+                const tempDiv = document.createElement('div');
+                tempDiv.style.position = 'fixed';
+                tempDiv.style.left = '-9999px';
+                tempDiv.style.top = '0px';
+                tempDiv.style.width = '210mm'; // A4 width
+                tempDiv.style.backgroundColor = '#ffffff';
+                tempDiv.style.margin = '0';
+                tempDiv.style.padding = '0';
+                tempDiv.innerHTML = content.outerHTML;
+                document.body.appendChild(tempDiv);
 
-                // update timestamp inside modal to current WIB
-                const tanggalEl = modalBody.querySelector('#tanggalCetakAdmin');
+                // Update timestamp WIB
+                const tanggalEl = tempDiv.querySelector('#tanggalCetakAdmin');
                 if (tanggalEl) {
                     const now = new Date();
                     const tanggal = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
@@ -422,46 +429,60 @@ $result_asisten = mysqli_query($koneksi, $query_asisten);
                     tanggalEl.textContent = `${tanggal}, ${waktu} WIB`;
                 }
 
-                const modalEl = document.getElementById('printPreviewModal');
-                const modal = new bootstrap.Modal(modalEl);
-                modal.show();
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const filename = `Laporan_Diagnosa_Admin_${year}-${month}-${day}.pdf`;
 
+                const opt = {
+                    margin:       [8, 8, 8, 8],
+                    filename:     filename,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0, scrollX: 0 },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+                };
+
+                await html2pdf().set(opt).from(tempDiv.firstChild).save();
+                document.body.removeChild(tempDiv);
+
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
             } catch (err) {
-                alert('Gagal memuat preview cetak: ' + err.message);
+                console.error(err);
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+                // Fallback to opening print preview in new window/tab if pdf generation encounters error
+                window.open(url, '_blank');
             }
         }
 
-        document.getElementById('btnPrintAdmin').addEventListener('click', prepareAndPrintAdmin);
+        document.getElementById('btnPrintAdmin').addEventListener('click', downloadAdminPDFDirectly);
 
-        // Cetak isi modal tanpa membuka tab baru menggunakan iframe tersembunyi
+        // PDF download option inside preview modal if opened
         document.getElementById('printFromModalBtn').addEventListener('click', function() {
             const modalBody = document.getElementById('printModalBody');
-            const printContent = modalBody.innerHTML;
-            const iframe = document.createElement('iframe');
-            iframe.style.position = 'fixed';
-            iframe.style.right = '0';
-            iframe.style.bottom = '0';
-            iframe.style.width = '0';
-            iframe.style.height = '0';
-            iframe.style.border = '0';
-            iframe.id = 'printIframe';
-            document.body.appendChild(iframe);
-            const doc = iframe.contentWindow.document;
-            doc.open();
-            doc.write(`<!doctype html><html><head><meta charset="utf-8"><title>Print</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"></head><body>${printContent}</body></html>`);
-            doc.close();
-            // give browser time to render
-            setTimeout(function() {
-                iframe.contentWindow.focus();
-                try {
-                    iframe.contentWindow.print();
-                } catch (e) {
-                    alert('Gagal memulai print: ' + e.message);
-                }
-                // remove iframe after a short delay
-                setTimeout(function(){ document.body.removeChild(iframe); }, 1000);
-            }, 500);
+            const targetEl = modalBody.querySelector('#laporanContent') || modalBody;
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const filename = `Laporan_Diagnosa_Admin_${year}-${month}-${day}.pdf`;
+
+            const opt = {
+                margin:       [8, 8, 8, 8],
+                filename:     filename,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0, scrollX: 0 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from(targetEl).save();
         });
+
     </script>
 </body>
 </html>
+
